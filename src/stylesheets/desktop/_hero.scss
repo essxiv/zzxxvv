@@ -1,0 +1,83 @@
+@import "variables";
+
+.hero {
+  color: $semi-black;
+  cursor: pointer;
+
+  .logo-animation {
+    font-family: 'GothamBold';
+    font-size: 98pt;
+    position: absolute;
+    width: 100%;
+
+    //align vertically
+    top: 50%;
+    transform: translateY(-50%);
+
+    //align horizontally
+    text-align: center;
+
+    .letter {
+      //align horizontally
+      display: inline-block;
+      line-height: 118px;
+      height: 118px;
+
+      padding-left: 86px;
+      text-align: left;
+      &:first-child {
+        padding-left: 0;
+      }
+      &:last-child {
+        padding-left: 0px;
+      }
+
+      @media screen and (max-width: $screen-md) {
+        //font-size: 20pt;
+      }
+      @media screen and (max-width: $screen-sm) {
+        font-size: 20pt;
+        line-height: 10px;
+        height: 89px;
+      }
+      @media screen and (max-width: $screen-xs-max) {
+        padding-left: 20px
+      }
+
+      &.logo-holder {
+        padding-left: 0;
+
+        top: 50%;
+        margin-top: -(150) px;
+        .logo {
+          display: block;
+          //box-sizing: initial;
+
+          width: 100px;
+
+          padding-left: 60px;
+          padding-right: 60px;
+
+          @media screen and (max-width: $screen-md) {
+          }
+          @media screen and (max-width: $screen-sm) {
+            width: 50px;
+            padding-left: 20px;
+            padding-right: 20px;
+          }
+
+          @media screen and (max-width: $screen-xs-max) {
+            width: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  video {
+    position: absolute;
+
+  }
+}

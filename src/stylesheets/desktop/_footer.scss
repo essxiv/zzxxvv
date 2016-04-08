@@ -1,0 +1,43 @@
+@import "variables";
+
+footer {
+  position: absolute;
+  z-index: $z-index-footer;
+  bottom: 40px;
+
+  width: 100%;
+  color: $semi-black;
+  font-size: 13px;
+  padding-left: 60px;
+  padding-right: 60px;
+
+  @media screen and (max-width: $screen-md) {
+
+  }
+  @media screen and (max-width: $screen-sm) {
+
+  }
+  @media screen and (max-width: $screen-xs-max) {
+
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .address {
+    display: inline-block;
+    .bold {
+      font-family: "GothamBold";
+    }
+
+    .light {
+      font-family: "GothamBook";
+      color: $grey;
+
+    }
+  }
+  .inquire {
+    float: right;
+    font-family: "GothamBold";
+  }
+
+}

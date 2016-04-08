@@ -1,0 +1,21 @@
+@import "variables";
+
+.clients {
+
+  background-color: $white;
+  color: $black;
+
+  .content {
+    width: 100%;
+    height: 100%;
+    max-width: 740px;
+
+    .client {
+      float: left;
+
+      width: 100px;
+    }
+
+  }
+
+}

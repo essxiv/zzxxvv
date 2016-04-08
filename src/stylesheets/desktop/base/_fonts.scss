@@ -1,0 +1,54 @@
+@font-face {
+  font-family: 'GothamBold';
+  src: url('../assets/fonts/Gotham-Bold.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GothamBook';
+  src: url('../assets/fonts/Gotham-Book.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MillerDisplay';
+  src: url('../assets/fonts/Miller-Display.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+h1 {
+  font-family: 'GothamBold';
+  font-size: 60px;
+
+  @media screen and (max-width: $screen-md) {
+
+  }
+  @media screen and (max-width: $screen-sm) {
+
+  }
+  @media screen and (max-width: $screen-xs-max) {
+
+  }
+}
+
+body {
+  font-family: 'MillerDisplay';
+  font-size: 36px;
+
+  @media screen and (max-width: $screen-md) {
+    font-size: 26px;
+  }
+
+  @media screen and (max-width: $screen-sm) {
+    font-size: 26px;
+
+  }
+  @media screen and (max-width: $screen-xs-max) {
+
+  }
+}
