@@ -49,6 +49,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.1.0",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-svg-sprite": "^1.2.19",
     "gulp-sync": "^0.1.4",
     "gulp-uglify": "^1.5.1",
     "gulp-useref": "^3.0.8",
@@ -68,7 +69,7 @@
   "dependencies": {
     "backbone": "^1.2.3",
     "browserify-shim": "^3.8.12",
-    "cheerio": "^0.20.0",
+    "cheerio": "^0.19.0",
     "exdat": "anvaka/dat.gui",
     "fs": "0.0.2",
     "gulp-copy": "0.0.2",
@@ -80,7 +81,6 @@
     "mkdirp": "^0.5.1",
     "sharp": "^0.13.0",
     "svgmin": "^0.1.0",
-    "svgstore": "^1.0.0",
     "underscore": "^1.8.3",
     "watchify": "^3.7.0"
   }

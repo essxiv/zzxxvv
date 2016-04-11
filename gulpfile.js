@@ -2,9 +2,9 @@
 
 var
     credentials = require('./credentials.json'),
-    svgstore = require('gulp-svgstore'),
     svgmin = require('gulp-svgmin'),
     cheerio = require('gulp-cheerio'),
+    svgSprite = require('gulp-svg-sprite'),
 
     gulp = require('gulp'),
     awspublish = require('gulp-awspublish'),
@@ -92,17 +92,19 @@ var tasks = {
             .pipe(gulpif(!(argv.r || argv.release), sourcemaps.write()))
             .pipe(gulp.dest(paths.dist + paths.cdn_path + '/js/'));
 
-
-
-
     },
-    svg: function () {
+    svg    : function () {
+
+        var
+            config = {
+                mode: {
+                    inline: true,		// Prepare for inline embedding
+                    symbol: true      // Activate the «symbol» mode
+                }
+            };
         return gulp.src('src/assets/svg/**/*.svg')
             .pipe(svgmin())
-            .pipe(svgstore({
-                      fileName : 'icons.svg',
-                      inlineSvg: true
-                  }))
+            .pipe(svgSprite(config))
             .pipe(cheerio({
                       run          : function ($, file) {
                           $('svg').addClass('hidden');
@@ -264,7 +266,7 @@ gulp.task('browser_sync', tasks.browser_sync);
 
 // Build tasks
 gulp.task('default', sync.sync(['clean',
-                                ['svg','stylesheets', 'assets', 'optimize', 'fonts', 'lint', 'scripts',
+                                ['svg', 'stylesheets', 'assets', 'optimize', 'fonts', 'lint', 'scripts',
                                  'layouts']]));
 gulp.task('live', sync.sync(['clean', ['setCDN', 'stylesheets', 'optimize', 'fonts', 'lint', 'scripts', 'layouts'],
                              'browser_sync', 'watch']));
