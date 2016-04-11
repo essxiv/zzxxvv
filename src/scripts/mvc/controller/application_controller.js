@@ -4,7 +4,6 @@ var _ = require('underscore');
 Backbone.$ = $;
 
 var AppModel = require('../model/app_model');
-var InputModel = require('../model/input_model');
 var Router = require('../route/router');
 var EventBus = require('EventBus');
 var RequestAnimationFrame = require('../../utils/raf');
