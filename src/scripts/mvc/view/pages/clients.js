@@ -41,23 +41,20 @@ module.exports = BaseView.extend({
         var defaultHeight = 154;
         var ratio = defaultHeight / defaultwidth;
         var amountOfLogos = this.logos.length;
-        var padding = 20;
+
+        //TODO: padding depends on screensize
+        var padding = 40;
 
         var columns = 5;
-        var rows = Math.ceil(amountOfLogos / columns);
         var newWidth = ((width - ((columns * 2) * padding)) / columns);
-        var newHeight = newWidth / ratio;
-        console.log('---')
-        console.log(rows);
-        console.log(newHeight);
-        console.log(defaultHeight * rows + '   ' + window.innerHeight);
-        console.log('---');
 
         _.each(this.logos, function (node) {
 
             node.css({
+                height         : 100 / (columns) + '%',
                 width          : newWidth,
-                height         : newHeight,
+                'max-height'   : 100 + 'px',
+                //'max-width'   : 100 + 'px',
                 'padding-left' : padding + 'px',
                 'padding-right': padding + 'px',
 
