@@ -8,8 +8,8 @@ var AppModel = require('../../model/app_model');
 
 module.exports = BaseView.extend({
 
-    svgIDs        : [],
-    logos         : [],
+    svgIDs: [],
+    logos : [],
 
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
@@ -31,6 +31,38 @@ module.exports = BaseView.extend({
             this.logos.push(node);
             this.$('.js-content').append(node);
         }, this);
+
+    },
+
+    onResize: function () {
+        var height = window.innerHeight;
+        var width = this.$('.js-content').width();
+        var defaultwidth = 157;
+        var defaultHeight = 154;
+        var ratio = defaultHeight / defaultwidth;
+        var amountOfLogos = this.logos.length;
+        var padding = 20;
+
+        var columns = 5;
+        var rows = Math.ceil(amountOfLogos / columns);
+        var newWidth = ((width - ((columns * 2) * padding)) / columns);
+        var newHeight = newWidth / ratio;
+        console.log('---')
+        console.log(rows);
+        console.log(newHeight);
+        console.log(defaultHeight * rows + '   ' + window.innerHeight);
+        console.log('---');
+
+        _.each(this.logos, function (node) {
+
+            node.css({
+                width          : newWidth,
+                height         : newHeight,
+                'padding-left' : padding + 'px',
+                'padding-right': padding + 'px',
+
+            });
+        });
 
     },
 
