@@ -65,7 +65,7 @@ viewMap[AppModel.PAGES.CLIENTS] = {
 
 viewMap[AppModel.PAGES.PORTFOLIO] = {
     className   : PortfolioView,
-    nodeSelector: '.js-clients'
+    nodeSelector: '.js-portfolio'
 };
 
 viewMap[AppModel.PAGES.SERVICES] = {
