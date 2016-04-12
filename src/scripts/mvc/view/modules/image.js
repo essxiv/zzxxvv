@@ -9,12 +9,30 @@ module.exports = BaseView.extend({
     initialWidth : 400,
     initialHeight: 354,
     ratio        : 1,
+    images       : [],
 
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
-        this.$el = $('<img>');
-        this.$el.attr('src', options.url[0]);
 
+        var urls = options.urls;
+        for (var i = 0; i < urls.length; i++) {
+            var url = urls[i];
+            var $img = $('<img class="js-image">');
+
+            $img.one("load", function () {
+                // do stuff
+
+            }).each(function () {
+                if (this.complete) {
+                    $(this).load();
+                }
+            });
+
+            $img.attr('src', url);
+            this.images.push($img);
+            this.$el.append($img)
+        }
+        this.$images = this.$('.js-image');
         this.ratio = this.initialWidth / this.initialHeight;
 
     },
@@ -28,10 +46,15 @@ module.exports = BaseView.extend({
             newWidth = newHeight / this.ratio;
         }
 
-        this.$el.css({
+        var offsetY = -(newHeight - holderHeight) / 2;
+        var offsetX = -(newWidth - holderWidth) / 2;
 
-            width : newWidth,
-            height: newHeight
+        this.$images.css({
+
+            width        : newWidth,
+            height       : newHeight,
+            'margin-left': offsetX,
+            'margin-top' : offsetY
         });
     }
 

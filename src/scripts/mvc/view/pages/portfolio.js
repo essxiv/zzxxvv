@@ -68,7 +68,7 @@ module.exports = BaseView.extend({
 
     loadBigImages: function () {
         for (var i = 0; i < this.image_holder_big.length; i++) {
-            var img = new Image({url: this.big_image_urls});
+            var img = new Image({urls: this.big_image_urls});
             var $holder = $(this.image_holder_big[i]);
             $holder.append(img.$el);
 
@@ -79,7 +79,7 @@ module.exports = BaseView.extend({
 
     loadSmallImages: function () {
         for (var i = 0; i < this.image_holder_small.length; i++) {
-            var img = new Image({url: this.small_image_urls});
+            var img = new Image({urls: this.small_image_urls});
             var $holder = $(this.image_holder_small[i]);
             $holder.append(img.$el);
             this.smallImages.push(img);
