@@ -1,5 +1,6 @@
 var BaseView = require('../base/base_view');
 var TweenMax = require('TweenMax');
+var Config = require('Config');
 var $ = require('jquery');
 var _ = require('underscore');
 
@@ -32,6 +33,12 @@ module.exports = BaseView.extend({
             this.$('.js-content').append(node);
         }, this);
 
+        this.$el.on('click', _.bind(this.onClick, this));
+
+    },
+
+    onClick:function(){
+        EventBus.trigger(EventBus.EVENTS.NAVIGATE, AppModel.PAGES.PORTFOLIO);
     },
 
     onResize: function () {
@@ -44,8 +51,16 @@ module.exports = BaseView.extend({
 
         //TODO: padding depends on screensize
         var padding = 40;
-
+        var maxHeight = 100;
         var columns = 5;
+
+        if (width < 768) {
+            padding = 20
+        }
+
+
+
+
         var newWidth = ((width - ((columns * 2) * padding)) / columns);
 
         _.each(this.logos, function (node) {
@@ -53,13 +68,25 @@ module.exports = BaseView.extend({
             node.css({
                 height         : 100 / (columns) + '%',
                 width          : newWidth,
-                'max-height'   : 100 + 'px',
+                'max-height'   : maxHeight + 'px',
                 //'max-width'   : 100 + 'px',
                 'padding-left' : padding + 'px',
                 'padding-right': padding + 'px',
 
             });
         });
+
+
+        if (this.$('.js-content').height() >height) {
+            this.$('.js-content').removeClass('high');
+            this.$('.js-content').addClass('low');
+            this.$el.addClass('scroll');
+
+        } else {
+            this.$('.js-content').addClass('high');
+            this.$('.js-content').removeClass('low');
+            this.$el.removeClass('scroll');
+        }
 
     },
 

@@ -59,7 +59,17 @@ var paths = {
 var tasks = {
 
     setCDN: function () {
-        paths.cdn_path = 'CDN_' + Date.now().toString();
+        var d = new Date();
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth();
+        curr_month++;
+        var curr_year = d.getFullYear();
+        var curr_hour = d.getHours();
+        var curr_min = d.getMinutes();
+
+        var date=curr_date+'_'+curr_month+'_'+curr_year+'_'+ d.getTime();
+
+        paths.cdn_path = 'CDN_VERSION_'+date;
     },
 
     // Clean
