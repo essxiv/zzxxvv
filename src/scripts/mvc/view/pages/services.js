@@ -20,7 +20,6 @@ module.exports = BaseView.extend({
 
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
-
         this.htmlCanvas = this.$('#services-canvas')[0];
 
     },
