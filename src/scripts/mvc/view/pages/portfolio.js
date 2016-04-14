@@ -40,6 +40,11 @@ module.exports = BaseView.extend({
     render: function () {
         this.loadBigImages();
         this.loadSmallImages();
+        this.$el.on('click', _.bind(this.onClick, this));
+    },
+
+    onClick: function () {
+        EventBus.trigger(EventBus.EVENTS.NAVIGATE, AppModel.PAGES.SERVICES);
     },
 
     onResize: function () {
@@ -83,8 +88,13 @@ module.exports = BaseView.extend({
             var $holder = $(this.image_holder_small[i]);
             $holder.append(img.$el);
             this.smallImages.push(img);
-
         }
+    },
+
+    destroy:function(){
+
+        this.$el.off();
+        BaseView.prototype.destroy.apply(this);
     }
 
 });
