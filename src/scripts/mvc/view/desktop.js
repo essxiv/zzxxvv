@@ -5,9 +5,11 @@ Backbone.$ = $;
 
 //#initialize  your controllers here, they are singeltons
 var AppController = require('../controller/application_controller');
+var ScrollController = require('../controller/scroll_controller');
 
 //#initialize your models
 var AppModel = require('../model/app_model');
+var ScrollModel = require('../model/scroll_model');
 
 //#initialize the Router
 var Router = require('../route/router');
@@ -16,7 +18,7 @@ var Route = require('../route/route');
 var EventBus = require('EventBus');
 
 var Transitioner = require('../view/base/transitioner/transitioner');
-var DefaultTransition = require('../view/base/transitioner/types/default_transition');
+var DefaultTransition = require('../view/base/transitioner/types/idol_transition');
 
 //#intialize the Pages
 var LoaderView = require('../view/pages/loader');
@@ -27,7 +29,7 @@ var PortfolioView = require('../view/pages/portfolio');
 var ServicesView = require('../view/pages/services');
 var PrincipalsView = require('../view/pages/principals');
 var ContactView = require('../view/pages/contact');
-var Footer= require('../view/modules/footer');
+var Footer = require('../view/modules/footer');
 
 Router.createRoutes([
 
@@ -44,8 +46,9 @@ Router.createRoutes([
 var viewMap = {};
 
 viewMap[AppModel.PAGES.LOADER] = {
-    className   : LoaderView,
-    nodeSelector: '.js-loader'
+    className    : LoaderView,
+    detachElement: true,
+    nodeSelector : '.js-loader'
 };
 
 viewMap[AppModel.PAGES.HERO] = {
@@ -83,7 +86,6 @@ viewMap[AppModel.PAGES.CONTACT] = {
     nodeSelector: '.js-contact'
 };
 
-
 module.exports = Backbone.View.extend({
     transitioner: null,
 
@@ -102,7 +104,7 @@ module.exports = Backbone.View.extend({
             transition: new DefaultTransition()
         });
 
-        var footer= new Footer({el:$('.js-footer')})
+        var footer = new Footer({el: $('.js-footer')})
 
         this.addEvents();
 

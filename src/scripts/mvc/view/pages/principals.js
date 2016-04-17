@@ -5,8 +5,7 @@ module.exports = BaseView.extend({
 
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
-
-    },
+    }
 
 });
 

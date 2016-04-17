@@ -5,8 +5,11 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+overflow-x: hidden;
 
+}
+.no-scroll{
+  overflow: hidden;
 }
 
 .hidden {
@@ -32,11 +35,12 @@ svg {
 }
 
 .container, .section {
+  position:relative;
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+ // overflow: hidden;
 
 }
 
@@ -47,4 +51,38 @@ svg {
 .full {
   min-height: 100%;
   min-width: 100%;
+}
+
+.inline{
+  display:inline;
+}
+
+.inline-block{
+  display:inline-block;
+}
+
+.content {
+  position: absolute;
+
+  &.text {
+
+    left: 20%;
+    top: 15%;
+    max-width: 740px;
+    padding-right: 30px;
+
+    @media screen and (max-width: $screen-md) {
+      //center v and  h
+      width: 90%;
+      padding-right: 0;
+      top: 50%;
+      left: 50%;
+      max-width: 690px;
+      transform: translate(-50%, -50%);
+
+    }
+    @media screen and (max-width: $screen-sm) {
+    }
+  }
+
 }
