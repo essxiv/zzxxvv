@@ -9,19 +9,25 @@ var AppModel = require('../../model/app_model');
 
 module.exports = BaseView.extend({
 
-    gradients     : [
-        {colors: ["#f7d3db", createjs.Graphics.getRGB(0xf7d3db, 0)]},
-        {colors: ["#765f8b", createjs.Graphics.getRGB(0x765f8b, 0)]},
-        {colors: ["#fff02e", createjs.Graphics.getRGB(0xfff02e, 0)]},
-        {colors: ["#1fbdd5", createjs.Graphics.getRGB(0x1fbdd5, 0)]},
-        {colors: ["#f7d3db", createjs.Graphics.getRGB(0xf7d3db, 0)]},
-    ],
+    gradients     : [],
     gradientShapes: [],
 
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
         this.htmlCanvas = this.$('#services-canvas')[0];
+        this.gradients = [
+            {colors: this.getGradients(0xf7d3db)},
+            {colors: this.getGradients(0x765f8b)},
+            {colors: this.getGradients(0xfff02e)},
+            {colors: this.getGradients(0x1fbdd5)},
+            {colors: this.getGradients(0xf7d3db)}
+        ];
 
+    },
+
+    getGradients: function (baseColor) {
+
+        return [createjs.Graphics.getRGB(baseColor, 0.8), createjs.Graphics.getRGB(baseColor, 0)];
     },
 
     render: function () {
@@ -63,12 +69,12 @@ module.exports = BaseView.extend({
             var gradient = this.gradientShapes[i].getClip();
             gradient.x = Math.random() * window.innerWidth;
             gradient.y = Math.random() * window.innerHeight;
-            gradient.scaleY =  gradient.scaleX = window.innerWidth;
-           if(window.innerHeight>window.innerWidth){
-               //portrait
-            gradient.scaleY =  gradient.scaleX = window.innerHeight;
+            gradient.scaleY = gradient.scaleX = window.innerWidth;
+            if (window.innerHeight > window.innerWidth) {
+                //portrait
+                gradient.scaleY = gradient.scaleX = window.innerHeight;
 
-           }
+            }
         }
 
     },
