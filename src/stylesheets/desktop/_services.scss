@@ -8,7 +8,7 @@
     ul {
       li {
         display: inline-block;
-        &:before {
+        &:not(:first-child):before {
           content: '\00a0\2022\00a0\00a0';
         }
       }
@@ -18,7 +18,7 @@
       text-align: center;
       color: $white;
 
-      width: 75%;
+      width: 95%;
       padding: 0;
 
       z-index: 99;
@@ -27,6 +27,37 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+
+      ul {
+        padding: 0;
+
+        li {
+          display: inline-block;
+          padding-right: 50px;
+          padding-bottom: 70px;
+
+          @media screen and (max-width: $screen-md) {
+            padding-right: 30px;
+            padding-bottom: 30px;
+          }
+          @media screen and (max-width: $screen-sm) {
+
+            padding-right: 0px;
+            font-size: 13px;
+
+          }
+          @media screen and (max-width: $screen-xs-max) {
+
+          }
+
+        }
+      }
+
+      span {
+        width: 80%;
+        display: inline-block;
+
+      }
     }
 
     canvas {

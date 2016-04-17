@@ -19,7 +19,22 @@
   font-style: normal;
 }
 
+ul {
+  font-family: 'GothamBook';
+  font-size: 16px;
 
+  @media screen and (max-width: $screen-md) {
+
+  }
+  @media screen and (max-width: $screen-sm) {
+
+    font-size: 13px;
+
+  }
+  @media screen and (max-width: $screen-xs-max) {
+
+  }
+}
 
 h1 {
   font-family: 'GothamBold';
@@ -37,8 +52,9 @@ h1 {
 }
 
 body {
+
   font-family: 'MillerDisplay';
-  font-size: 36px;
+  font-size: 35px;
 
   @media screen and (max-width: $screen-md) {
     font-size: 26px;

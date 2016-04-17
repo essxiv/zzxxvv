@@ -63,8 +63,12 @@ module.exports = BaseView.extend({
             var gradient = this.gradientShapes[i].getClip();
             gradient.x = Math.random() * window.innerWidth;
             gradient.y = Math.random() * window.innerHeight;
-            gradient.scaleX = window.innerWidth;
-            gradient.scaleY = window.innerWidth;
+            gradient.scaleY =  gradient.scaleX = window.innerWidth;
+           if(window.innerHeight>window.innerWidth){
+               //portrait
+            gradient.scaleY =  gradient.scaleX = window.innerHeight;
+
+           }
         }
 
     },
