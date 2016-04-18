@@ -41,6 +41,9 @@ module.exports = BaseView.extend({
             this.$('.js-logo-holder').append(node);
         }, this);
 
+
+
+
     },
 
     show: function () {

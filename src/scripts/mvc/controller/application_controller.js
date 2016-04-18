@@ -4,6 +4,7 @@ var _ = require('underscore');
 Backbone.$ = $;
 
 var AppModel = require('../model/app_model');
+var ScrollModel = require('../model/scroll_model');
 var Router = require('../route/router');
 var EventBus = require('EventBus');
 var RequestAnimationFrame = require('../../utils/raf');
@@ -16,6 +17,21 @@ var controller = {
         EventBus.on(EventBus.EVENTS.INPUT.CLICK, this.onClick, this);
 
         RequestAnimationFrame.on('animation_frame', _.bind(this.onUpdate, this));
+
+        ScrollModel.on('change:scroll', this.onScroll, this);
+        ScrollModel.on('change:totalHeight', this.onResize, this);
+    },
+
+    onScroll: function (model, pct) {
+
+
+    },
+
+    onResize: function () {
+
+        //calculate all the individual heights of the pages
+
+
 
     },
 
@@ -37,8 +53,6 @@ var controller = {
     onUpdate: function () {
         AppModel.update();
     },
-
-
 
 };
 

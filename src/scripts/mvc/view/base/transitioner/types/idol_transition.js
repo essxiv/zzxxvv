@@ -1,4 +1,5 @@
 var Backbone = require('backbone');
+var ScrollModel = require('../../../../model/scroll_model');
 var $ = require('jquery');
 var _ = require('underscore');
 Backbone.$ = $;
@@ -14,8 +15,16 @@ module.exports = Backbone.View.extend({
         this.options = options;
     },
 
+
+
     setMap: function (map) {
         this.elementsMap = map;
+
+        ScrollModel.on('scroll', this.onScroll, this);
+
+    },
+
+    onScroll: function (offsetY) {
 
     },
 

@@ -97,6 +97,7 @@ module.exports = Backbone.View.extend({
     start: function () {
 
         $('.js-app-container-desktop').removeClass('hidden');
+        ScrollController.pageMap = viewMap;
 
         this.transitioner = new Transitioner({
             el        : $('.js-app-container-desktop'),
@@ -107,6 +108,7 @@ module.exports = Backbone.View.extend({
         var footer = new Footer({el: $('.js-footer')})
 
         this.addEvents();
+        this.onResize();
 
         Router.start();
 
@@ -114,13 +116,14 @@ module.exports = Backbone.View.extend({
 
     addEvents: function () {
         $(window).on('resize', this.onResize);
-
     },
 
     onResize: function (evt) {
         if (this.transitioner) {
             this.transitioner.onResize(evt);
+
         }
+        ScrollController.onResize();
     },
 
     render: function () {
