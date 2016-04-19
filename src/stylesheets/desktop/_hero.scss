@@ -1,8 +1,13 @@
 @import "variables";
 
+
+
 .hero {
+
+
   color: $semi-black;
   cursor: pointer;
+  overflow: hidden;
 
   .logo-animation {
     font-family: 'GothamBold';

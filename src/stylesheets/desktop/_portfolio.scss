@@ -1,8 +1,10 @@
 @import "variables";
 
 .portfolio {
+
   .content {
 
+    overflow: hidden;
     padding: 0;
 
     width: 100%;
@@ -26,7 +28,7 @@
 
       }
       img {
-        position:absolute;
+        position: absolute;
       }
 
     }
