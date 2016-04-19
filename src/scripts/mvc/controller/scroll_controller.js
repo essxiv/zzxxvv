@@ -74,7 +74,6 @@ var controller = {
             var section = this.sectionInfo[i];
             var nextSection = this.sectionInfo[i + 1];
             if (scrollY >= section.ypos && scrollY < nextSection.ypos) {
-                console.log(section.id)
                 EventBus.trigger(EventBus.EVENTS.NAVIGATE, section.id);
                 return;
             }
