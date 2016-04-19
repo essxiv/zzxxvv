@@ -58,13 +58,16 @@ module.exports = BaseView.extend({
     },
 
     onResize: function () {
-        this.htmlCanvas.width = window.innerWidth;
-        this.htmlCanvas.height = this.$el.height();
 
         var textHeight = this.$('.js-content').height();
-        var totalHeight = this.$el.height();
-        var offset = (totalHeight - textHeight) / 2;
+        var padding = 100;
+        var totalHeight = (textHeight > window.innerHeight) ? textHeight + padding : window.innerHeight;
+        var offset = ((totalHeight - padding / 2) - textHeight) / 2;
+
         TweenMax.set(this.$('.js-content'), {y: offset});
+        TweenMax.set(this.$el, {height: totalHeight + padding});
+        this.htmlCanvas.width = window.innerWidth;
+        this.htmlCanvas.height = totalHeight;
 
         this.coloredBackground.scaleX = this.htmlCanvas.width;
         this.coloredBackground.scaleY = this.htmlCanvas.height;
