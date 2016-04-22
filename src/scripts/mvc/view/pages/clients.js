@@ -18,20 +18,22 @@ module.exports = BaseView.extend({
     },
 
     render: function () {
-        var symbols = $('symbol');
-        _.each(symbols, function (s) {
-            var $s = $(s);
-            var id = $s.attr('id');
-            if (id.indexOf('client_') > -1 && this.svgIDs.indexOf(id) === -1) {
-                this.svgIDs.push(id);
-            }
-        }, this);
+        //var symbols = $('symbol');
+        //_.each(symbols, function (s) {
+        //    var $s = $(s);
+        //    var id = $s.attr('id');
+        //    if (id.indexOf('client_') > -1 && this.svgIDs.indexOf(id) === -1) {
+        //        this.svgIDs.push(id);
+        //    }
+        //}, this);
+        //
+        //_.each(this.svgIDs, function (id) {
+        //
+        //    console.log(' <svg class="client"><use xlink:href="#' + id + '"/></svg>');
+        //
+        //}, this);
 
-        _.each(this.svgIDs, function (id) {
-            var node = $(' <svg class="client"><use xlink:href="#' + id + '"/></svg>');
-            this.logos.push(node);
-            this.$('.js-content').append(node);
-        }, this);
+        this.logos=$('.client');
 
         this.$el.on('click', _.bind(this.onClick, this));
 
@@ -58,14 +60,11 @@ module.exports = BaseView.extend({
             padding = 20
         }
 
-
-
-
         var newWidth = ((width - ((columns * 2) * padding)) / columns);
 
         _.each(this.logos, function (node) {
 
-            node.css({
+            $(node).css({
                 height         : 100 / (columns) + '%',
                 width          : newWidth,
                 'max-height'   : maxHeight + 'px',
@@ -76,23 +75,31 @@ module.exports = BaseView.extend({
             });
         });
 
+        var textHeight = this.$('.js-logos').height();
+        var padding = 0;
+        var totalHeight =(textHeight > window.innerHeight) ? textHeight + padding : window.innerHeight;
+        var offset = ((totalHeight - padding / 2) - textHeight) / 2;
+
+        TweenMax.set(this.$('.js-logos'), {y: offset});
+        TweenMax.set(this.$('.js-content'), {height: totalHeight});
+
 
         if (this.$('.js-content').height() >height) {
             this.$('.js-content').removeClass('high');
             this.$('.js-content').addClass('low');
-            this.$el.addClass('scroll');
+            //this.$el.addClass('scroll');
 
         } else {
             this.$('.js-content').addClass('high');
             this.$('.js-content').removeClass('low');
-            this.$el.removeClass('scroll');
+            //this.$el.removeClass('scroll');
         }
 
     },
 
     destroy: function () {
         this.$el.off();
-        this.$('.js-content').empty();
+        //this.$('.js-content').empty();
         this.svgIDs = [];
         this.logos = [];
 
