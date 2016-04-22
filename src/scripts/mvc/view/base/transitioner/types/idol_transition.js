@@ -15,23 +15,35 @@ module.exports = Backbone.View.extend({
         this.options = options;
     },
 
-
-
     setMap: function (map) {
         this.elementsMap = map;
 
-        ScrollModel.on('scroll', this.onScroll, this);
+        _.each(this.elementsMap, function (currentMap, key) {
+            var ViewClass = currentMap.className;
+            if (ViewClass) {
 
-    },
+                var elementMap = currentMap;
+                var $element = elementMap.element;
 
-    onScroll: function (offsetY) {
+                var section = new ViewClass({
+                    el: $element
+                });
 
+                section.render();
+                section.onResize();
+
+                //push a reference of the created page so we don't need to recreate pages
+                this.createdPages[key] = section;
+
+            }
+        }, this);
     },
 
     onResize: function (evt) {
-        if (this.currentSection) {
-            this.currentSection.onResize(evt);
-        }
+
+        _.each(this.createdPages, function (page) {
+            page.onResize(evt);
+        }, this);
     },
 
     //This is a very basic transition,first hide and then show
@@ -47,25 +59,13 @@ module.exports = Backbone.View.extend({
 
         if (this.currentSection !== null) {
             //hide the currentSection
-            this.currentSection.once('hideComplete', this.onSectionHideComplete, this);
             this.currentSection.hide();
-        } else {
-            //we have no currentSection, so go to the completeHandler
-            this.onSectionHideComplete();
         }
+        this.onSectionHideComplete();
 
     },
 
     onSectionHideComplete: function () {
-
-        if (this.currentSection) {
-            this.currentSection.destroy();
-
-            var currentElementMap = this.elementsMap[this.currentViewId];
-            if (currentElementMap.detachElement) {
-                currentElementMap.element.detach();
-            }
-        }
 
         var currentMap = this.elementsMap[this.newViewId];
         var ViewClass = currentMap.className;
@@ -75,24 +75,8 @@ module.exports = Backbone.View.extend({
             this.currentViewId = this.newViewId;
             this.newViewId = null;
 
-            var createAlready = this.createdPages[this.currentViewId];
+            this.currentSection = this.createdPages[this.currentViewId];
 
-            var elementMap = this.elementsMap[this.currentViewId];
-            var $element = elementMap.element;
-            var $parent = elementMap.parent;
-
-            if (createAlready && this.keepPagesInMemory) {
-                this.currentSection = createAlready;
-            } else {
-
-                this.currentSection = new ViewClass({
-                    el: $element
-                });
-                //push a reference of the created page so we don't need to recreate pages
-                this.createdPages[this.currentViewId] = this.currentSection;
-            }
-            //render dynamic content
-            this.currentSection.render();
             //in case we have dynamic positioning , we call a resize
             this.currentSection.onResize();
 

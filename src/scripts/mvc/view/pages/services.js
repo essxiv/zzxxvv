@@ -45,6 +45,8 @@ module.exports = BaseView.extend({
             var gradient = this.gradients[i];
 
             var gradientShape = new GradientBlob({config: gradient});
+            gradientShape.getClip().x = Math.random() * window.innerWidth;
+            gradientShape.getClip().y = Math.random() * window.innerHeight;
 
             this.gradientShapes.push(gradientShape);
             this.stage.addChild(gradientShape.getClip());
@@ -66,16 +68,16 @@ module.exports = BaseView.extend({
 
         TweenMax.set(this.$('.js-content'), {y: offset});
         TweenMax.set(this.$el, {height: totalHeight + padding});
+
         this.htmlCanvas.width = window.innerWidth;
-        this.htmlCanvas.height = totalHeight;
+        this.htmlCanvas.height = totalHeight+padding;
 
         this.coloredBackground.scaleX = this.htmlCanvas.width;
         this.coloredBackground.scaleY = this.htmlCanvas.height;
 
         for (var i = 0; i < this.gradientShapes.length; i++) {
             var gradient = this.gradientShapes[i].getClip();
-            gradient.x = Math.random() * window.innerWidth;
-            gradient.y = Math.random() * window.innerHeight;
+
             gradient.scaleY = gradient.scaleX = window.innerWidth;
             if (window.innerHeight > window.innerWidth) {
                 //portrait

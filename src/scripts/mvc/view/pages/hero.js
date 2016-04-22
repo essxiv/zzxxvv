@@ -40,10 +40,6 @@ module.exports = BaseView.extend({
             this.logos.push(node);
             this.$('.js-logo-holder').append(node);
         }, this);
-
-
-
-
     },
 
     show: function () {
@@ -52,7 +48,6 @@ module.exports = BaseView.extend({
     },
 
     startSlideShow: function () {
-        this.slideIndex = 6;
         this.slideIndex = Math.floor(Math.random() * (this.logos.length - 1));
         this.nextSlide();
     },
@@ -123,7 +118,7 @@ module.exports = BaseView.extend({
     destroy: function () {
         TweenMax.killDelayedCallsTo(this.nextSlideBound);
         this.$el.off();
-        this.$('.js-logo-holder').empty();
+       // this.$('.js-logo-holder').empty();
         this.svgIDs = [];
         this.logos = [];
 
