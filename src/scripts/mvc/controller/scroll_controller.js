@@ -69,6 +69,7 @@ var controller = {
     onUpdatedScroll: function () {
 
         var scrollY = ScrollModel.get('scroll') * (ScrollModel.get('totalHeight') - $(window).height());
+        scrollY+=window.innerHeight/2;
 
         for (var i = 0; i < this.sectionInfo.length - 1; i++) {
             var section = this.sectionInfo[i];

@@ -3,7 +3,6 @@ var $ = require('jquery');
 var _ = require('underscore');
 Backbone.$ = $;
 
-
 var Router = Backbone.Router.extend({
 
     page       : null,
@@ -43,7 +42,7 @@ var Router = Backbone.Router.extend({
     },
 
     start: function () {
-        Backbone.history.start();
+        Backbone.history.start({pushState: false});
 
     },
 
