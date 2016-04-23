@@ -41,7 +41,12 @@ module.exports = BaseView.extend({
     render: function () {
 
         this.background.render();
+        AppModel.on('request-animation-frame', this.onUpdate, this);
 
+    },
+
+    onUpdate: function () {
+        this.background.update();
     },
 
     onNameClick: function (e) {
@@ -49,7 +54,7 @@ module.exports = BaseView.extend({
         var $name = $(e.currentTarget);
         var data = $name.data();
         var person = '.' + data.person;
-
+        var time = 0.5;
         var complete = _.bind(function () {
 
             this.$('.js-mugshot').addClass(data.person);
@@ -63,10 +68,12 @@ module.exports = BaseView.extend({
         this.$('.js-info-holder').removeClass('hidden');
         this.$('.js-names').addClass('hidden');
 
-        TweenMax.to(this.$('.js-swiper'), 0.2, {
+        TweenMax.to(this.$('.js-swiper'), time, {
             width     : '100%',
             onComplete: complete
         });
+
+        this.background.show(window.innerWidth, time);
 
         this.$el.on('mousedown', _.bind(this.onExitClick, this));
     },
@@ -90,9 +97,8 @@ module.exports = BaseView.extend({
             width: 0,
             x    : 0
         });
-
-        this.background.update();
-
+        var time = 0.5;
+        this.background.hide(time);
     },
 
     onResize: function () {

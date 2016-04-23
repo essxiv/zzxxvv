@@ -11,6 +11,8 @@ module.exports = BaseView.extend({
     htmlCanvas    : null,
     gradientShapes: null,
     gradients     : null,
+    width         : null,
+    height        : null,
     type          : 'STATIC',
 
     initialize: function (options) {
@@ -19,6 +21,8 @@ module.exports = BaseView.extend({
         this.htmlCanvas = this.$el[0];
         this.gradients = [];
         this.gradientShapes = [];
+        this.width = 0;
+        this.height = 0;
 
         for (var i = 0; i < options.gradients.length; i++) {
             var obj = options.gradients[i];
@@ -49,7 +53,7 @@ module.exports = BaseView.extend({
             var gradientShape = new GradientBlob({config: gradient});
 
             this.gradientShapes.push(gradientShape);
-            this.stage.addChild(gradientShape.getClip());
+            this.stage.addChild(gradientShape.getClip()).visible = false;
         }
 
     },
@@ -58,43 +62,57 @@ module.exports = BaseView.extend({
 
         var bottomLeft = this.gradientShapes[0];
         var clip = bottomLeft.getClip();
+        this.coloredBackground.scaleX = this.width;
+
         this.stage.update();
+    },
+
+    show: function (width, time) {
+
+        TweenMax.to(this, time, {width: width});
+        for (var i = 0; i < this.gradientShapes.length; i++) {
+            var gradient = this.gradientShapes[i].getClip();
+            gradient.visible = true;
+        }
+
+    },
+
+    hide: function ( time) {
+        TweenMax.to(this, time, {width: 0});
+        for (var i = 0; i < this.gradientShapes.length; i++) {
+            var gradient = this.gradientShapes[i].getClip();
+            gradient.visible = false;
+        }
     },
 
     resize: function (width, height) {
 
         this.htmlCanvas.width = width;
         this.htmlCanvas.height = height;
-        this.coloredBackground.scaleX = this.htmlCanvas.width;
+        //this.coloredBackground.scaleX = this.htmlCanvas.width;
         this.coloredBackground.scaleY = this.htmlCanvas.height;
 
+        for (var i = 0; i < this.gradientShapes.length; i++) {
+            var gradient = this.gradientShapes[i].getClip();
 
-
-        if (this.gradientShapes && this.gradientShapes.length > 0) {
-            for (var i = 0; i < this.gradientShapes.length; i++) {
-                var gradient = this.gradientShapes[i].getClip();
-
-                gradient.scaleY = gradient.scaleX =width;
-                if (height > width) {
-                    //portrait
-                    gradient.scaleY = gradient.scaleX = height;
-
-                }
-            }
-            if (this.type === 'STATIC') {
-
-                var bottomLeft = this.gradientShapes[0];
-                var clip = bottomLeft.getClip();
-                clip.y = height;
-
-                var topRight = this.gradientShapes[1];
-                clip = topRight.getClip();
-                clip.x = width;
+            gradient.scaleY = gradient.scaleX = width;
+            if (height > width) {
+                //portrait
+                gradient.scaleY = gradient.scaleX = height;
 
             }
+        }
+        if (this.type === 'STATIC') {
+
+            var bottomLeft = this.gradientShapes[0];
+            var clip = bottomLeft.getClip();
+            clip.y = height;
+
+            var topRight = this.gradientShapes[1];
+            clip = topRight.getClip();
+            clip.x = width;
 
         }
-        this.stage.update();
 
     },
 
