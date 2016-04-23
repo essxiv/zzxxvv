@@ -22,15 +22,23 @@ module.exports = BaseView.extend({
         var data = $name.data();
         var person = '.' + data.person;
 
-        this.$el.addClass('person-selected');
-        this.$('span').addClass('hidden');
-        this.$('.js-names').addClass('hidden');
-        this.$('.js-mugshot').addClass(data.person)
+        var complete = _.bind(function () {
 
-        this.$('span' + person).removeClass('hidden');
-        this.$('.mugshot').removeClass('hidden');
+            this.$('.js-mugshot').addClass(data.person);
+
+            this.$('.mugshot').removeClass('hidden');
+            this.$('span' + person).removeClass('hidden');
+        this.$el.addClass('person-selected');
+
+        }, this);
+
         this.$('.js-info-holder').removeClass('hidden');
-        this.$('.js-title').removeClass('pink');
+        this.$('.js-names').addClass('hidden');
+
+        TweenMax.to(this.$('.js-swiper'), 2, {
+            width     : '100%',
+            onComplete: complete
+        });
 
         this.$el.on('mousedown', _.bind(this.onExitClick, this));
     },
@@ -58,16 +66,29 @@ module.exports = BaseView.extend({
     },
 
     onResize: function () {
+        var reset = false;
+        if (this.$('.js-names').hasClass('hidden')) {
+            reset = true;
+            this.$('.js-names').removeClass('hidden');
+        }
         var padding = 300;
         var textHeight = this.$('.js-copy').height() + padding;
         var totalHeight = this.$el.height();
         var offset = totalHeight / 2 - textHeight / 2;
         var ypos = offset + padding / 2;
 
-        TweenMax.set(this.$('.js-info-holder'), {y: ypos});
+        TweenMax.set(this.$('.js-info-holder'), {
+            y    : ypos,
+            width: 0.55 * window.innerWidth
+        });
         TweenMax.set(this.$('.js-copy'), {y: ypos});
         TweenMax.set(this.$('.js-content'), {height: textHeight});
         TweenMax.set(this.$el, {height: textHeight});
+
+        if (reset) {
+            this.$('.js-names').addClass('hidden');
+
+        }
 
     },
 
