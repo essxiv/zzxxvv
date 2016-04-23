@@ -2,6 +2,8 @@
 
 .principals {
 
+  color: $white;
+
   &.person-selected {
     background-color: red;
   }
@@ -9,7 +11,21 @@
   overflow: hidden;
 
   .mugshot {
-    background-image: url("../assets/images/principals/Matt_Walsh.jpg");
+    &.matt {
+      background-image: url("../assets/images/principals/Matt_Walsh.jpg");
+    }
+    &.josh {
+      background-image: url("../assets/images/principals/Josh_Held.jpg");
+    }
+    &.scott {
+      background-image: url("../assets/images/principals/Scott_Pargett.jpg");
+    }
+    &.brad {
+      background-image: url("../assets/images/principals/Brad_Burke.jpg");
+    }
+    &.abe {
+      background-image: url("../assets/images/principals/Abe_Cortez.jpg");
+    }
     //background-position: center;
     background-size: cover;
 
@@ -28,17 +44,14 @@
 
         li {
           display: block;
+          color: $black;
         }
       }
       .info-holder {
-        color: $white;
         width: 75%;
+        //position: absolute;
+        top: 0;
 
-        span {
-          //color: red;
-
-          //position: absolute;
-        }
       }
 
     }
