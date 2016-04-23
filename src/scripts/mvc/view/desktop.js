@@ -119,6 +119,7 @@ module.exports = Backbone.View.extend({
     },
 
     onResize: function (evt) {
+        //TODO: de-bounce this event
         if (this.transitioner) {
             this.transitioner.onResize(evt);
 

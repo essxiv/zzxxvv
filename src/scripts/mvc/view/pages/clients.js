@@ -51,16 +51,17 @@ module.exports = BaseView.extend({
         var ratio = defaultHeight / defaultwidth;
         var amountOfLogos = this.logos.length;
 
-        //TODO: padding depends on screensize
         var padding = 40;
         var paddingTop = 0;
-        var maxHeight = 100;
+        var maxHeight = 80;
         var columns = 5;
+        var paddingBottom = 0;
 
         if (width < 768) {
             padding = 20
             columns = 4;
-            paddingTop = 100
+            paddingTop = 100;
+            paddingBottom = 20;
         }
 
         var newWidth = ((width - ((columns * 2) * padding)) / columns);
@@ -68,12 +69,13 @@ module.exports = BaseView.extend({
         _.each(this.logos, function (node) {
 
             $(node).css({
-                height         : 100 / (columns) + '%',
-                width          : newWidth,
-                'max-height'   : maxHeight + 'px',
+                height          : 100 / (columns) + '%',
+                width           : newWidth,
+                'max-height'    : maxHeight + 'px',
                 //'max-width'   : 100 + 'px',
-                'padding-left' : padding + 'px',
-                'padding-right': padding + 'px',
+                'padding-left'  : padding + 'px',
+                'padding-right' : padding + 'px',
+                'margin-bottom': paddingBottom
 
             });
         });
@@ -83,7 +85,7 @@ module.exports = BaseView.extend({
         var offset = ((totalHeight + paddingTop / 2) - textHeight) / 2;
 
         TweenMax.set(this.$('.js-content'), {y: offset});
-        TweenMax.set(this.$('.js-content'), {height: textHeight+paddingTop});
+        TweenMax.set(this.$('.js-content'), {height: textHeight + paddingTop});
 
         if (this.$('.js-content').height() > height) {
             //this.$('.js-content').removeClass('high');

@@ -3,13 +3,20 @@
 .principals {
 
   color: $white;
+  overflow: hidden;
 
   &.person-selected {
     background-color: red;
   }
 
-  overflow: hidden;
-
+  .swiper {
+    position: absolute;
+    left: 0;
+    background: red;
+    height: 100%;
+    z-index: $z-index-swiper;
+    overflow: hidden;
+  }
   .mugshot {
     &.matt {
       background-image: url("../assets/images/principals/Matt_Walsh.jpg");
@@ -29,7 +36,8 @@
     //background-position: center;
     background-size: cover;
 
-    width: 50%;
+    width: 55%;
+    max-width: 800px;
     height: 100%;
     right: 0;
     position: absolute;
@@ -37,8 +45,11 @@
 
   .content {
     overflow: hidden;
+    width: 100%;
+
     .copy {
       overflow: hidden;
+
       ul {
         padding-left: 20px;
 
@@ -49,12 +60,19 @@
       }
       .info-holder {
         width: 75%;
-        //position: absolute;
         top: 0;
 
       }
 
     }
+  }
+
+  .info-holder {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    width: 55%;
+    overflow-x: hidden;
   }
 
 }

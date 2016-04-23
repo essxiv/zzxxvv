@@ -17,16 +17,19 @@ module.exports = BaseView.extend({
     },
 
     onNameClick: function (e) {
-        this.$el.addClass('person-selected');
+
         var $name = $(e.currentTarget);
         var data = $name.data();
         var person = '.' + data.person;
+
+        this.$el.addClass('person-selected');
         this.$('span').addClass('hidden');
         this.$('.js-names').addClass('hidden');
         this.$('.js-mugshot').addClass(data.person)
 
         this.$('span' + person).removeClass('hidden');
         this.$('.mugshot').removeClass('hidden');
+        this.$('.js-info-holder').removeClass('hidden');
         this.$('.js-title').removeClass('pink');
 
         this.$el.on('mousedown', _.bind(this.onExitClick, this));
@@ -43,19 +46,26 @@ module.exports = BaseView.extend({
 
         this.$('js-info-holder span').addClass('hidden');
         this.$('.mugshot').addClass('hidden');
+        this.$('.js-info-holder').addClass('hidden');
         this.$('.js-title').addClass('pink');
 
         this.$el.off('mousedown');
+        TweenMax.set($('.js-swiper'), {
+            width: 0,
+            x    : 0
+        });
 
     },
 
     onResize: function () {
         var padding = 300;
-        var textHeight = this.$('.js-copy').height() + padding - this.$('.js-info-holder').height();
+        var textHeight = this.$('.js-copy').height() + padding;
         var totalHeight = this.$el.height();
         var offset = totalHeight / 2 - textHeight / 2;
+        var ypos = offset + padding / 2;
 
-        TweenMax.set(this.$('.js-copy'), {y: offset + padding / 2});
+        TweenMax.set(this.$('.js-info-holder'), {y: ypos});
+        TweenMax.set(this.$('.js-copy'), {y: ypos});
         TweenMax.set(this.$('.js-content'), {height: textHeight});
         TweenMax.set(this.$el, {height: textHeight});
 
