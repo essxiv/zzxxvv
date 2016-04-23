@@ -67,7 +67,7 @@ module.exports = BaseView.extend({
         var offset = ((totalHeight - padding / 2) - textHeight) / 2;
 
         TweenMax.set(this.$('.js-content'), {y: offset});
-        TweenMax.set(this.$el, {height: totalHeight + padding});
+        TweenMax.set(this.$el, {height: totalHeight });
 
         this.htmlCanvas.width = window.innerWidth;
         this.htmlCanvas.height = totalHeight+padding;

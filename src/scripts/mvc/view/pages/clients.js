@@ -33,13 +33,13 @@ module.exports = BaseView.extend({
         //
         //}, this);
 
-        this.logos=$('.client');
+        this.logos = $('.client');
 
         this.$el.on('click', _.bind(this.onClick, this));
 
     },
 
-    onClick:function(){
+    onClick: function () {
         EventBus.trigger(EventBus.EVENTS.NAVIGATE, AppModel.PAGES.PORTFOLIO);
     },
 
@@ -53,11 +53,14 @@ module.exports = BaseView.extend({
 
         //TODO: padding depends on screensize
         var padding = 40;
+        var paddingTop = 0;
         var maxHeight = 100;
         var columns = 5;
 
         if (width < 768) {
             padding = 20
+            columns = 4;
+            paddingTop = 100
         }
 
         var newWidth = ((width - ((columns * 2) * padding)) / columns);
@@ -76,22 +79,20 @@ module.exports = BaseView.extend({
         });
 
         var textHeight = this.$('.js-logos').height();
-        var padding = 0;
-        var totalHeight =(textHeight > window.innerHeight) ? textHeight + padding : window.innerHeight;
-        var offset = ((totalHeight - padding / 2) - textHeight) / 2;
+        var totalHeight = this.$el.height();
+        var offset = ((totalHeight + paddingTop / 2) - textHeight) / 2;
 
-        TweenMax.set(this.$('.js-logos'), {y: offset});
-        TweenMax.set(this.$('.js-content'), {height: totalHeight});
+        TweenMax.set(this.$('.js-content'), {y: offset});
+        TweenMax.set(this.$('.js-content'), {height: textHeight+paddingTop});
 
-
-        if (this.$('.js-content').height() >height) {
-            this.$('.js-content').removeClass('high');
-            this.$('.js-content').addClass('low');
+        if (this.$('.js-content').height() > height) {
+            //this.$('.js-content').removeClass('high');
+            //this.$('.js-content').addClass('low');
             //this.$el.addClass('scroll');
 
         } else {
             this.$('.js-content').addClass('high');
-            this.$('.js-content').removeClass('low');
+            //this.$('.js-content').removeClass('low');
             //this.$el.removeClass('scroll');
         }
 
