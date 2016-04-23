@@ -12,6 +12,7 @@ module.exports = BaseView.extend({
         this.clip.graphics.beginRadialGradientFill(
             colors,
             //ratio
+            //["#F00","#00F"],
             [0, 1],
             //position and radius
             0, 0, 0, 0, 0, size)

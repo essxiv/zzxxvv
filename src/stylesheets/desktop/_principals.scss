@@ -6,18 +6,14 @@
   overflow: hidden;
 
   &.person-selected {
-    background-color: red;
+    //background-color: red;
   }
 
-  .swiper {
+  canvas {
     position: absolute;
-    left: 0;
-    top:0;
-    height: 100%;
-    z-index: $z-index-swiper;
-    overflow: hidden;
-    width:10px;
+    top: 0;
   }
+
   .mugshot {
     &.matt {
       background-image: url("../assets/images/principals/Matt_Walsh.jpg");
@@ -42,11 +38,26 @@
     height: 100%;
     right: 0;
     position: absolute;
+
   }
 
+  $content-offset-left: 10%;
+  .swiper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: $z-index-swiper;
+    overflow: hidden;
+    width: $content-offset-left;
+    padding-left: $content-offset-left;
+  }
   .content {
     overflow: hidden;
     width: 100%;
+    max-width: 100%;
+    padding-left: $content-offset-left;
+    position: static;
 
     .copy {
       overflow: hidden;
@@ -59,7 +70,6 @@
           color: $black;
         }
       }
-
 
     }
   }

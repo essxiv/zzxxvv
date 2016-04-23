@@ -7,13 +7,41 @@ var _ = require('underscore');
 var EventBus = require('EventBus');
 var AppModel = require('../../model/app_model');
 var Image = require('../modules/image');
+var GradientBlob = require('../modules/gradient_blob');
+var GradientBackground = require('../modules/gradient_background');
 
 module.exports = BaseView.extend({
+    htmlCanvas    : null,
+    gradientShapes: null,
+    gradients     : null,
 
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
         this.$('li').on('click', _.bind(this.onNameClick, this));
         this.$('.info span').addClass('hidden');
+
+        this.background = new GradientBackground({
+
+                el       : this.$('#principals-canvas'),
+                gradients: [
+                    {
+                        color: 0x6c628e,
+                        id   : 'purple'
+                    },
+                    {
+                        color: 0xf7d3db,
+                        id   : 'pink'
+                    }
+                ]
+            }
+        );
+
+    },
+
+    render: function () {
+
+        this.background.render();
+
     },
 
     onNameClick: function (e) {
@@ -28,14 +56,14 @@ module.exports = BaseView.extend({
 
             this.$('.mugshot').removeClass('hidden');
             this.$('span' + person).removeClass('hidden');
-        this.$el.addClass('person-selected');
+            this.$el.addClass('person-selected');
 
         }, this);
 
         this.$('.js-info-holder').removeClass('hidden');
         this.$('.js-names').addClass('hidden');
 
-        TweenMax.to(this.$('.js-swiper'), 2, {
+        TweenMax.to(this.$('.js-swiper'), 0.2, {
             width     : '100%',
             onComplete: complete
         });
@@ -63,6 +91,8 @@ module.exports = BaseView.extend({
             x    : 0
         });
 
+        this.background.update();
+
     },
 
     onResize: function () {
@@ -73,6 +103,9 @@ module.exports = BaseView.extend({
         }
         var padding = 300;
         var textHeight = this.$('.js-copy').height() + padding;
+        if (textHeight < window.innerHeight) {
+            textHeight = window.innerHeight;
+        }
         var totalHeight = this.$el.height();
         var offset = totalHeight / 2 - textHeight / 2;
         var ypos = offset + padding / 2;
@@ -84,6 +117,8 @@ module.exports = BaseView.extend({
         TweenMax.set(this.$('.js-copy'), {y: ypos});
         TweenMax.set(this.$('.js-content'), {height: textHeight});
         TweenMax.set(this.$el, {height: textHeight});
+
+        this.background.resize(window.innerWidth, textHeight);
 
         if (reset) {
             this.$('.js-names').addClass('hidden');
