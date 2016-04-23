@@ -8,6 +8,7 @@
   position: relative;
   min-height: 100%;
   text-align: center;
+  overflow:hidden;
 
   .content {
     $padding: 10px;
@@ -16,7 +17,7 @@
 
     width: 100%;
     max-width: 800px;
-   // position: absolute;
+    // position: absolute;
 
     display: inline-block;
     position: relative;

@@ -1,10 +1,47 @@
 @import "variables";
 
 .principals {
-  .content {
 
-    li {
-      margin-left: -40px;
+  &.person-selected {
+    background-color: red;
+  }
+
+  overflow: hidden;
+
+  .mugshot {
+    background-image: url("../assets/images/principals/Matt_Walsh.jpg");
+    //background-position: center;
+    background-size: cover;
+
+    width: 50%;
+    height: 100%;
+    right: 0;
+    position: absolute;
+  }
+
+  .content {
+    overflow: hidden;
+    .copy {
+      overflow: hidden;
+      ul {
+        padding-left: 20px;
+
+        li {
+          display: block;
+        }
+      }
+      .info-holder {
+        color: $white;
+        width: 75%;
+
+        span {
+          //color: red;
+
+          //position: absolute;
+        }
+      }
+
     }
   }
+
 }

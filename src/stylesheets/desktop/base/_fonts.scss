@@ -28,8 +28,18 @@ ul {
   }
   &.big {
     font-size: 38px;
-  }
+    @media screen and (max-width: $screen-md) {
 
+    }
+    @media screen and (max-width: $screen-sm) {
+
+      font-size: 18px;
+
+    }
+    @media screen and (max-width: $screen-xs-max) {
+
+    }
+  }
   @media screen and (max-width: $screen-md) {
 
   }
@@ -48,8 +58,9 @@ h1 {
   font-size: 60px;
 
   @media screen and (max-width: $screen-md) {
-
+    font-size: 40px;
   }
+
   @media screen and (max-width: $screen-sm) {
 
   }
@@ -65,6 +76,10 @@ h1 {
 span {
   &.big {
     font-size: 30px;
+    @media screen and (max-width: $screen-sm) {
+      font-size: 15px;
+
+    }
   }
 }
 
