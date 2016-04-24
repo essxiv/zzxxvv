@@ -41,6 +41,9 @@ module.exports = BaseView.extend({
     render: function () {
 
         this.background.render();
+        TweenMax.to(this.$('.js-mugshot'), 0, {
+            x: window.innerWidth ,
+        });
         AppModel.on('request-animation-frame', this.onUpdate, this);
 
     },
@@ -50,18 +53,22 @@ module.exports = BaseView.extend({
     },
 
     onNameClick: function (e) {
-
+        this.$('.js-info').addClass('hidden');
         var $name = $(e.currentTarget);
         var data = $name.data();
         var person = '.' + data.person;
+        this.$('.js-mugshot').removeClass('matt josh scott brad abe');
+        this.$('.js-mugshot').addClass(data.person);
         var time = 0.5;
         var complete = _.bind(function () {
 
-            this.$('.js-mugshot').addClass(data.person);
-
-            this.$('.mugshot').removeClass('hidden');
             this.$('span' + person).removeClass('hidden');
-            this.$el.addClass('person-selected');
+            TweenMax.to(this.$('span' + person), 0, {
+                opacity:0
+            });
+            TweenMax.to(this.$('span' + person), 1, {
+                opacity:1
+            });
 
         }, this);
 
@@ -71,6 +78,9 @@ module.exports = BaseView.extend({
         TweenMax.to(this.$('.js-swiper'), time, {
             width     : '100%',
             onComplete: complete
+        });
+        TweenMax.to(this.$('.js-mugshot'), 1, {
+            x: window.innerWidth - this.$('.js-mugshot').width(),
         });
 
         this.background.show(window.innerWidth, time);
@@ -85,10 +95,9 @@ module.exports = BaseView.extend({
         this.$('.js-names').removeClass('hidden');
         this.$('span').removeClass('hidden');
 
-        this.$('.js-mugshot').removeClass('matt josh scott brad abe');
 
         this.$('js-info-holder span').addClass('hidden');
-        this.$('.mugshot').addClass('hidden');
+        //this.$('.mugshot').addClass('hidden');
         this.$('.js-info-holder').addClass('hidden');
         this.$('.js-title').addClass('pink');
 
@@ -97,8 +106,12 @@ module.exports = BaseView.extend({
             width: 0,
             x    : 0
         });
+
         var time = 0.5;
-        this.background.hide(time);
+        TweenMax.to(this.$('.js-mugshot'), time, {
+            x: window.innerWidth,
+        });
+        this.background.hide(time, window.innerWidth);
     },
 
     onResize: function () {
@@ -107,24 +120,25 @@ module.exports = BaseView.extend({
             reset = true;
             this.$('.js-names').removeClass('hidden');
         }
-        var padding = 300;
-        var textHeight = this.$('.js-copy').height() + padding;
-        if (textHeight < window.innerHeight) {
-            textHeight = window.innerHeight;
-        }
+        var padding = -100;
+        var textHeight = this.$('.js-copy').height();
         var totalHeight = this.$el.height();
+
         var offset = totalHeight / 2 - textHeight / 2;
-        var ypos = offset + padding / 2;
+        var ypos = offset + padding;
+        if (ypos < 0) {
+            ypos = offset;
+        }
 
         TweenMax.set(this.$('.js-info-holder'), {
             y    : ypos,
             width: 0.55 * window.innerWidth
         });
         TweenMax.set(this.$('.js-copy'), {y: ypos});
-        TweenMax.set(this.$('.js-content'), {height: textHeight});
-        TweenMax.set(this.$el, {height: textHeight});
+        TweenMax.set(this.$('.js-content'), {height: totalHeight});
+        TweenMax.set(this.$el, {height: totalHeight});
 
-        this.background.resize(window.innerWidth, textHeight);
+        this.background.resize(window.innerWidth, totalHeight);
 
         if (reset) {
             this.$('.js-names').addClass('hidden');

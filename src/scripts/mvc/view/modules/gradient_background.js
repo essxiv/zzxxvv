@@ -8,12 +8,12 @@ var EventBus = require('EventBus');
 var GradientBlob = require('./gradient_blob');
 
 module.exports = BaseView.extend({
-    htmlCanvas    : null,
+    htmlCanvas: null,
     gradientShapes: null,
-    gradients     : null,
-    width         : null,
-    height        : null,
-    type          : 'STATIC',
+    gradients: null,
+    width: null,
+    height: null,
+    type: 'STATIC',
 
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
@@ -53,7 +53,9 @@ module.exports = BaseView.extend({
             var gradientShape = new GradientBlob({config: gradient});
 
             this.gradientShapes.push(gradientShape);
-            this.stage.addChild(gradientShape.getClip()).visible = false;
+            var clip = gradientShape.getClip();
+            clip.alpha = 0;
+            this.stage.addChild(clip);
         }
 
     },
@@ -72,16 +74,22 @@ module.exports = BaseView.extend({
         TweenMax.to(this, time, {width: width});
         for (var i = 0; i < this.gradientShapes.length; i++) {
             var gradient = this.gradientShapes[i].getClip();
-            gradient.visible = true;
+            TweenMax.to(gradient, time, {
+                delay: time * 0.5,
+                alpha: 1
+            });
         }
 
     },
 
-    hide: function ( time) {
-        TweenMax.to(this, time, {width: 0});
+    hide: function (time, width) {
+        TweenMax.to(this, time, {
+            delay: 0.5,
+            width: 0
+        });
         for (var i = 0; i < this.gradientShapes.length; i++) {
             var gradient = this.gradientShapes[i].getClip();
-            gradient.visible = false;
+            TweenMax.to(gradient, 0.5, {alpha: 0});
         }
     },
 
@@ -102,6 +110,7 @@ module.exports = BaseView.extend({
 
             }
         }
+
         if (this.type === 'STATIC') {
 
             var bottomLeft = this.gradientShapes[0];
