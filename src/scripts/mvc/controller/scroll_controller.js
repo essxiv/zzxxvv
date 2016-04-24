@@ -8,6 +8,7 @@ var ScrollModel = require('../model/scroll_model');
 var Router = require('../route/router');
 var EventBus = require('EventBus');
 
+//TODO: this is a view, not a cotroller
 var controller = {
 
     isDirty    : false,
@@ -69,14 +70,22 @@ var controller = {
     onUpdatedScroll: function () {
 
         var scrollY = ScrollModel.get('scroll') * (ScrollModel.get('totalHeight') - $(window).height());
-        scrollY+=window.innerHeight/2;
+        scrollY += window.innerHeight / 2;
 
-        for (var i = 0; i < this.sectionInfo.length - 1; i++) {
+        for (var i = 0; i < this.sectionInfo.length; i++) {
             var section = this.sectionInfo[i];
             var nextSection = this.sectionInfo[i + 1];
-            if (scrollY >= section.ypos && scrollY < nextSection.ypos) {
-                EventBus.trigger(EventBus.EVENTS.NAVIGATE, section.id);
-                return;
+            if (nextSection) {
+
+                if (scrollY >= section.ypos && scrollY < nextSection.ypos) {
+                    EventBus.trigger(EventBus.EVENTS.NAVIGATE, section.id);
+                    return;
+                }
+            } else {
+                if (scrollY >= section.ypos) {
+                    EventBus.trigger(EventBus.EVENTS.NAVIGATE, section.id);
+                    return;
+                }
             }
         }
     },

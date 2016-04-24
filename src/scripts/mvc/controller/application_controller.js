@@ -24,14 +24,11 @@ var controller = {
 
     onScroll: function (model, pct) {
 
-
     },
 
     onResize: function () {
 
         //calculate all the individual heights of the pages
-
-
 
     },
 
@@ -45,7 +42,10 @@ var controller = {
     },
 
     onNavigate: function (id, routeOptions) {
-
+        if (!routeOptions) {
+            routeOptions = {};
+        }
+        routeOptions.updateURL = false;
         Router.navigate(id, routeOptions);
 
     },

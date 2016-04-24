@@ -7,6 +7,8 @@ module.exports = BaseView.extend({
         BaseView.prototype.initialize.apply(this);
 
     },
-
+show:function(){
+    console.log('HELLOO')
+}
 });
 
