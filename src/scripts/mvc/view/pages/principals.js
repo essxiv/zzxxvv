@@ -120,7 +120,7 @@ module.exports = BaseView.extend({
             reset = true;
             this.$('.js-names').removeClass('hidden');
         }
-        var padding = -100;
+        var padding = -0;
         var textHeight = this.$('.js-copy').height();
         var totalHeight = this.$el.height();
 
