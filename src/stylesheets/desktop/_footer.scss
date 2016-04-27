@@ -22,9 +22,6 @@ footer {
     padding-left: 40px;
     padding-right: 40px;
   }
-
-  .address {
-    display: inline-block;
     .bold {
       font-family: "GothamBold";
     }
@@ -34,10 +31,12 @@ footer {
       color: $grey;
 
     }
+
+  .left {
+    display: inline-block;
   }
-  .inquire {
+  .right {
     float: right;
-    font-family: "GothamBold";
   }
 
 }

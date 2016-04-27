@@ -1,0 +1,66 @@
+@import "variables";
+
+.contact {
+
+  position: relative;
+  min-height: 100%;
+  background-image: url("../assets/images/contact/background.jpg");
+  background-position: center;
+  background-size: cover;
+  background-color: $black;
+  color: $white;
+
+  a {
+    color: $white;
+    text-decoration: none;
+  }
+
+  .close {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    //background-color: red;
+  }
+
+  .content {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .foster {
+      div {
+        font-family: GothamLight;
+        font-size: 14px;
+      }
+    }
+
+    .contact-options {
+
+      width: 600px;
+
+      font-family: GothamLight;
+      font-size: 14px;
+      span {
+        display: block;
+      }
+
+      .sort {
+        font-family: 'GothamBold';
+        font-size: 26px;
+      }
+
+    }
+  }
+
+  .question {
+    display: inline-block;
+    padding-bottom: 30px;
+  }
+
+  .link {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
