@@ -23,9 +23,6 @@ module.exports = BaseView.extend({
 
         this.ratio = this.videoWidth / this.videoHeight;
 
-    },
-
-    render: function () {
         var symbols = $('symbol');
         _.each(symbols, function (s) {
             var $s = $(s);
@@ -40,9 +37,19 @@ module.exports = BaseView.extend({
             this.logos.push(node);
             this.$('.js-logo-holder').append(node);
         }, this);
+
+    },
+
+    render: function () {
+
     },
 
     show: function () {
+        console.log('show');
+        _.each(this.logos, function (node) {
+            node.addClass('hidden');
+        }, this);
+
         this.$el.on('click', _.bind(this.onHeroClick, this));
         this.startSlideShow();
     },
@@ -115,14 +122,9 @@ module.exports = BaseView.extend({
 
     },
 
-    destroy: function () {
+    hide: function () {
         TweenMax.killDelayedCallsTo(this.nextSlideBound);
         this.$el.off();
-       // this.$('.js-logo-holder').empty();
-        this.svgIDs = [];
-        this.logos = [];
-
-        BaseView.prototype.destroy.apply(this);
 
     },
 
