@@ -126,8 +126,8 @@ module.exports = BaseView.extend({
 
         var offset = totalHeight / 2 - textHeight / 2;
         var ypos = offset + padding;
-        if (ypos < 0) {
-            ypos = offset;
+        if (ypos <= 0) {
+            ypos = 0;
         }
 
         TweenMax.set(this.$('.js-info-holder'), {
