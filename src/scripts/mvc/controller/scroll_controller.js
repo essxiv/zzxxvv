@@ -11,9 +11,7 @@ var EventBus = require('EventBus');
 //TODO: this is a view, not a cotroller
 var controller = {
 
-    isDirty    : false,
-    pageMap    : null,
-    sectionInfo: [],
+    isDirty: false,
 
     init: function () {
         var scrollCallback = _.bind(this.onScroll, this);
@@ -29,36 +27,7 @@ var controller = {
     onResize: function () {
 
         ScrollModel.set('totalHeight', $(document).height());
-
-        _.forEach(this.pageMap, function (map, key) {
-            var $section = $(map.nodeSelector);
-            if ($section.length > 0) {
-
-                var info = this.getSectionInfoByKey(key);//this.sectionInfo[key];
-
-                info.ypos = $section.offset().top;
-
-            }
-        }, this);
-
-    },
-
-    getSectionInfoByKey: function (key) {
-
-        for (var i = 0; i < this.sectionInfo.length - 1; i++) {
-            var section = this.sectionInfo[i];
-            if (section.id === key) {
-                return section;
-            }
-        }
-
-        var newEntry = {
-            id: key
-        };
-
-        this.sectionInfo.push(newEntry);
-
-        return newEntry;
+        ScrollModel.updateSectionMapping();
 
     },
 
@@ -70,15 +39,27 @@ var controller = {
     onUpdatedScroll: function () {
 
         var scrollY = ScrollModel.get('scroll') * (ScrollModel.get('totalHeight') - $(window).height());
+        var base = scrollY;
         scrollY += window.innerHeight / 2;
+        var sectionInfo = ScrollModel.sectionInfo;
 
-        for (var i = 0; i < this.sectionInfo.length; i++) {
-            var section = this.sectionInfo[i];
-            var nextSection = this.sectionInfo[i + 1];
+        for (var i = 0; i < sectionInfo.length; i++) {
+            var section = sectionInfo[i];
+            var nextSection = sectionInfo[i + 1];
             if (nextSection) {
 
-                if (scrollY >= section.ypos && scrollY < nextSection.ypos) {
-                    EventBus.trigger(EventBus.EVENTS.NAVIGATE, section.id);
+                if (scrollY >= section.ypos && scrollY <= nextSection.ypos) {
+
+                    if (section.id === AppModel.PAGES.HERO) {
+                        if (base === 0) {
+                            console.log('YEAAAH')
+                        EventBus.trigger(EventBus.EVENTS.NAVIGATE, section.id);
+                        }
+
+                    } else {
+
+                        EventBus.trigger(EventBus.EVENTS.NAVIGATE, section.id);
+                    }
                     return;
                 }
             } else {
@@ -91,6 +72,7 @@ var controller = {
     },
 
     onUpdate: function (e) {
+
         if (this.isDirty) {
             this.isDirty = false;
             //TODO:optimize the height

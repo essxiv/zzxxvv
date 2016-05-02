@@ -7,6 +7,7 @@
     "aliases": {
       "TweenMax": "./src/scripts/libs/greensock/TweenMax.min.js",
       "TweenMaxSvgDraw": "./src/scripts/libs/greensock/plugins/DrawSVGPlugin.min.js",
+      "TweenMaxScrollToPlugin": "./src/scripts/libs/greensock/plugins/ScrollToPlugin.min.js",
       "Hammer": "./src/scripts/libs/hammer.min.js",
       "HammerTime": "./src/scripts/libs/hammer-time.min.js",
       "MathUtil": "./src/scripts/utils/math.js",

@@ -23,7 +23,6 @@ var DefaultTransition = require('../view/base/transitioner/types/idol_transition
 //#intialize the Pages
 var LoaderView = require('../view/pages/loader');
 var HeroView = require('../view/pages/hero');
-var ManifestoView = require('../view/pages/manifesto');
 var ClientsView = require('../view/pages/clients');
 var PortfolioView = require('../view/pages/portfolio');
 var ServicesView = require('../view/pages/services');
@@ -54,11 +53,6 @@ viewMap[AppModel.PAGES.LOADER] = {
 viewMap[AppModel.PAGES.HERO] = {
     className   : HeroView,
     nodeSelector: '.js-hero'
-};
-
-viewMap[AppModel.PAGES.MANIFESTO] = {
-    className   : ManifestoView,
-    nodeSelector: '.js-manifesto'
 };
 
 viewMap[AppModel.PAGES.CLIENTS] = {
@@ -97,7 +91,7 @@ module.exports = Backbone.View.extend({
     start: function () {
 
         $('.js-app-container-desktop').removeClass('hidden');
-        ScrollController.pageMap = viewMap;
+        ScrollModel.setMap(viewMap);
 
         this.transitioner = new Transitioner({
             el        : $('.js-app-container-desktop'),
