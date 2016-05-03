@@ -3,29 +3,9 @@
 .hero {
 
   color: $semi-black;
-  cursor: pointer;
   overflow: hidden;
 
 
-  .manifesto {
-
-    min-height: 100%;
-    position: absolute;
-    width: 100%;
-
-    background-color: $black;
-    color: $white;
-
-    .content{
-      position: absolute;
-
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-
-  }
 
 
   .logo-animation {

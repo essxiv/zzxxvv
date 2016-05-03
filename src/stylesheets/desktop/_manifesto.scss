@@ -1,0 +1,17 @@
+@import "variables";
+
+.manifesto {
+
+  background-color: $black;
+  color: white;
+
+  .content{
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+
+}

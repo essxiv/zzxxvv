@@ -47,15 +47,12 @@ module.exports = BaseView.extend({
     },
 
     show: function () {
-        $('body').addClass('no-scroll');
-
         this.$('.js-manifesto').addClass('hidden');
 
         _.each(this.logos, function (node) {
             node.addClass('hidden');
         }, this);
 
-        this.$('.js-hero-content').on('click', _.bind(this.onHeroClick, this));
         this.startSlideShow();
     },
 
@@ -134,27 +131,6 @@ module.exports = BaseView.extend({
         this.$('.js-hero-content').off();
         this.$('.js-manifesto').off();
         $('body').removeClass('no-scroll');
-    },
-
-    onHeroClick: function () {
-
-        this.$('.js-manifesto').removeClass('hidden');
-        this.$('.js-manifesto').on('mouseup', _.bind(this.onManifestoClick, this));
-
-    },
-
-    onManifestoClick: function (e) {
-
-        var id = AppModel.PAGES.CLIENTS;
-        var map = ScrollModel.getSectionInfoByKey(id);
-        var ypos = map.ypos;
-
-        TweenMax.to((window), 0.5, {
-            scrollTo: {
-                y       : ypos,
-                autoKill: false
-            }
-        });
     }
 
 });

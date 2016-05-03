@@ -39,7 +39,6 @@ var controller = {
     onUpdatedScroll: function () {
 
         var scrollY = ScrollModel.get('scroll') * (ScrollModel.get('totalHeight') - $(window).height());
-        var base = scrollY;
         scrollY += window.innerHeight / 2;
         var sectionInfo = ScrollModel.sectionInfo;
 
@@ -50,16 +49,7 @@ var controller = {
 
                 if (scrollY >= section.ypos && scrollY <= nextSection.ypos) {
 
-                    if (section.id === AppModel.PAGES.HERO) {
-                        if (base === 0) {
-                            console.log('YEAAAH')
-                        EventBus.trigger(EventBus.EVENTS.NAVIGATE, section.id);
-                        }
-
-                    } else {
-
-                        EventBus.trigger(EventBus.EVENTS.NAVIGATE, section.id);
-                    }
+                    EventBus.trigger(EventBus.EVENTS.NAVIGATE, section.id);
                     return;
                 }
             } else {

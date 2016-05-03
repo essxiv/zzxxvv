@@ -17,7 +17,11 @@ module.exports = BaseView.extend({
 
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
-        this.$('li').on('click', _.bind(this.onNameClick, this));
+
+        if (Config.DESKTOP) {
+
+            this.$('li').on('click', _.bind(this.onNameClick, this));
+        }
         this.$('.info span').addClass('hidden');
 
         this.background = new GradientBackground({
@@ -42,7 +46,7 @@ module.exports = BaseView.extend({
 
         this.background.render();
         TweenMax.to(this.$('.js-mugshot'), 0, {
-            x: window.innerWidth ,
+            x: window.innerWidth,
         });
         AppModel.on('request-animation-frame', this.onUpdate, this);
 
@@ -64,10 +68,10 @@ module.exports = BaseView.extend({
 
             this.$('span' + person).removeClass('hidden');
             TweenMax.to(this.$('span' + person), 0, {
-                opacity:0
+                opacity: 0
             });
             TweenMax.to(this.$('span' + person), 1, {
-                opacity:1
+                opacity: 1
             });
 
         }, this);
@@ -79,7 +83,7 @@ module.exports = BaseView.extend({
             width     : '100%',
             onComplete: complete
         });
-        TweenMax.to(this.$('.js-mugshot'), 1, {
+        TweenMax.to(this.$('.js-mugshot'), time, {
             x: window.innerWidth - this.$('.js-mugshot').width(),
         });
 
@@ -94,7 +98,6 @@ module.exports = BaseView.extend({
         this.$el.removeClass('person-selected');
         this.$('.js-names').removeClass('hidden');
         this.$('span').removeClass('hidden');
-
 
         this.$('js-info-holder span').addClass('hidden');
         //this.$('.mugshot').addClass('hidden');

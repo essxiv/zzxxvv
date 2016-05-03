@@ -19,16 +19,6 @@
     z-index: 1;
     padding-top: 20px;
 
-
-    ul {
-      li {
-        display: inline-block;
-        &:not(:first-child):before {
-          content: '\00a0\2022\00a0\00a0';
-        }
-      }
-    }
-
     .copy {
       text-align: center;
       color: $white;
@@ -48,16 +38,16 @@
 
         li {
           display: inline-block;
-          padding-right: 50px;
+          //padding-right: 50px;
           padding-bottom: 70px;
 
           @media screen and (max-width: $screen-md) {
-            padding-right: 30px;
+            //padding-right: 30px;
             padding-bottom: 30px;
           }
           @media screen and (max-width: $screen-sm) {
 
-            padding-right: 0px;
+            //padding-right: 0px;
             font-size: 12px;
 
           }
@@ -65,12 +55,18 @@
 
           }
 
+          &:not(:first-child):before {
+            content: '\00a0\2022\00a0\00a0';
+          }
         }
       }
 
       span {
         width: 80%;
         display: inline-block;
+        position: relative;
+        padding-left: 30px;
+        padding-right: 30px;
 
       }
     }
