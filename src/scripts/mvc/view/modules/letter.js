@@ -15,6 +15,8 @@ module.exports = BaseView.extend({
 
     show: function (delay) {
 
+        console.log('show');
+        TweenMax.killTweensOf(this.$el);
         TweenMax.fromTo(this.$el, 0.5,
                         {
                             alpha: 0,
@@ -27,7 +29,13 @@ module.exports = BaseView.extend({
                         });
     },
 
-    hide: function () {
+    hide: function (delay) {
+        TweenMax.killTweensOf(this.$el);
+        TweenMax.to(this.$el, 0.5,{
+            delay:delay,
+            alpha: 0,
+            y    : -10
+        });
 
     }
 

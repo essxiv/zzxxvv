@@ -21,6 +21,8 @@ module.exports = BaseView.extend({
     videoHeight   : 1080,
 
     initialize: function (options) {
+
+        window.$ = $;
         BaseView.prototype.initialize.apply(this);
         this.nextSlideBound = _.bind(this.nextSlide, this);
 
@@ -66,7 +68,7 @@ module.exports = BaseView.extend({
             node.addClass('hidden');
         }, this);
 
-        this.startSlideShow(delay+1);
+        this.startSlideShow(delay + 1);
     },
 
     startSlideShow: function (delay) {
@@ -107,6 +109,8 @@ module.exports = BaseView.extend({
 
         tl.play();
         delay += animationTime + 1;
+
+        console.log('BOOM');
         TweenMax.delayedCall(delay, this.nextSlideBound);
 
     },
@@ -142,11 +146,13 @@ module.exports = BaseView.extend({
     },
 
     hide: function () {
+
         TweenMax.killDelayedCallsTo(this.nextSlideBound);
-        this.$el.off();
-        this.$('.js-hero-content').off();
-        this.$('.js-manifesto').off();
-        $('body').removeClass('no-scroll');
+        var delay = 0;
+        _.each(this.letters, function (letter) {
+            letter.hide(delay);
+            delay += 0.5
+        }, this);
     }
 
 });
