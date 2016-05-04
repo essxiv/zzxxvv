@@ -58,7 +58,7 @@ viewMap[AppModel.PAGES.HERO] = {
 
 viewMap[AppModel.PAGES.MANIFESTO] = {
     className   : ManifestoView,
-    nodeSelector: '.js-manifesto'
+    nodeSelector: '.js-manifest'
 };
 
 
