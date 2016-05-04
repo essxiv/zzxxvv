@@ -5,13 +5,20 @@
   background-color: $black;
   color: white;
 
-  .content{
+  .content {
     position: absolute;
-
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+    transform: translate(0, -50%);
+    margin-left: $left-padding;
+    width: 90%;
+    padding-right: 50px;
 
+    @media screen and (max-width: $screen-sm) {
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin-left:0;
+    }
+
+  }
 
 }
