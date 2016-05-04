@@ -16,11 +16,9 @@ module.exports = BaseView.extend({
         BaseView.prototype.initialize.apply(this);
         this.htmlCanvas = this.$('#services-canvas')[0];
         this.gradients = [
-            {colors: this.getGradients(0xf7d3db)},
-            {colors: this.getGradients(0x765f8b)},
-            {colors: this.getGradients(0xfff02e)},
-            {colors: this.getGradients(0x1fbdd5)},
-            {colors: this.getGradients(0xf7d3db)}
+            {colors: this.getGradients(0xb39d56)},
+            {colors: this.getGradients(0xda7ead)},
+            {colors: this.getGradients(0x8ad8ef)}
         ];
 
     },
@@ -31,11 +29,10 @@ module.exports = BaseView.extend({
     },
 
     render: function () {
-        this.$el.on('click', _.bind(this.onClick, this));
         this.stage = new createjs.Stage("services-canvas");
 
         this.coloredBackground = new createjs.Shape();
-        this.coloredBackground.graphics.beginFill('#d85076');
+        this.coloredBackground.graphics.beginFill('#de7d7a');
         this.coloredBackground.graphics.drawRect(0, 0, 1, 1);
         this.coloredBackground.graphics.endFill();
 
@@ -55,22 +52,21 @@ module.exports = BaseView.extend({
         AppModel.on('request-animation-frame', this.update, this);
     },
 
-    onClick: function () {
-        EventBus.trigger(EventBus.EVENTS.NAVIGATE, AppModel.PAGES.PRINCIPALS);
-    },
+
 
     onResize: function () {
 
         var textHeight = this.$('.js-content').height();
-        var padding = 100;
+        var padding = 0;
         var totalHeight = (textHeight > window.innerHeight) ? textHeight + padding : window.innerHeight;
+        totalHeight+=50;
         var offset = ((totalHeight - padding / 2) - textHeight) / 2;
 
         TweenMax.set(this.$('.js-content'), {y: offset});
-        TweenMax.set(this.$el, {height: totalHeight });
+        TweenMax.set(this.$el, {height: totalHeight+30 });
 
         this.htmlCanvas.width = window.innerWidth;
-        this.htmlCanvas.height = totalHeight+padding;
+        this.htmlCanvas.height = totalHeight+padding+30;
 
         this.coloredBackground.scaleX = this.htmlCanvas.width;
         this.coloredBackground.scaleY = this.htmlCanvas.height;
