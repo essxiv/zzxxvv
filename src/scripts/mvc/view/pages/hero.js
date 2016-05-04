@@ -57,7 +57,7 @@ module.exports = BaseView.extend({
     },
 
     show: function () {
-        var delay = 1;
+        var delay = 0.5;
 
         _.each(this.letters, function (letter) {
             letter.show(delay);
