@@ -3,6 +3,8 @@ var TweenMax = require('TweenMax');
 var $ = require('jquery');
 var _ = require('underscore');
 
+var Letter = require('../modules/letter');
+
 var EventBus = require('EventBus');
 var AppModel = require('../../model/app_model');
 var ScrollModel = require('../../model/scroll_model');
@@ -14,6 +16,7 @@ module.exports = BaseView.extend({
     nextSlideBound: null,
     svgIDs        : [],
     logos         : [],
+    letters       : [],
     videoWidth    : 1920,
     videoHeight   : 1080,
 
@@ -24,6 +27,11 @@ module.exports = BaseView.extend({
         this.$video = this.$('.js-hero-video ');
 
         this.ratio = this.videoWidth / this.videoHeight;
+
+        _.each(this.$('.js-letter'), function (letterElement) {
+
+            this.letters.push(new Letter({el: letterElement}));
+        }, this);
 
         var symbols = $('symbol');
         _.each(symbols, function (s) {
@@ -47,24 +55,32 @@ module.exports = BaseView.extend({
     },
 
     show: function () {
-        this.$('.js-manifesto').addClass('hidden');
+        var delay = 1;
+
+        _.each(this.letters, function (letter) {
+            letter.show(delay);
+            delay += 0.5
+        }, this);
 
         _.each(this.logos, function (node) {
             node.addClass('hidden');
         }, this);
 
-        this.startSlideShow();
+        this.startSlideShow(delay+1);
     },
 
-    startSlideShow: function () {
+    startSlideShow: function (delay) {
         this.slideIndex = Math.floor(Math.random() * (this.logos.length - 1));
-        this.nextSlide();
+        this.nextSlide(delay);
     },
 
-    nextSlide: function () {
-
+    nextSlide: function (delay) {
+        if (!delay) {
+            delay = 0;
+        }
         var prevLogo = this.logos[this.slideIndex];
         prevLogo.addClass('hidden');
+
         this.slideIndex++;
         if (this.slideIndex > this.logos.length - 1) {
             this.slideIndex = 0;
@@ -90,7 +106,7 @@ module.exports = BaseView.extend({
         });
 
         tl.play();
-        var delay = animationTime + 1;
+        delay += animationTime + 1;
         TweenMax.delayedCall(delay, this.nextSlideBound);
 
     },
