@@ -110,7 +110,6 @@ module.exports = BaseView.extend({
         tl.play();
         delay += animationTime + 1;
 
-        console.log('BOOM');
         TweenMax.delayedCall(delay, this.nextSlideBound);
 
     },

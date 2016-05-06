@@ -6,34 +6,62 @@ var _ = require('underscore');
 
 var EventBus = require('EventBus');
 var AppModel = require('../../model/app_model');
+var ScrollModel = require('../../model/scroll_model');
+var IdolElement = require('../modules/idol_element');
 
 module.exports = BaseView.extend({
 
-    svgIDs: [],
-    logos : [],
+    svgIDs  : [],
+    logos   : [],
+    elements: [],
 
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
+        this.logos = $('.client');
+
+        _.each(this.logos, function (logoElement) {
+
+            var logo = new IdolElement({el: logoElement});
+            this.elements.push(logo);
+        }, this);
+
+        AppModel.on('request-animation-frame', this.onUpdate, this);
 
     },
 
-    render: function () {
-        //var symbols = $('symbol');
-        //_.each(symbols, function (s) {
-        //    var $s = $(s);
-        //    var id = $s.attr('id');
-        //    if (id.indexOf('client_') > -1 && this.svgIDs.indexOf(id) === -1) {
-        //        this.svgIDs.push(id);
-        //    }
-        //}, this);
-        //
-        //_.each(this.svgIDs, function (id) {
-        //
-        //    console.log(' <svg class="client"><use xlink:href="#' + id + '"/></svg>');
-        //
-        //}, this);
+    onUpdate: function () {
 
-        this.logos = $('.client');
+        var scrollPosition = $(window).scrollTop();
+        var offset = window.innerHeight - 100;
+
+        var inRange = [];
+
+        for (var i = 0; i < this.elements.length; i++) {
+
+            var element = this.elements[i];
+            if (element.originalY < scrollPosition + offset) {
+                inRange.push(element);
+            }
+        }
+        var delay = 0;
+        var time = 1;
+        var prevY;
+        for (var i = 0; i < inRange.length; i++) {
+            var inRangeElement = inRange[i];
+            if (!inRangeElement.isShowing) {
+
+                inRangeElement.show(time, delay);
+                delay += 0.2;
+                if (prevY && inRange.originalY !== prevY) {
+                    delay = 0;
+                }
+                prevY = inRange.originalY;
+            }
+
+        }
+    },
+
+    render: function () {
 
         this.$el.on('click', _.bind(this.onClick, this));
 
@@ -69,12 +97,12 @@ module.exports = BaseView.extend({
         _.each(this.logos, function (node) {
 
             $(node).css({
-                height          : 100 / (columns) + '%',
-                width           : newWidth,
-                'max-height'    : maxHeight + 'px',
+                height         : 100 / (columns) + '%',
+                width          : newWidth,
+                'max-height'   : maxHeight + 'px',
                 //'max-width'   : 100 + 'px',
-                'padding-left'  : padding + 'px',
-                'padding-right' : padding + 'px',
+                'padding-left' : padding + 'px',
+                'padding-right': padding + 'px',
                 'margin-bottom': paddingBottom
 
             });
@@ -96,6 +124,12 @@ module.exports = BaseView.extend({
             this.$('.js-content').addClass('high');
             //this.$('.js-content').removeClass('low');
             //this.$el.removeClass('scroll');
+        }
+
+        for (var i = 0; i < this.elements.length; i++) {
+
+            var element = this.elements[i];
+            element.setStartPosition();
         }
 
     },

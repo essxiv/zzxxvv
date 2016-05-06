@@ -11,6 +11,8 @@
   overflow:hidden;
 
   .content {
+
+    overflow: hidden;
     $padding: 10px;
     padding-left: $padding;
     padding-right: $padding;

@@ -17,11 +17,11 @@ module.exports = BaseView.extend({
 
     },
 
-    show: function (delay) {
+    show: function (time, delay) {
 
         if (!this.isShowing) {
             this.isShowing = true;
-            TweenMax.to(this.$el, 0.2, {
+            TweenMax.to(this.$el, time, {
                 delay: delay,
                 y    : 0,
                 alpha: 1
