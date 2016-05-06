@@ -30,6 +30,19 @@ module.exports = BaseView.extend({
 
     },
 
+    hide: function (time, delay) {
+
+        if (this.isShowing) {
+            this.isShowing = false;
+            TweenMax.to(this.$el, time, {
+                delay: delay,
+                y    : 100,
+                alpha: 0
+            });
+        }
+
+    },
+
     setStartPosition: function () {
         if (!this.isShowing) {
             this.originalY = this.$el.offset().top;

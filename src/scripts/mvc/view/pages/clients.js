@@ -32,7 +32,7 @@ module.exports = BaseView.extend({
     onUpdate: function () {
 
         var scrollPosition = $(window).scrollTop();
-        var offset = window.innerHeight - 100;
+        var offset = window.innerHeight;
 
         var inRange = [];
 
@@ -42,16 +42,20 @@ module.exports = BaseView.extend({
             if (element.originalY < scrollPosition + offset) {
                 inRange.push(element);
             }
+
         }
+
         var delay = 0;
-        var time = 1;
+        var delayIncrement = 0.2;
+        var time = 0.5;
         var prevY;
-        for (var i = 0; i < inRange.length; i++) {
+
+        for (i = 0; i < inRange.length; i++) {
             var inRangeElement = inRange[i];
             if (!inRangeElement.isShowing) {
 
                 inRangeElement.show(time, delay);
-                delay += 0.2;
+                delay += delayIncrement;
                 if (prevY && inRange.originalY !== prevY) {
                     delay = 0;
                 }

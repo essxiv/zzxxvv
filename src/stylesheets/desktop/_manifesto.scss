@@ -6,6 +6,7 @@
   color: white;
 
   .content {
+  overflow: hidden;
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
@@ -16,7 +17,7 @@
     @media screen and (max-width: $screen-sm) {
       left: 50%;
       transform: translate(-50%, -50%);
-      margin-left:0;
+      margin-left: 0;
     }
 
   }

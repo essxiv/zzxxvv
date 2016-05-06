@@ -7,6 +7,7 @@ var _ = require('underscore');
 var EventBus = require('EventBus');
 var AppModel = require('../../model/app_model');
 var Image = require('../modules/image');
+var IdolElement = require('../modules/idol_element');
 
 module.exports = BaseView.extend({
 
@@ -35,11 +36,58 @@ module.exports = BaseView.extend({
         this.image_holder_big = this.$('.js-item.big');
         this.image_holder_small = this.$('.js-item.small');
         this.holder = this.$('.js-content');
+        this.loadBigImages();
+        this.loadSmallImages();
+
+        this.elements = [];
+
+        _.each(this.$('.js-item'), function (image) {
+
+            var element = new IdolElement({el: image});
+            this.elements.push(element);
+        }, this);
+
+        AppModel.on('request-animation-frame', this.onUpdate, this);
+    },
+
+    onUpdate: function () {
+
+        var scrollPosition = $(window).scrollTop();
+        var offset = window.innerHeight;
+
+        var inRange = [];
+
+        for (var i = 0; i < this.elements.length; i++) {
+
+            var element = this.elements[i];
+            if (element.originalY < scrollPosition + offset) {
+                inRange.push(element);
+            }
+
+        }
+
+        var delay = 0;
+        var delayIncrement = 0.2;
+        var time = 0.5;
+        var prevY;
+
+        for (i = 0; i < inRange.length; i++) {
+            var inRangeElement = inRange[i];
+            if (!inRangeElement.isShowing) {
+
+                inRangeElement.show(time, delay);
+                delay += delayIncrement;
+                if (prevY && inRange.originalY !== prevY) {
+                    delay = 0;
+                }
+                prevY = inRange.originalY;
+            }
+
+        }
+
     },
 
     render: function () {
-        this.loadBigImages();
-        this.loadSmallImages();
         this.$el.on('click', _.bind(this.onClick, this));
     },
 
@@ -68,6 +116,12 @@ module.exports = BaseView.extend({
         _.each(this.smallImages, function (image) {
             image.resize(smallImageWidth, smallImageHeight)
         }, this);
+
+        for (var i = 0; i < this.elements.length; i++) {
+
+            var element = this.elements[i];
+            element.setStartPosition();
+        }
 
     },
 

@@ -4,6 +4,7 @@ var _ = require('underscore');
 
 var EventBus = require('EventBus');
 var AppModel = require('../../model/app_model');
+var IdolElement = require('../modules/idol_element');
 
 module.exports = BaseView.extend({
 
@@ -12,51 +13,39 @@ module.exports = BaseView.extend({
         this.title = this.$('.js-title');
         this.copy = this.$('.js-copy');
 
-        TweenMax.set(this.title,{alpha:0});
-        TweenMax.set(this.copy,{alpha:0});
+        this.elements = [];
+
+        _.each([this.title, this.copy], function (logoElement) {
+
+            var element = new IdolElement({el: logoElement});
+            this.elements.push(element);
+        }, this);
+
+         AppModel.on('request-animation-frame', this.onUpdate, this);
     },
 
-    render: function () {
+    onUpdate: function () {
+
+        var scrollPosition = $(window).scrollTop();
+        var offset = window.innerHeight/2;
+
+        for (var i = 0; i < this.elements.length; i++) {
+
+            var element = this.elements[i];
+            if (element.originalY < scrollPosition + offset) {
+                element.show(0.5, 0);
+            }
+
+        }
+
     },
 
     show: function () {
 
-        var delay = 0;
-        var time = 0.5;
-        TweenMax.killTweensOf(this.title);
-        TweenMax.killTweensOf(this.copy);
-
-        var startProps = {
-            alpha: 0,
-            y    : -10
-        };
-
-        TweenMax.fromTo(this.title, time,
-                        startProps,
-                        {
-                            delay: delay,
-                            alpha: 1,
-                            y    : 0
-                        });
-
-        TweenMax.fromTo(this.copy, time,
-                        startProps,
-                        {
-                            delay: delay + time,
-                            alpha: 1,
-                            y    : 0
-                        });
-
     },
 
     hide: function () {
-        TweenMax.killTweensOf(this.title);
-        TweenMax.killTweensOf(this.copy);
 
-        var time = 0.5;
-
-        TweenMax.to(this.title, time, {alpha: 0});
-        TweenMax.to(this.copy, time, {alpha: 0});
 
     },
 
