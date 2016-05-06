@@ -44,9 +44,9 @@ module.exports = BaseView.extend({
 
     },
 
-    hide: function () {
+    hide   : function () {
 
-
+        AppModel.off(null, null, this);
     },
 
     destroy: function () {

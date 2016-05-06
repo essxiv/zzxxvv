@@ -88,11 +88,9 @@ module.exports = BaseView.extend({
     },
 
     render: function () {
-        this.$el.on('click', _.bind(this.onClick, this));
     },
 
     onClick: function () {
-        EventBus.trigger(EventBus.EVENTS.NAVIGATE, AppModel.PAGES.SERVICES);
     },
 
     onResize: function () {
@@ -118,7 +116,6 @@ module.exports = BaseView.extend({
         }, this);
 
         for (var i = 0; i < this.elements.length; i++) {
-
             var element = this.elements[i];
             element.setStartPosition();
         }
@@ -145,7 +142,12 @@ module.exports = BaseView.extend({
         }
     },
 
-    destroy:function(){
+    hide: function () {
+
+        AppModel.off(null, null, this);
+    },
+
+    destroy: function () {
 
         this.$el.off();
         BaseView.prototype.destroy.apply(this);

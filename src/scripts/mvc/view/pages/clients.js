@@ -67,12 +67,6 @@ module.exports = BaseView.extend({
 
     render: function () {
 
-        this.$el.on('click', _.bind(this.onClick, this));
-
-    },
-
-    onClick: function () {
-        EventBus.trigger(EventBus.EVENTS.NAVIGATE, AppModel.PAGES.PORTFOLIO);
     },
 
     onResize: function () {
@@ -136,6 +130,11 @@ module.exports = BaseView.extend({
             element.setStartPosition();
         }
 
+    },
+
+    hide: function () {
+
+        AppModel.off(null, null, this);
     },
 
     destroy: function () {
