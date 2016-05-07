@@ -59,7 +59,7 @@ module.exports = IdolElement.extend({
 
     start: function (delay) {
 
-        //this.showSlide(delay);
+        this.showSlide(delay);
 
     },
 
