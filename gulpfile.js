@@ -82,7 +82,8 @@ var tasks = {
             .pipe(fileInclude({}))
             .pipe(replace('CDN_PATH', paths.cdn_path))
             .pipe(useref())
-            .pipe(gulp.dest(paths.dist));
+            .pipe(gulpif(((argv.r || argv.release) &&'*.js'), uglify()))
+            .pipe(gulp.dest(paths.dist))
     },
     // Scripts
     scripts: function () {
