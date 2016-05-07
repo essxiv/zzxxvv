@@ -84,7 +84,7 @@ module.exports = BaseView.extend({
 
     hide: function (time, width) {
         TweenMax.to(this, time, {
-            delay: 0.5,
+            delay: 0,
             width: 0
         });
         for (var i = 0; i < this.gradientShapes.length; i++) {

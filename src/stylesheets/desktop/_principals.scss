@@ -45,9 +45,10 @@
     height: 100%;
     z-index: $z-index-swiper;
     overflow: hidden;
-    width: $content-offset-left;
-    padding-left: $content-offset-left;
+    width: 0;
+
   }
+
   .content {
     overflow: hidden;
     width: 100%;
@@ -74,6 +75,8 @@
     pointer-events: none;
     position: absolute;
     top: 0;
+    //the margin lft is set by code
+    //margin-left: 144px;
   }
 
 }

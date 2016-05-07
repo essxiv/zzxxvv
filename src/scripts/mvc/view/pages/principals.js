@@ -7,8 +7,9 @@ var _ = require('underscore');
 var EventBus = require('EventBus');
 var AppModel = require('../../model/app_model');
 var Image = require('../modules/image');
-var GradientBlob = require('../modules/gradient_blob');
 var GradientBackground = require('../modules/gradient_background');
+var Faces = require('../modules/faces');
+var InfoBlocks = require('../modules/info_blocks');
 
 module.exports = BaseView.extend({
     htmlCanvas    : null,
@@ -25,29 +26,28 @@ module.exports = BaseView.extend({
         this.$('.info span').addClass('hidden');
 
         this.background = new GradientBackground({
-
                 el       : this.$('#principals-canvas'),
-                gradients: [
-                    {
-                        color: 0x6c628e,
-                        id   : 'purple'
-                    },
-                    {
-                        color: 0xf7d3db,
-                        id   : 'pink'
-                    }
-                ]
+                gradients: [{color: 0x6c628e}, {color: 0xf7d3db}]
             }
         );
+        var ids = ['matt, josh, scott, brad, abe'];
+        this.faces = new Faces({
+            el : this.$('.js-mugshot'),
+            ids: ids
+        })
+
+        this.infoBlocks = new InfoBlocks({
+            el : this.$('.js-info-holder'),
+            ids: ids
+        });
 
     },
 
     render: function () {
 
         this.background.render();
-        TweenMax.to(this.$('.js-mugshot'), 0, {
-            x: window.innerWidth,
-        });
+        TweenMax.to(this.faces.el, 0, {x: window.innerWidth});
+
         AppModel.on('request-animation-frame', this.onUpdate, this);
 
     },
@@ -57,34 +57,31 @@ module.exports = BaseView.extend({
     },
 
     onNameClick: function (e) {
+
+        //TweenMax.set($('.js-swiper'), {
+        //    x: '-10%'
+        //});
+
+        //return
         this.$('.js-info').addClass('hidden');
         var $name = $(e.currentTarget);
         var data = $name.data();
-        var person = '.' + data.person;
-        this.$('.js-mugshot').removeClass('matt josh scott brad abe');
-        this.$('.js-mugshot').addClass(data.person);
+        var person = data.person;
+
+        this.faces.showFace(person);
         var time = 0.5;
+        this.infoBlocks.showTitle();
         var complete = _.bind(function () {
-
-            this.$('span' + person).removeClass('hidden');
-            TweenMax.to(this.$('span' + person), 0, {
-                opacity: 0
-            });
-            TweenMax.to(this.$('span' + person), 1, {
-                opacity: 1
-            });
-
+            this.showInfo(person);
         }, this);
 
-        this.$('.js-info-holder').removeClass('hidden');
-        this.$('.js-names').addClass('hidden');
-
         TweenMax.to(this.$('.js-swiper'), time, {
-            width     : '100%',
+            width     : window.innerWidth,
             onComplete: complete
         });
-        TweenMax.to(this.$('.js-mugshot'), time, {
-            x: window.innerWidth - this.$('.js-mugshot').width(),
+
+        TweenMax.to(this.faces.el, time, {
+            x: window.innerWidth - this.faces.$el.width()
         });
 
         this.background.show(window.innerWidth, time);
@@ -92,28 +89,30 @@ module.exports = BaseView.extend({
         this.$el.on('mousedown', _.bind(this.onExitClick, this));
     },
 
+    showInfo: function (person) {
+        TweenMax.to(this.$('.js-names'), 0.5, {'alpha': 0});
+        this.infoBlocks.show(person);
+    },
+
+    showNames: function () {
+        TweenMax.to(this.$('.js-names'), 0.5, {'alpha': 1});
+        this.infoBlocks.hide();
+    },
+
     onExitClick: function () {
 
-        console.log('yes')
-        this.$el.removeClass('person-selected');
-        this.$('.js-names').removeClass('hidden');
-        this.$('span').removeClass('hidden');
-
-        this.$('js-info-holder span').addClass('hidden');
-        //this.$('.mugshot').addClass('hidden');
-        this.$('.js-info-holder').addClass('hidden');
-        this.$('.js-title').addClass('pink');
-
         this.$el.off('mousedown');
-        TweenMax.set($('.js-swiper'), {
+        this.showNames();
+        var time = 0.5;
+        TweenMax.to($('.js-swiper'), time, {
             width: 0,
             x    : 0
         });
 
-        var time = 0.5;
-        TweenMax.to(this.$('.js-mugshot'), time, {
-            x: window.innerWidth,
+        TweenMax.to(this.faces.el, time, {
+            x: window.innerWidth
         });
+
         this.background.hide(time, window.innerWidth);
     },
 
@@ -147,6 +146,9 @@ module.exports = BaseView.extend({
             this.$('.js-names').addClass('hidden');
 
         }
+
+        //set the ofset in pixels
+        this.$('.js-info-holder').css({'margin-left': window.innerWidth*0.1});
 
     },
 
