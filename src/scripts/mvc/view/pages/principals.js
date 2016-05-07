@@ -30,7 +30,7 @@ module.exports = BaseView.extend({
                 gradients: [{color: 0x6c628e}, {color: 0xf7d3db}]
             }
         );
-        var ids = ['matt, josh, scott, brad, abe'];
+        var ids = ['matt', 'josh', 'scott', 'brad', 'abe'];
         this.faces = new Faces({
             el : this.$('.js-mugshot'),
             ids: ids
@@ -44,12 +44,9 @@ module.exports = BaseView.extend({
     },
 
     render: function () {
-
         this.background.render();
         TweenMax.to(this.faces.el, 0, {x: window.innerWidth});
-
         AppModel.on('request-animation-frame', this.onUpdate, this);
-
     },
 
     onUpdate: function () {
@@ -58,12 +55,8 @@ module.exports = BaseView.extend({
 
     onNameClick: function (e) {
 
-        //TweenMax.set($('.js-swiper'), {
-        //    x: '-10%'
-        //});
+        TweenMax.to(this.$('.js-names'), 0.5, {'alpha': 0});
 
-        //return
-        this.$('.js-info').addClass('hidden');
         var $name = $(e.currentTarget);
         var data = $name.data();
         var person = data.person;
@@ -75,26 +68,32 @@ module.exports = BaseView.extend({
             this.showInfo(person);
         }, this);
 
+        var xpos = window.innerWidth - this.faces.$el.width();
         TweenMax.to(this.$('.js-swiper'), time, {
-            width     : window.innerWidth,
+            width     : xpos,
             onComplete: complete
         });
 
         TweenMax.to(this.faces.el, time, {
-            x: window.innerWidth - this.faces.$el.width()
+            x: xpos
         });
 
-        this.background.show(window.innerWidth, time);
+        this.background.show(xpos, time);
 
         this.$el.on('mousedown', _.bind(this.onExitClick, this));
     },
 
     showInfo: function (person) {
-        TweenMax.to(this.$('.js-names'), 0.5, {'alpha': 0});
+
+        TweenMax.set(this.$('.js-swiper'), {width: window.innerWidth});
+
         this.infoBlocks.show(person);
     },
 
     showNames: function () {
+
+        var xpos = window.innerWidth - this.faces.$el.width();
+        TweenMax.set(this.$('.js-swiper'), {width: xpos});
         TweenMax.to(this.$('.js-names'), 0.5, {'alpha': 1});
         this.infoBlocks.hide();
     },
@@ -148,7 +147,7 @@ module.exports = BaseView.extend({
         }
 
         //set the ofset in pixels
-        this.$('.js-info-holder').css({'margin-left': window.innerWidth*0.1});
+        this.$('.js-info-holder').css({'margin-left': window.innerWidth * 0.1});
 
     },
 

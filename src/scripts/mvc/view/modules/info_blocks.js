@@ -11,6 +11,7 @@ module.exports = BaseView.extend({
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
         this.ids = options.ids;
+        this.hideAllBlocks();
     },
 
     showTitle: function () {

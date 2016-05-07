@@ -15,8 +15,10 @@ module.exports = BaseView.extend({
 
     showFace: function (faceID) {
         _.each(this.ids, function (id) {
+            console.log(id)
             this.$el.removeClass(id);
         }, this);
+
         this.$el.addClass(faceID);
     },
 
