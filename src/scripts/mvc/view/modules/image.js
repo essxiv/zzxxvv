@@ -16,6 +16,7 @@ module.exports = IdolElement.extend({
         BaseView.prototype.initialize.apply(this);
         this.images = [];
         this.ratio = 1;
+        this.isHero = false;
 
         this.initialWidth = options.initialWidth;
         this.initialHeight = options.initialHeight;
@@ -24,6 +25,9 @@ module.exports = IdolElement.extend({
         var urls = options.urls;
         this.test = urls;
         this.log = options.log;
+
+        this.isHero = options.isHero;
+        console.log(this.isHero);
 
         for (var i = 0; i < urls.length; i++) {
             var url = urls[i];
@@ -55,7 +59,7 @@ module.exports = IdolElement.extend({
 
     start: function (delay) {
 
-          this.showSlide(delay);
+        //this.showSlide(delay);
 
     },
 
@@ -67,10 +71,10 @@ module.exports = IdolElement.extend({
         var that = this;
         var newImage = this.images[this.currentImageIndex];
         TweenMax.set(newImage, {alpha: 0});
-        var time=0.5
+        var time = 0.5
         TweenMax.to(newImage, time, {
 
-            delay     : time+delay,
+            delay     : time + delay,
             alpha     : 1,
             onComplete: _.bind(function () {
                 (this.currentImage).remove();

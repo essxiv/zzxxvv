@@ -26,6 +26,7 @@ module.exports = BaseView.extend({
 
         {
             log          : false,
+            isHero       : true,
             initialWidth : 856,
             initialHeight: 541,
             images       : [
@@ -114,6 +115,7 @@ module.exports = BaseView.extend({
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
         this.image_holder_big = this.$('.js-item.big');
+        this.image_holder_hero = this.$('.js-item.big.hero');
         this.image_holder_small = this.$('.js-item.small');
         this.holder = this.$('.js-content');
         this.elements = [];
@@ -168,7 +170,12 @@ module.exports = BaseView.extend({
     },
 
     onResize: function () {
-        var bigImageWidth = (1 / this.image_holder_big.length) * this.holder.width();
+
+        var heroWidth = 0.4;
+        var normalWidth = (1 - heroWidth) / (this.image_holder_big.length - 1);
+
+        var bigImageWidth = normalWidth * this.holder.width();
+        var bigHeroImageWidth = heroWidth * this.holder.width();
         var smallImageWidth = (1 / this.image_holder_small.length) * this.holder.width();
         var bigImageHeight = 0.6 * this.holder.height();
         var smallImageHeight = 0.4 * this.holder.height();
@@ -178,13 +185,24 @@ module.exports = BaseView.extend({
             height: bigImageHeight + 'px',
         });
 
+        this.image_holder_hero.css({
+            width: bigHeroImageWidth + 'px'
+        });
+
         this.image_holder_small.css({
             width : smallImageWidth + 'px',
             height: smallImageHeight + 'px',
         });
         _.each(this.bigImages, function (image) {
-            image.resize(bigImageWidth, bigImageHeight)
+            if (image.isHero) {
+                console.log('dsdssddssd')
+                image.resize(bigHeroImageWidth, bigImageHeight)
+            } else {
+
+                image.resize(bigImageWidth, bigImageHeight)
+            }
         }, this);
+
         _.each(this.smallImages, function (image) {
             image.resize(smallImageWidth, smallImageHeight)
         }, this);
@@ -203,12 +221,14 @@ module.exports = BaseView.extend({
             var details = this.big_image_urls[i];
             var initialWidth = details.initialWidth;
             var initialHeight = details.initialHeight;
-            var log = details.log
+            var log = details.log;
+            var isHero = details.isHero;
 
             var img = new Image({
                 urls         : details.images,
                 offset       : 0,
                 log          : log,
+                isHero       : isHero,
                 initialWidth : initialWidth,
                 initialHeight: initialHeight
             });
@@ -227,7 +247,7 @@ module.exports = BaseView.extend({
         var initialWidth = 400;
         var initialHeight = 428;
 
-        var offset=0;
+        var offset = 0;
 
         for (var i = 0; i < this.image_holder_small.length; i++) {
 
@@ -235,11 +255,13 @@ module.exports = BaseView.extend({
             var initialWidth = details.initialWidth;
             var initialHeight = details.initialHeight;
             var log = details.log;
+            var isHero = details.isHero;
 
             var img = new Image({
                 urls         : details.images,
                 offset       : 0,
                 log          : log,
+                isHero       : isHero,
                 initialWidth : initialWidth,
                 initialHeight: initialHeight
             });
