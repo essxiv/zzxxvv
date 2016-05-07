@@ -9,9 +9,14 @@ module.exports = BaseView.extend({
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
 
+        this.setOffset();
+
+    },
+
+    setOffset: function () {
         this.originalY = this.$el.offset().top;
         TweenMax.set(this.$el, {
-            y    : 100,
+            y    : 0,
             alpha: 0
         });
 
@@ -36,7 +41,7 @@ module.exports = BaseView.extend({
             this.isShowing = false;
             TweenMax.to(this.$el, time, {
                 delay: delay,
-                y    : 100,
+                y    : 0,
                 alpha: 0
             });
         }
@@ -45,7 +50,7 @@ module.exports = BaseView.extend({
 
     setStartPosition: function () {
         if (!this.isShowing) {
-            this.originalY = this.$el.offset().top;
+            this.setOffset();
         }
     }
 

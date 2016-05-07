@@ -12,20 +12,64 @@ var IdolElement = require('../modules/idol_element');
 module.exports = BaseView.extend({
 
     big_image_urls  : [
-        Config.CDN + '/assets/images/portfolio/big_1.jpg',
-        Config.CDN + '/assets/images/portfolio/big_2.jpg',
-        Config.CDN + '/assets/images/portfolio/big_3.jpg'
+        {
+            log          : true,
+            initialWidth : 572,
+            initialHeight: 541,
+            images       : [
+
+                Config.CDN + '/assets/images/portfolio/top_1_0.jpg',
+                Config.CDN + '/assets/images/portfolio/top_1_1.jpg',
+                Config.CDN + '/assets/images/portfolio/top_1_2.jpg'
+            ]
+        },
+
+        {
+            log          : true,
+            initialWidth : 856,
+            initialHeight: 541,
+            images       : [
+
+                Config.CDN + '/assets/images/portfolio/top_2_0.jpg',
+                Config.CDN + '/assets/images/portfolio/top_2_1.jpg',
+                Config.CDN + '/assets/images/portfolio/top_2_2.jpg'
+            ]
+        },
+        {
+            initialWidth : 572,
+            initialHeight: 541,
+            images       : [
+
+                Config.CDN + '/assets/images/portfolio/top_3_0.jpg',
+                Config.CDN + '/assets/images/portfolio/top_3_1.jpg',
+                Config.CDN + '/assets/images/portfolio/top_3_2.jpg'
+            ]
+        }
+
     ],
     small_image_urls: [
-        Config.CDN + '/assets/images/portfolio/small_1.jpg',
-        Config.CDN + '/assets/images/portfolio/small_2.jpg',
-        Config.CDN + '/assets/images/portfolio/small_3.jpg',
-        Config.CDN + '/assets/images/portfolio/small_4.jpg',
-        Config.CDN + '/assets/images/portfolio/small_5.jpg',
-    ],
+        Config.CDN + '/assets/images/portfolio/bottom_1_0.jpg',
+        Config.CDN + '/assets/images/portfolio/bottom_1_1.jpg',
+        Config.CDN + '/assets/images/portfolio/bottom_1_2.jpg',
 
-    smallImages: [],
-    bigImages  : [],
+        Config.CDN + '/assets/images/portfolio/bottom_2_0.jpg',
+        Config.CDN + '/assets/images/portfolio/bottom_2_1.jpg',
+        Config.CDN + '/assets/images/portfolio/bottom_2_2.jpg',
+
+        Config.CDN + '/assets/images/portfolio/bottom_3_0.jpg',
+        Config.CDN + '/assets/images/portfolio/bottom_3_1.jpg',
+        Config.CDN + '/assets/images/portfolio/bottom_3_2.jpg',
+
+        Config.CDN + '/assets/images/portfolio/bottom_4_0.jpg',
+        Config.CDN + '/assets/images/portfolio/bottom_4_1.jpg',
+        Config.CDN + '/assets/images/portfolio/bottom_4_2.jpg',
+
+        Config.CDN + '/assets/images/portfolio/bottom_5_0.jpg',
+        Config.CDN + '/assets/images/portfolio/bottom_5_1.jpg',
+        Config.CDN + '/assets/images/portfolio/bottom_5_2.jpg',
+    ],
+    smallImages     : [],
+    bigImages       : [],
 
     image_holder_big  : null,
     image_holder_small: null,
@@ -36,16 +80,9 @@ module.exports = BaseView.extend({
         this.image_holder_big = this.$('.js-item.big');
         this.image_holder_small = this.$('.js-item.small');
         this.holder = this.$('.js-content');
+        this.elements = [];
         this.loadBigImages();
         this.loadSmallImages();
-
-        this.elements = [];
-
-        _.each(this.$('.js-item'), function (image) {
-
-            var element = new IdolElement({el: image});
-            this.elements.push(element);
-        }, this);
 
         AppModel.on('request-animation-frame', this.onUpdate, this);
     },
@@ -56,7 +93,6 @@ module.exports = BaseView.extend({
         var offset = window.innerHeight;
 
         var inRange = [];
-
         for (var i = 0; i < this.elements.length; i++) {
 
             var element = this.elements[i];
@@ -76,6 +112,8 @@ module.exports = BaseView.extend({
             if (!inRangeElement.isShowing) {
 
                 inRangeElement.show(time, delay);
+                inRangeElement.start(delay);
+
                 delay += delayIncrement;
                 if (prevY && inRange.originalY !== prevY) {
                     delay = 0;
@@ -123,22 +161,47 @@ module.exports = BaseView.extend({
     },
 
     loadBigImages: function () {
+
         for (var i = 0; i < this.image_holder_big.length; i++) {
-            var img = new Image({urls: this.big_image_urls});
+
+            var details = this.big_image_urls[i];
+            var initialWidth = details.initialWidth;
+            var initialHeight = details.initialHeight;
+            var log = details.log
+
+            var img = new Image({
+                urls         : details.images,
+                offset       : i,
+                log          : log,
+                initialWidth : initialWidth,
+                initialHeight: initialHeight
+            });
             var $holder = $(this.image_holder_big[i]);
             $holder.append(img.$el);
+            img.setOffset();
 
             this.bigImages.push(img);
+            this.elements.push(img);
 
         }
     },
 
     loadSmallImages: function () {
+
+        var initialWidth = 400;
+        var initialHeight = 428;
         for (var i = 0; i < this.image_holder_small.length; i++) {
-            var img = new Image({urls: this.small_image_urls});
+            var img = new Image({
+                urls         : this.small_image_urls,
+                offset       : i,
+                initialWidth : initialWidth,
+                initialHeight: initialHeight
+            });
             var $holder = $(this.image_holder_small[i]);
             $holder.append(img.$el);
+
             this.smallImages.push(img);
+            this.elements.push(img);
         }
     },
 
