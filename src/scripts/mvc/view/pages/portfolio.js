@@ -11,9 +11,9 @@ var IdolElement = require('../modules/idol_element');
 
 module.exports = BaseView.extend({
 
-    big_image_urls  : [
+    big_image_urls: [
         {
-            log          : true,
+            log          : false,
             initialWidth : 572,
             initialHeight: 541,
             images       : [
@@ -25,7 +25,7 @@ module.exports = BaseView.extend({
         },
 
         {
-            log          : true,
+            log          : false,
             initialWidth : 856,
             initialHeight: 541,
             images       : [
@@ -47,29 +47,65 @@ module.exports = BaseView.extend({
         }
 
     ],
+
     small_image_urls: [
-        Config.CDN + '/assets/images/portfolio/bottom_1_0.jpg',
-        Config.CDN + '/assets/images/portfolio/bottom_1_1.jpg',
-        Config.CDN + '/assets/images/portfolio/bottom_1_2.jpg',
+        {
+            initialWidth : 400,
+            initialHeight: 428,
+            images       : [
 
-        Config.CDN + '/assets/images/portfolio/bottom_2_0.jpg',
-        Config.CDN + '/assets/images/portfolio/bottom_2_1.jpg',
-        Config.CDN + '/assets/images/portfolio/bottom_2_2.jpg',
+                Config.CDN + '/assets/images/portfolio/bottom_1_0.jpg',
+                Config.CDN + '/assets/images/portfolio/bottom_1_1.jpg',
+                Config.CDN + '/assets/images/portfolio/bottom_1_2.jpg',
+            ]
+        },
 
-        Config.CDN + '/assets/images/portfolio/bottom_3_0.jpg',
-        Config.CDN + '/assets/images/portfolio/bottom_3_1.jpg',
-        Config.CDN + '/assets/images/portfolio/bottom_3_2.jpg',
+        {
+            log          : false,
+            initialWidth : 400,
+            initialHeight: 428,
+            images       : [
 
-        Config.CDN + '/assets/images/portfolio/bottom_4_0.jpg',
-        Config.CDN + '/assets/images/portfolio/bottom_4_1.jpg',
-        Config.CDN + '/assets/images/portfolio/bottom_4_2.jpg',
+                Config.CDN + '/assets/images/portfolio/bottom_2_0.jpg',
+                Config.CDN + '/assets/images/portfolio/bottom_2_1.jpg',
+                Config.CDN + '/assets/images/portfolio/bottom_2_2.jpg',
+            ]
+        },
+        {
+            initialWidth : 400,
+            initialHeight: 428,
+            images       : [
 
-        Config.CDN + '/assets/images/portfolio/bottom_5_0.jpg',
-        Config.CDN + '/assets/images/portfolio/bottom_5_1.jpg',
-        Config.CDN + '/assets/images/portfolio/bottom_5_2.jpg',
+                Config.CDN + '/assets/images/portfolio/bottom_3_0.jpg',
+                Config.CDN + '/assets/images/portfolio/bottom_3_1.jpg',
+                Config.CDN + '/assets/images/portfolio/bottom_3_2.jpg'
+            ]
+        },
+        {
+            initialWidth : 400,
+            initialHeight: 428,
+            images       : [
+
+                Config.CDN + '/assets/images/portfolio/bottom_4_0.jpg',
+                Config.CDN + '/assets/images/portfolio/bottom_4_1.jpg',
+                Config.CDN + '/assets/images/portfolio/bottom_4_2.jpg',
+            ]
+        },
+        {
+            initialWidth : 400,
+            initialHeight: 428,
+            images       : [
+
+                Config.CDN + '/assets/images/portfolio/bottom_5_0.jpg',
+                Config.CDN + '/assets/images/portfolio/bottom_5_1.jpg',
+                Config.CDN + '/assets/images/portfolio/bottom_5_2.jpg',
+            ]
+        }
+
     ],
-    smallImages     : [],
-    bigImages       : [],
+
+    smallImages: [],
+    bigImages  : [],
 
     image_holder_big  : null,
     image_holder_small: null,
@@ -171,7 +207,7 @@ module.exports = BaseView.extend({
 
             var img = new Image({
                 urls         : details.images,
-                offset       : i,
+                offset       : 0,
                 log          : log,
                 initialWidth : initialWidth,
                 initialHeight: initialHeight
@@ -190,19 +226,34 @@ module.exports = BaseView.extend({
 
         var initialWidth = 400;
         var initialHeight = 428;
+
+        var offset=0;
+
         for (var i = 0; i < this.image_holder_small.length; i++) {
+
+            var details = this.small_image_urls[i];
+            var initialWidth = details.initialWidth;
+            var initialHeight = details.initialHeight;
+            var log = details.log;
+
             var img = new Image({
-                urls         : this.small_image_urls,
-                offset       : i,
+                urls         : details.images,
+                offset       : 0,
+                log          : log,
                 initialWidth : initialWidth,
                 initialHeight: initialHeight
             });
+
+            offset++;
             var $holder = $(this.image_holder_small[i]);
             $holder.append(img.$el);
+            img.setOffset();
 
             this.smallImages.push(img);
             this.elements.push(img);
+
         }
+
     },
 
     hide: function () {

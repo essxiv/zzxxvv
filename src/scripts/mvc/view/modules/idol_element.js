@@ -16,7 +16,7 @@ module.exports = BaseView.extend({
     setOffset: function () {
         this.originalY = this.$el.offset().top;
         TweenMax.set(this.$el, {
-            y    : 0,
+            y    : 100,
             alpha: 0
         });
 
@@ -41,7 +41,7 @@ module.exports = BaseView.extend({
             this.isShowing = false;
             TweenMax.to(this.$el, time, {
                 delay: delay,
-                y    : 0,
+                y    : 100,
                 alpha: 0
             });
         }

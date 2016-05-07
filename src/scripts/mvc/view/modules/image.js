@@ -55,7 +55,7 @@ module.exports = IdolElement.extend({
 
     start: function (delay) {
 
-        //  this.showSlide(delay);
+          this.showSlide(delay);
 
     },
 
@@ -67,9 +67,10 @@ module.exports = IdolElement.extend({
         var that = this;
         var newImage = this.images[this.currentImageIndex];
         TweenMax.set(newImage, {alpha: 0});
-        TweenMax.to(newImage, 0.5, {
+        var time=0.5
+        TweenMax.to(newImage, time, {
 
-            delay     : delay,
+            delay     : time+delay,
             alpha     : 1,
             onComplete: _.bind(function () {
                 (this.currentImage).remove();
