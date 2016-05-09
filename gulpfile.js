@@ -5,7 +5,7 @@ var
     svgmin = require('gulp-svgmin'),
     cheerio = require('gulp-cheerio'),
     svgSprite = require('gulp-svg-sprite'),
-
+    awspublish = require('gulp-awspublish'),
     gulp = require('gulp'),
     awspublish = require('gulp-awspublish'),
     browserify = require('browserify'),
@@ -226,12 +226,12 @@ var tasks = {
         // create a new publisher using S3 options
         // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property
         var publisher = awspublish.create({
-            region         : 'ap-southeast-2',
+            region         : 'us-west-2',
             accessKeyId    : credentials.s3.accessKeyId,
             secretAccessKey: credentials.s3.secretAccessKey,
             params         : {
 
-                Bucket: 'table.touchtech.co.nz'
+                Bucket: 'idol.partners'
             }
         });
 
@@ -255,6 +255,7 @@ var tasks = {
             // print upload updates to console
             .pipe(awspublish.reporter());
     }
+
 };
 
 // Register Tasks
