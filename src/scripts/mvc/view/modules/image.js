@@ -27,7 +27,6 @@ module.exports = IdolElement.extend({
         this.log = options.log;
 
         this.isHero = options.isHero;
-        console.log(this.isHero);
 
         for (var i = 0; i < urls.length; i++) {
             var url = urls[i];
@@ -104,24 +103,6 @@ module.exports = IdolElement.extend({
             newHeight = this.holderHeight;
             newWidth = newHeight * this.ratio;
             tooBig = true;
-        }
-
-        var object = {
-            url          : this.test[0],
-            holderWidth  : this.holderWidth,
-            holderHeight : this.holderHeight,
-            newWidth     : newWidth,
-            newHeight    : newHeight,
-            tooBig       : tooBig,
-            initialWidth : this.initialWidth,
-            initialHeight: this.initialHeight,
-            ratio        : this.ratio
-
-        }
-
-        if (this.log) {
-
-            console.log(object)
         }
 
         var offsetY = (newHeight - this.holderHeight) / 2;

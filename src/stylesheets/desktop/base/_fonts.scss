@@ -99,14 +99,14 @@ span {
 body {
 
   font-family: 'MillerDisplay';
-  font-size: 35px;
+  font-size: 30px;
 
   @media screen and (max-width: $screen-md) {
-    font-size: 26px;
+    font-size: 24px;
   }
 
   @media screen and (max-width: $screen-sm) {
-    font-size: 22px;
+    font-size: 20px;
 
   }
   @media screen and (max-width: $screen-xs-max) {
