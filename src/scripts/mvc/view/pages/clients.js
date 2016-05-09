@@ -22,23 +22,22 @@ module.exports = BaseView.extend({
         _.each(this.logos, function (logoElement) {
 
             var logo = new IdolElement({el: logoElement});
-            this.elements.push(logo);
+            this.addIdolElement(logo);
         }, this);
 
-        AppModel.on('request-animation-frame', this.onUpdate, this);
 
     },
 
-    onUpdate: function () {
+    onIdolElementsUpdate: function () {
 
         var scrollPosition = $(window).scrollTop();
         var offset = window.innerHeight;
 
         var inRange = [];
 
-        for (var i = 0; i < this.elements.length; i++) {
+        for (var i = 0; i < this.idolElements.length; i++) {
 
-            var element = this.elements[i];
+            var element = this.idolElements[i];
             if (element.originalY < scrollPosition + offset) {
                 inRange.push(element);
             }

@@ -18,25 +18,8 @@ module.exports = BaseView.extend({
         _.each([this.title, this.copy], function (logoElement) {
 
             var element = new IdolElement({el: logoElement});
-            this.elements.push(element);
+            this.addIdolElement(element);
         }, this);
-
-         AppModel.on('request-animation-frame', this.onUpdate, this);
-    },
-
-    onUpdate: function () {
-
-        var scrollPosition = $(window).scrollTop();
-        var offset = window.innerHeight/2;
-
-        for (var i = 0; i < this.elements.length; i++) {
-
-            var element = this.elements[i];
-            if (element.originalY < scrollPosition + offset) {
-                element.show(0.5, 0);
-            }
-
-        }
 
     },
 
@@ -44,7 +27,7 @@ module.exports = BaseView.extend({
 
     },
 
-    hide   : function () {
+    hide: function () {
 
         AppModel.off(null, null, this);
     },

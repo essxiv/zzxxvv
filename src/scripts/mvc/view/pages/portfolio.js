@@ -122,18 +122,17 @@ module.exports = BaseView.extend({
         this.loadBigImages();
         this.loadSmallImages();
 
-        AppModel.on('request-animation-frame', this.onUpdate, this);
     },
 
-    onUpdate: function () {
+    onIdolElementsUpdate: function () {
 
         var scrollPosition = $(window).scrollTop();
         var offset = window.innerHeight;
 
         var inRange = [];
-        for (var i = 0; i < this.elements.length; i++) {
+        for (var i = 0; i < this.idolElements.length; i++) {
 
-            var element = this.elements[i];
+            var element = this.idolElements[i];
             if (element.originalY < scrollPosition + offset) {
                 inRange.push(element);
             }
@@ -195,7 +194,6 @@ module.exports = BaseView.extend({
         });
         _.each(this.bigImages, function (image) {
             if (image.isHero) {
-                console.log('dsdssddssd')
                 image.resize(bigHeroImageWidth, bigImageHeight)
             } else {
 
@@ -237,8 +235,7 @@ module.exports = BaseView.extend({
             img.setOffset();
 
             this.bigImages.push(img);
-            this.elements.push(img);
-
+            this.addIdolElement(img);
         }
     },
 
@@ -272,7 +269,8 @@ module.exports = BaseView.extend({
             img.setOffset();
 
             this.smallImages.push(img);
-            this.elements.push(img);
+
+            this.addIdolElement(img);
 
         }
 

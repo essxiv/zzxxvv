@@ -1,5 +1,6 @@
 var BaseView = require('../base/base_view');
 var GradientBlob = require('../modules/gradient_blob');
+var IdolElement = require('../modules/idol_element');
 var TweenMax = require('TweenMax');
 var $ = require('jquery');
 var _ = require('underscore');
@@ -20,6 +21,14 @@ module.exports = BaseView.extend({
             {colors: this.getGradients(0xda7ead)},
             {colors: this.getGradients(0x8ad8ef)}
         ];
+
+        this.elements = [];
+
+        _.each(this.$('.js-scroll-element'), function (logoElement) {
+
+            var element = new IdolElement({el: logoElement});
+            this.addIdolElement(element);
+        }, this);
 
     },
 
@@ -52,21 +61,19 @@ module.exports = BaseView.extend({
         AppModel.on('request-animation-frame', this.update, this);
     },
 
-
-
     onResize: function () {
 
         var textHeight = this.$('.js-content').height();
         var padding = 0;
         var totalHeight = (textHeight > window.innerHeight) ? textHeight + padding : window.innerHeight;
-        totalHeight+=50;
+        totalHeight += 50;
         var offset = ((totalHeight - padding / 2) - textHeight) / 2;
 
         TweenMax.set(this.$('.js-content'), {y: offset});
-        TweenMax.set(this.$el, {height: totalHeight+30 });
+        TweenMax.set(this.$el, {height: totalHeight + 30});
 
         this.htmlCanvas.width = window.innerWidth;
-        this.htmlCanvas.height = totalHeight+padding+30;
+        this.htmlCanvas.height = totalHeight + padding + 30;
 
         this.coloredBackground.scaleX = this.htmlCanvas.width;
         this.coloredBackground.scaleY = this.htmlCanvas.height;
