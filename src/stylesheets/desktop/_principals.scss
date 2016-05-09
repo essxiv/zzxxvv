@@ -60,7 +60,7 @@
       overflow: hidden;
 
       ul {
-        padding-left: 20px;
+        // padding-left: 20px;
 
         li {
           display: block;
@@ -78,6 +78,14 @@
     top: 0;
     //the margin lft is set by code
     //margin-left: 144px;
+
+    .name {
+      font-family: GothamBold;
+    }
+    .info {
+      display: inline-block;
+      padding-top:20px;
+    }
   }
 
 }

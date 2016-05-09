@@ -80,7 +80,7 @@ module.exports = BaseView.extend({
 
         this.background.show(xpos, time);
 
-        this.$el.on('mousedown', _.bind(this.onExitClick, this));
+          this.$el.on('mousedown', _.bind(this.onExitClick, this));
     },
 
     showInfo: function (person) {
@@ -115,15 +115,60 @@ module.exports = BaseView.extend({
         this.background.hide(time, window.innerWidth);
     },
 
+    getTallestInfoBlock: function () {
+        //save current state
+        var js_info_holder = {
+            isHidden: this.$('.js-info-holder').hasClass('hidden')
+        };
+
+        //grab the info items we are not  showing
+        var hiddenInfoItems = this.$('.js-info.hidden');
+
+        //grab the swiper state
+
+        // get the info and list height, compare and pick tallest
+        this.$('.js-info-holder').removeClass('hidden');
+        this.$('.js-info').removeClass('hidden');
+        TweenMax.set($('.js-swiper'), {
+            width: window.innerWidth,
+            x    : 0
+        });
+        var tallest = 0;
+        _.each(this.$('.js-info'), function (el) {
+            var $el = $(el);
+            var height = $el.height();
+            if (height > tallest) {
+                tallest = height;
+            }
+        }, this);
+
+        //set back to current state
+
+        hiddenInfoItems.addClass('hidden');
+        var w = window.innerWidth;
+        if (js_info_holder.isHidden) {
+            w = 0;
+            this.$('.js-info-holder').addClass('hidden');
+        }
+        TweenMax.set($('.js-swiper'), {
+            width: w,
+            x    : 0
+        });
+        var headerHeight = this.$('.js-title').height();
+        return tallest + headerHeight;
+
+    },
+
     onResize: function () {
         var reset = false;
         if (this.$('.js-names').hasClass('hidden')) {
             reset = true;
             this.$('.js-names').removeClass('hidden');
         }
-        var padding = -0;
-        var textHeight = this.$('.js-copy').height();
-        var totalHeight = this.$el.height();
+
+        var padding = 0;
+        var textHeight = this.getTallestInfoBlock();
+        var totalHeight = this.$el.height()+40;
 
         var offset = totalHeight / 2 - textHeight / 2;
         var ypos = offset + padding;
