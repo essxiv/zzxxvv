@@ -58,19 +58,22 @@ module.exports = IdolElement.extend({
 
     start: function (delay) {
 
-        this.showSlide(delay);
+        this.showSlide(delay,true);
 
     },
 
-    showSlide: function (delay) {
+    showSlide: function (delay,skip) {
         this.currentImageIndex++;
         if (this.currentImageIndex > this.images.length - 1) {
             this.currentImageIndex = 0;
         }
         var that = this;
         var newImage = this.images[this.currentImageIndex];
+        if(!skip){
+
         TweenMax.set(newImage, {alpha: 0});
-        var time = 0.5
+        }
+        var time = 3;
         TweenMax.to(newImage, time, {
 
             delay     : time + delay,
@@ -78,7 +81,7 @@ module.exports = IdolElement.extend({
             onComplete: _.bind(function () {
                 (this.currentImage).remove();
                 this.currentImage = newImage;
-                this.showSlide(5);
+                this.showSlide(5 + Math.random() * 5);
             }, that)
         });
         this.$el.append(newImage);

@@ -14,12 +14,22 @@ module.exports = BaseView.extend({
     gradientShapes: [],
 
     initialize: function (options) {
+        this.angle = 0;
         BaseView.prototype.initialize.apply(this);
         this.htmlCanvas = this.$('#services-canvas')[0];
         this.gradients = [
-            {colors: this.getGradients(0xb39d56)},
-            {colors: this.getGradients(0xda7ead)},
-            {colors: this.getGradients(0x8ad8ef)}
+            {
+                colors: this.getGradients(0xda7ead),
+                id    : "pink"
+            },
+            {
+                colors: this.getGradients(0x8ad8ef),
+                id    : 'blue'
+            },
+            {
+                colors: this.getGradients(0xb39d56),
+                id    : 'yellow'
+            },
         ];
 
         this.elements = [];
@@ -58,65 +68,53 @@ module.exports = BaseView.extend({
             this.stage.addChild(gradientShape.getClip());
         }
 
+        this.pink = this.gradientShapes[0].getClip();
+        this.blue = this.gradientShapes[1].getClip();
+        this.yellow = this.gradientShapes[2].getClip();
+
         AppModel.on('request-animation-frame', this.update, this);
     },
 
     onResize: function () {
 
         var textHeight = this.$('.js-content').height();
-        var padding = 0;
-        var totalHeight = (textHeight > window.innerHeight) ? textHeight + padding : window.innerHeight;
-        totalHeight += 50;
-        var offset = ((totalHeight - padding / 2) - textHeight) / 2;
+        var totalHeight = (textHeight > window.innerHeight) ? textHeight : window.innerHeight;
+        var offset = ((totalHeight ) - textHeight) / 2;
 
         TweenMax.set(this.$('.js-content'), {y: offset});
         TweenMax.set(this.$el, {height: totalHeight + 30});
 
         this.htmlCanvas.width = window.innerWidth;
-        this.htmlCanvas.height = totalHeight + padding + 30;
+        this.htmlCanvas.height = totalHeight + 30;
 
         this.coloredBackground.scaleX = this.htmlCanvas.width;
         this.coloredBackground.scaleY = this.htmlCanvas.height;
 
-        for (var i = 0; i < this.gradientShapes.length; i++) {
-            var gradient = this.gradientShapes[i].getClip();
+        this.yellowXpos = 0;
+        this.yellowYpos = window.innerHeight/2;
+        this.yellow.scaleY = window.innerHeight * 2;
+        this.yellow.scaleX = window.innerWidth;
 
-            gradient.scaleY = gradient.scaleX = window.innerWidth;
-            if (window.innerHeight > window.innerWidth) {
-                //portrait
-                gradient.scaleY = gradient.scaleX = window.innerHeight;
+        this.blueXpos = Math.max(700,window.innerWidth+100);
+        this.blue.y = 200;
+        this.blue.scaleY = window.innerHeight * 2;
+        this.blue.scaleX = 2024;
 
-            }
-        }
+        this.pink.x = this.blue.x - 300;
+        this.pink.y = this.blue.y;
+        this.pink.scaleY = this.blue.scaleY;
+        this.pink.scaleX = this.blue.scaleX;
 
     },
 
     update: function () {
 
-        var maxWidth = window.innerWidth;
-        var maxHeight = window.innerHeight;
-        for (var i = 0; i < this.gradientShapes.length; i++) {
-            var gradient = this.gradientShapes[i];
-            var clip = gradient.getClip();
-            clip.x += gradient.vx;
-            if (clip.x > maxWidth) {
-                clip.x = maxWidth
-                gradient.vx *= -1
-            } else if (clip.x < 0) {
-                clip.x = 0;
-                gradient.vx *= -1
-            }
+        this.yellow.x = this.yellowXpos + Math.cos(this.angle) * 100;
+        this.yellow.y = this.yellowYpos;
 
-            clip.y += gradient.vy;
-            if (clip.y > maxHeight) {
-                clip.y = maxHeight
-                gradient.vy *= -1
-            } else if (clip.y < 0) {
-                clip.y = 0;
-                gradient.vy *= -1
-            }
+        this.blue.x = this.blueXpos + Math.cos(this.angle) * -50;
 
-        }
+        this.angle += 0.01;
         this.stage.update();
     },
 
