@@ -74,6 +74,7 @@
     "exdat": "anvaka/dat.gui",
     "fs": "0.0.2",
     "gulp-awspublish": "^3.0.2",
+    "gulp-cheerio": "^0.6.2",
     "gulp-copy": "0.0.2",
     "gulp-replace": "^0.5.4",
     "hammerjs": "^2.0.6",
@@ -83,6 +84,7 @@
     "mkdirp": "^0.5.1",
     "sharp": "^0.13.0",
     "svgmin": "^0.1.0",
+    "ttf2woff2": "^2.0.3",
     "underscore": "^1.8.3",
     "watchify": "^3.7.0"
   }

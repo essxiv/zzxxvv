@@ -67,9 +67,9 @@ var tasks = {
         var curr_hour = d.getHours();
         var curr_min = d.getMinutes();
 
-        var date=curr_date+'_'+curr_month+'_'+curr_year+'_'+ d.getTime();
+        var date = curr_date + '_' + curr_month + '_' + curr_year + '_' + d.getTime();
 
-        paths.cdn_path = 'CDN_VERSION_'+date;
+        paths.cdn_path = 'CDN_VERSION_' + date;
     },
 
     // Clean
@@ -82,7 +82,7 @@ var tasks = {
             .pipe(fileInclude({}))
             .pipe(replace('CDN_PATH', paths.cdn_path))
             .pipe(useref())
-            .pipe(gulpif(((argv.r || argv.release) &&'*.js'), uglify()))
+            .pipe(gulpif(((argv.r || argv.release) && '*.js'), uglify()))
             .pipe(gulp.dest(paths.dist))
     },
     // Scripts
@@ -267,7 +267,7 @@ gulp.task('lint', tasks.lint);
 gulp.task('stylesheets', tasks.stylesheets);
 gulp.task('assets', tasks.assets);
 gulp.task('optimize', ['assets'], tasks.optimize);
-gulp.task('fonts', tasks.fonts);
+//gulp.task('fonts', tasks.fonts);
 gulp.task('test', tasks.test);
 gulp.task('watch', tasks.watch);
 gulp.task('upload', tasks.s3);
@@ -278,7 +278,19 @@ gulp.task('browser_sync', tasks.browser_sync);
 
 // Build tasks
 gulp.task('default', sync.sync(['clean',
-                                ['svg', 'stylesheets', 'assets', 'optimize', 'fonts', 'lint', 'scripts',
+                                ['svg', 'stylesheets', 'assets', 'optimize',
+                                 //'fonts',
+                                 'lint', 'scripts',
                                  'layouts']]));
-gulp.task('live', sync.sync(['clean', ['setCDN', 'stylesheets', 'optimize', 'fonts', 'lint', 'scripts', 'layouts'],
+
+// Deploy tasks
+gulp.task('deploy', sync.sync(['clean',
+                               ['setCDN', 'stylesheets', 'assets', 'optimize',
+                                   //'fonts',
+                                'lint', 'scripts',
+                                'layouts'], 'upload', 'g']));
+
+gulp.task('live', sync.sync(['clean', ['setCDN', 'stylesheets', 'optimize',
+    //'fonts',
+                                       'lint', 'scripts', 'layouts'],
                              'browser_sync', 'watch']));
