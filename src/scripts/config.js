@@ -7,6 +7,8 @@ module.exports = {
     IOS    : window.device.ios(),
     ANDROID: window.device.android(),
 
-    DESKTOP: !window.device.mobile() && !window.device.tablet()
+    DESKTOP: !window.device.mobile() && !window.device.tablet(),
+
+    IDOL_ELEMENT_OFFSET: 150
 
 };

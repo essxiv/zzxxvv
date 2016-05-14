@@ -8,15 +8,25 @@ $header-height: 100px;
 
 
 //calculate
+$left-padding-static:194px;
 $left-padding:10%;
+
+//Font Sizes
+
 
 /* Screen Sizes */
 $screen-xs-max: 767px;
 $screen-sm: 768px;
+$font-sm:20px;
+
+
 $screen-sm-max: 991px;
 $screen-md: 992px;
 $screen-md-max: 1199px;
-$screen-lg: 1200px;
+$font-md:24px;
+
+$screen-lg: 1920px;
+$font-lg:30px;
 
 $black: #000000;
 $semi-black: #2c2c2c;

@@ -10,9 +10,10 @@
 
   .logo-animation {
     font-family: 'GothamBold';
-    font-size: 98pt;
     position: absolute;
     width: 100%;
+
+    font-size: 92px;
 
     //align vertically
     top: 50%;
@@ -25,9 +26,9 @@
       //align horizontally
       display: inline-block;
       line-height: 118px;
-      height: 118px;
+      height: 103px;
 
-      padding-left: 86px;
+      padding-left: 64px;
       text-align: left;
       &:first-child {
         padding-left: 0;
@@ -40,9 +41,9 @@
         //font-size: 20pt;
       }
       @media screen and (max-width: $screen-sm) {
-        font-size: 20pt;
+        font-size: 20px;
         line-height: 10px;
-        height: 89px;
+        height: 82px;
       }
       @media screen and (max-width: $screen-xs-max) {
         padding-left: 20px
@@ -59,8 +60,8 @@
 
           width: 100px;
 
-          padding-left: 60px;
-          padding-right: 60px;
+          padding-left: 50px;
+          padding-right: 50px;
 
           @media screen and (max-width: $screen-md) {
           }

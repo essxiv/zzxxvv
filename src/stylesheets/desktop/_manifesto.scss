@@ -4,15 +4,23 @@
 
   background-color: $black;
   color: white;
+  .callout {
+    white-space: nowrap;
+  }
 
   .content {
-  overflow: hidden;
+    overflow: hidden;
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
     margin-left: $left-padding;
     width: 90%;
     padding-right: 50px;
+    max-width: 680px;
+
+    @media screen and (min-width: $screen-md-max) {
+      margin-left: $left-padding-static;
+    }
 
     @media screen and (max-width: $screen-sm) {
       left: 50%;

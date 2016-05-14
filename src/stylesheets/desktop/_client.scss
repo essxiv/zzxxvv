@@ -7,45 +7,27 @@
 
   position: relative;
   min-height: 100%;
-  text-align: center;
-  overflow:hidden;
+  overflow: hidden;
 
-  .content {
+  width: 100%;
+  max-width: 1280px;
 
-    overflow: hidden;
-    $padding: 10px;
-    padding-left: $padding;
-    padding-right: $padding;
+  position: relative;
 
-    width: 100%;
-    max-width: 1024px;
-    // position: absolute;
 
-    display: inline-block;
+  .animationHolder {
     position: relative;
+  }
 
-    &.low {
-      //margin: 0 auto;
-      //position: relative;
+  .client {
+    position: absolute;
+
+    img {
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
     }
-
-    &.high {
-      //top: 50%;
-      //left: 50%;
-      //transform: translate(-50%, -50%);
-    }
-
-    //text-align: center;
-
-    .client {
-      display: inline-block;
-      //padding: 20px;
-      //width: 100px;
-      padding-bottom: 0;
-      //width: 20%;
-      //height: 16.666666%;
-    }
-
   }
 
 }
