@@ -19,14 +19,39 @@ module.exports = BaseView.extend({
         this.fosterScreen = new PopUp({el: this.$('.js-foster')});
 
         this.$('.js-close').on('click', _.bind(this.onBackClick, this));
-
         this.$('.js-contact-link').on('click', _.bind(this.onStartConversationClick, this));
         this.$('.js-foster-link ').on('click', _.bind(this.onFosterClick, this));
+
+        var areas = [
+            this.$('a'),
+            this.$('.js-foster-link'),
+            this.$('.js-contact'),
+            this.$('.container'),
+            this.$('.js-foster')
+        ];
+
+        for (var i = 0; i < areas.length; i++) {
+            var area = $(areas[i]);
+            area.on('mouseover', _.bind(this.onButtonMouseOver, this));
+            area.on('mouseout', _.bind(this.onButtonMouseOut, this));
+
+        }
     },
 
     show: function () {
         this.setState("DEFAULT");
 
+    },
+
+    onButtonMouseOver: function () {
+
+        EventBus.trigger(EventBus.EVENTS.HIDE_CUSTOM_MOUSE);
+    },
+    onButtonMouseOut : function () {
+        if (this.state !== 'DEFAULT') {
+
+            EventBus.trigger(EventBus.EVENTS.SHOW_CUSTOM_MOUSE);
+        }
     },
 
     onBackClick: function () {
@@ -47,13 +72,16 @@ module.exports = BaseView.extend({
             switch (state) {
                 case "CONTACT":
                     this.currentScreen = this.contactScreen;
+                    EventBus.trigger(EventBus.EVENTS.SHOW_CUSTOM_MOUSE);
                     break;
                 case "FOSTER":
                     this.currentScreen = this.fosterScreen;
+                    EventBus.trigger(EventBus.EVENTS.SHOW_CUSTOM_MOUSE);
                     break;
 
                 default:
                     this.currentScreen = this.mainScreen;
+                    EventBus.trigger(EventBus.EVENTS.HIDE_CUSTOM_MOUSE);
 
             }
 

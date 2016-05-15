@@ -4,6 +4,7 @@
 
   position: relative;
   min-height: 100%;
+  background-attachment: fixed;
   background-image: url("../assets/images/contact/background.jpg");
   background-position: center;
   background-size: cover;
@@ -29,8 +30,13 @@
     max-width: 600px;
 
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    //left: 50%;
+    transform: translate(0, -50%);
+
+    margin-left: $left-padding;
+    @media screen and (min-width: $screen-md-max) {
+      margin-left: $left-padding-static;
+    }
 
     .foster {
       div {
@@ -60,6 +66,8 @@
   .question {
     display: inline-block;
     padding-bottom: 30px;
+
+    font-size: 40px;
   }
 
   .link {
