@@ -6,19 +6,35 @@ var _ = require('underscore');
 
 module.exports = BaseView.extend({
     ids: [],
-    //map: {},
 
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
+        
         this.ids = options.ids;
+        this.images = this.$('img');
     },
 
     showFace: function (faceID) {
         _.each(this.ids, function (id) {
-            this.$el.removeClass(id);
+            this.images.addClass('hidden');
+            this.images.off();
         }, this);
 
-        this.$el.addClass(faceID);
+        var currentFace = this.$('.' + faceID);
+
+        currentFace.one("load", function () {
+            // do stuff
+            TweenMax.fromTo(this, 0.5, {alpha: 0}, {
+                autoAlpha: 1
+            });
+
+        }).each(function () {
+            if (this.complete) {
+                $(this).load();
+            }
+        });
+
+        currentFace.removeClass('hidden');
 
         TweenMax.to(this.$el, 0.5, {
             autoAlpha: 1
