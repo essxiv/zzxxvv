@@ -45,7 +45,7 @@ module.exports = BaseView.extend({
 
     render: function () {
         this.background.render();
-        TweenMax.to(this.faces.el, 0, {alpha: 0});
+        TweenMax.to(this.faces.el, 0, {autoAlpha: 0});
         AppModel.on('request-animation-frame', this.onUpdate, this);
     },
 
@@ -55,7 +55,7 @@ module.exports = BaseView.extend({
 
     onNameClick: function (e) {
 
-        TweenMax.to(this.$('.js-names'), 0.5, {'alpha': 0});
+        TweenMax.to(this.$('.js-copy'), 0.5, {'autoAlpha': 0});
 
         var $name = $(e.currentTarget);
         var data = $name.data();
@@ -63,41 +63,27 @@ module.exports = BaseView.extend({
         var time = 0.5;
 
         this.faces.showFace(person);
-        this.infoBlocks.showTitle();
-        this.showInfo(person);
-
-        TweenMax.to(this.faces.el, time, {
-            alpha: 1
-        });
-
+        this.infoBlocks.show(person);
         this.background.show( time);
 
         this.$el.on('mousedown', _.bind(this.onExitClick, this));
     },
 
-    showInfo: function (person) {
 
-        this.infoBlocks.show(person);
-    },
 
     showNames: function () {
 
-        TweenMax.to(this.$('.js-names'), 0.5, {'alpha': 1});
-        this.infoBlocks.hide();
+        TweenMax.to(this.$('.js-copy'), 0.5, {'autoAlpha': 1});
     },
 
     onExitClick: function () {
 
-        this.infoBlocks.hideTitle();
         this.$el.off('mousedown');
         this.showNames();
-        var time = 0.5;
 
-        TweenMax.to(this.faces.el, time, {
-            alpha: 0
-        });
-
-        this.background.hide(time);
+        this.infoBlocks.hide();
+        this.faces.hide();
+        this.background.hide(0.5);
     },
 
     getTallestInfoBlock: function () {

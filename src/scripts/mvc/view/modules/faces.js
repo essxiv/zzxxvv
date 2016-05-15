@@ -19,6 +19,16 @@ module.exports = BaseView.extend({
         }, this);
 
         this.$el.addClass(faceID);
+
+        TweenMax.to(this.$el, 0.5, {
+            autoAlpha: 1
+        });
+    },
+
+    hide: function (time) {
+        TweenMax.to(this.el, time, {
+            autoAlpha: 0
+        });
     },
 
     resize: function (holderWidth, holderHeight) {

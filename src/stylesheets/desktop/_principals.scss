@@ -2,7 +2,7 @@
 
 .principals {
 
-  color: $white;
+  color: $black;
   overflow: hidden;
 
   h1 {
@@ -24,6 +24,7 @@
     span {
       font-family: MillerDisplay;
       font-size: 23px;
+
       @media screen and (max-width: $screen-xs-max) {
         font-size: 12px;
 
@@ -66,7 +67,6 @@
 
   $content-offset-left: 10%;
 
-
   .content {
     overflow: hidden;
     width: 100%;
@@ -94,8 +94,7 @@
     pointer-events: none;
     position: absolute;
     top: 0;
-    //the margin lft is set by code
-    //margin-left: 144px;
+    color: $white;
 
     .name {
       font-family: GothamBold;

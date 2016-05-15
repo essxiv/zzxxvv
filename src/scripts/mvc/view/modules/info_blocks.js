@@ -20,6 +20,7 @@ module.exports = BaseView.extend({
     },
 
     hide: function () {
+        this.hideTitle();
         this.hideAllBlocks();
     },
 
@@ -35,6 +36,8 @@ module.exports = BaseView.extend({
     },
 
     show: function (person) {
+
+        this.showTitle();
 
         this.hideAllBlocks();
 
