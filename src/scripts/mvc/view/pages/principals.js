@@ -23,7 +23,6 @@ module.exports = BaseView.extend({
 
             this.$('li').on('click', _.bind(this.onNameClick, this));
         }
-        this.$('.info span').addClass('hidden');
 
         this.background = new GradientBackground({
                 el       : this.$('#principals-canvas'),
@@ -64,12 +63,10 @@ module.exports = BaseView.extend({
 
         this.faces.showFace(person);
         this.infoBlocks.show(person);
-        this.background.show( time);
+        this.background.show(time);
 
         this.$el.on('mousedown', _.bind(this.onExitClick, this));
     },
-
-
 
     showNames: function () {
 
@@ -87,57 +84,15 @@ module.exports = BaseView.extend({
     },
 
     getTallestInfoBlock: function () {
-        //save current state
-        var js_info_holder = {
-            isHidden: this.$('.js-info-holder').hasClass('hidden')
-        };
 
-        //grab the info items we are not  showing
-        var hiddenInfoItems = this.$('.js-info.hidden');
-
-        // get the info and list height, compare and pick tallest
-        this.$('.js-info-holder').removeClass('hidden');
-        this.$('.js-info').removeClass('hidden');
-
-        var tallest = 0;
-        _.each(this.$('.js-info'), function (el) {
-            var $el = $(el);
-            var height = $el.height();
-            if (height > tallest) {
-                tallest = height;
-            }
-        }, this);
-
-        //set back to current state
-
-        hiddenInfoItems.addClass('hidden');
-        var w = window.innerWidth;
-        if (js_info_holder.isHidden) {
-            w = 0;
-            this.$('.js-info-holder').addClass('hidden');
-        }
-
-        var headerHeight = this.$('.js-title').height();
-        return tallest + headerHeight;
+        return 600;
 
     },
 
     onResize: function () {
-        var reset = false;
-        if (this.$('.js-names').hasClass('hidden')) {
-            reset = true;
-            this.$('.js-names').removeClass('hidden');
-        }
 
-        var padding = 0;
-        var textHeight = this.getTallestInfoBlock();
-        var totalHeight = this.$el.height() + 40;
-
-        var offset = totalHeight / 2 - textHeight / 2;
-        var ypos = offset + padding;
-        if (ypos <= 0) {
-            ypos = 0;
-        }
+        var totalHeight = 700;
+        var ypos = 100;
 
         TweenMax.set(this.$('.js-info-holder'), {
             y    : ypos,
@@ -147,12 +102,7 @@ module.exports = BaseView.extend({
         TweenMax.set(this.$('.js-content'), {height: totalHeight});
         TweenMax.set(this.$el, {height: totalHeight});
 
-        this.background.resize(window.innerWidth, totalHeight);
-
-        if (reset) {
-            this.$('.js-names').addClass('hidden');
-
-        }
+        this.background.resize(window.innerWidth, totalHeight+5);
 
     },
 

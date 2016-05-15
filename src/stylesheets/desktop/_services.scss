@@ -28,31 +28,7 @@
 
       z-index: 99;
 
-      ul {
-        padding: 0;
 
-        li {
-          font-size: 13px;
-          display: inline-block;
-          padding-bottom: 20px;
-
-          @media screen and (max-width: $screen-md) {
-            padding-bottom: 30px;
-          }
-          @media screen and (max-width: $screen-sm) {
-
-            font-size: 10px;
-
-          }
-          @media screen and (max-width: $screen-xs-max) {
-
-          }
-
-          &:not(:first-child):before {
-            content: '\00a0\2022\00a0\00a0';
-          }
-        }
-      }
 
       .item {
         //width: 80%;
