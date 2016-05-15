@@ -46,6 +46,8 @@ module.exports = BaseView.extend({
         this.coloredBackground.graphics.drawRect(0, 0, 1, 1);
         this.coloredBackground.graphics.endFill();
 
+        this.coloredBackground.alpha=0;
+
         this.stage.addChild(this.coloredBackground);
 
         for (var i = 0; i < this.gradients.length; i++) {
@@ -63,15 +65,14 @@ module.exports = BaseView.extend({
     update: function () {
 
         var bottomLeft = this.gradientShapes[0];
-        var clip = bottomLeft.getClip();
-        this.coloredBackground.scaleX = this.width;
 
         this.stage.update();
     },
 
-    show: function (width, time) {
+    show: function ( time) {
 
-        TweenMax.to(this, time, {width: width});
+        TweenMax.to(this.coloredBackground, time, {alpha: 1});
+
         for (var i = 0; i < this.gradientShapes.length; i++) {
             var gradient = this.gradientShapes[i].getClip();
             TweenMax.to(gradient, time, {
@@ -82,10 +83,10 @@ module.exports = BaseView.extend({
 
     },
 
-    hide: function (time, width) {
-        TweenMax.to(this, time, {
+    hide: function (time) {
+        TweenMax.to(this.coloredBackground, time, {
             delay: 0,
-            width: 0
+            alpha: 0
         });
         for (var i = 0; i < this.gradientShapes.length; i++) {
             var gradient = this.gradientShapes[i].getClip();
@@ -97,7 +98,7 @@ module.exports = BaseView.extend({
 
         this.htmlCanvas.width = width;
         this.htmlCanvas.height = height;
-        //this.coloredBackground.scaleX = this.htmlCanvas.width;
+        this.coloredBackground.scaleX = this.htmlCanvas.width;
         this.coloredBackground.scaleY = this.htmlCanvas.height;
 
         for (var i = 0; i < this.gradientShapes.length; i++) {

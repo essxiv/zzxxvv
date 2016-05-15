@@ -5,12 +5,39 @@
   color: $white;
   overflow: hidden;
 
+  h1 {
+
+    font-size: 95px;
+    @media screen and (max-width: $screen-xs-max) {
+      font-size: 40px
+    }
+  }
+  ul {
+    font-size: 28px;
+    padding-top: 14px;
+
+    @media screen and (max-width: $screen-xs-max) {
+
+      font-size: 15px;
+    }
+
+    span {
+      font-family: MillerDisplay;
+      font-size: 23px;
+      @media screen and (max-width: $screen-xs-max) {
+        font-size: 12px;
+
+      }
+    }
+  }
+
   canvas {
     position: absolute;
     top: 0;
   }
 
   .mugshot {
+    right: 0;
     &.matt {
       background-image: url("../assets/images/principals/Matt_Walsh.jpg");
     }
@@ -38,16 +65,7 @@
   }
 
   $content-offset-left: 10%;
-  .swiper {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    z-index: $z-index-swiper;
-    overflow: hidden;
-    width: 0;
 
-  }
 
   .content {
     overflow: hidden;
@@ -84,7 +102,7 @@
     }
     .info {
       display: inline-block;
-      padding-top:20px;
+      padding-top: 20px;
     }
   }
 

@@ -45,7 +45,7 @@ module.exports = BaseView.extend({
 
     render: function () {
         this.background.render();
-        TweenMax.to(this.faces.el, 0, {x: window.innerWidth});
+        TweenMax.to(this.faces.el, 0, {alpha: 0});
         AppModel.on('request-animation-frame', this.onUpdate, this);
     },
 
@@ -60,59 +60,44 @@ module.exports = BaseView.extend({
         var $name = $(e.currentTarget);
         var data = $name.data();
         var person = data.person;
+        var time = 0.5;
 
         this.faces.showFace(person);
-        var time = 0.5;
         this.infoBlocks.showTitle();
-        var complete = _.bind(function () {
-            this.showInfo(person);
-        }, this);
-
-        var xpos = window.innerWidth - this.faces.$el.width();
-        TweenMax.to(this.$('.js-swiper'), time, {
-            width     : xpos,
-            onComplete: complete
-        });
+        this.showInfo(person);
 
         TweenMax.to(this.faces.el, time, {
-            x: xpos
+            alpha: 1
         });
 
-        this.background.show(xpos, time);
+        this.background.show( time);
 
-          this.$el.on('mousedown', _.bind(this.onExitClick, this));
+        this.$el.on('mousedown', _.bind(this.onExitClick, this));
     },
 
     showInfo: function (person) {
-
-        TweenMax.set(this.$('.js-swiper'), {width: window.innerWidth});
 
         this.infoBlocks.show(person);
     },
 
     showNames: function () {
 
-        var xpos = window.innerWidth - this.faces.$el.width();
-        TweenMax.set(this.$('.js-swiper'), {width: xpos});
         TweenMax.to(this.$('.js-names'), 0.5, {'alpha': 1});
         this.infoBlocks.hide();
     },
 
     onExitClick: function () {
 
+        this.infoBlocks.hideTitle();
         this.$el.off('mousedown');
         this.showNames();
         var time = 0.5;
-        TweenMax.to($('.js-swiper'), time, {
-            width: 0,
-            x    : 0
-        });
 
         TweenMax.to(this.faces.el, time, {
-            x: window.innerWidth
+            alpha: 0
         });
 
-        this.background.hide(time, window.innerWidth);
+        this.background.hide(time);
     },
 
     getTallestInfoBlock: function () {
@@ -124,15 +109,10 @@ module.exports = BaseView.extend({
         //grab the info items we are not  showing
         var hiddenInfoItems = this.$('.js-info.hidden');
 
-        //grab the swiper state
-
         // get the info and list height, compare and pick tallest
         this.$('.js-info-holder').removeClass('hidden');
         this.$('.js-info').removeClass('hidden');
-        TweenMax.set($('.js-swiper'), {
-            width: window.innerWidth,
-            x    : 0
-        });
+
         var tallest = 0;
         _.each(this.$('.js-info'), function (el) {
             var $el = $(el);
@@ -150,10 +130,7 @@ module.exports = BaseView.extend({
             w = 0;
             this.$('.js-info-holder').addClass('hidden');
         }
-        TweenMax.set($('.js-swiper'), {
-            width: w,
-            x    : 0
-        });
+
         var headerHeight = this.$('.js-title').height();
         return tallest + headerHeight;
 
@@ -168,7 +145,7 @@ module.exports = BaseView.extend({
 
         var padding = 0;
         var textHeight = this.getTallestInfoBlock();
-        var totalHeight = this.$el.height()+40;
+        var totalHeight = this.$el.height() + 40;
 
         var offset = totalHeight / 2 - textHeight / 2;
         var ypos = offset + padding;
@@ -190,9 +167,6 @@ module.exports = BaseView.extend({
             this.$('.js-names').addClass('hidden');
 
         }
-
-        //set the ofset in pixels
-        this.$('.js-info-holder').css({'margin-left': window.innerWidth * 0.1});
 
     },
 
