@@ -54,6 +54,28 @@ module.exports = IdolElement.extend({
         this.currentImage = this.images[offset];
         this.currentImageIndex = offset;
 
+
+        this.$el.on('mouseover', _.bind(this.onMouseOver, this));
+        this.$el.on('mouseout', _.bind(this.onMouseOut, this));
+
+    },
+
+    onMouseOver: function (e) {
+        var img = e.currentTarget;
+        var scale = 1.2;
+        TweenMax.to(this.$el, 1, {
+            scaleX: scale,
+            scaleY: scale
+        });
+    },
+
+    onMouseOut: function (e) {
+        var img = e.currentTarget;
+        var scale = 1;
+        TweenMax.to(this.$el, 3, {
+            scaleX: scale,
+            scaleY: scale
+        });
     },
 
     start: function (delay) {

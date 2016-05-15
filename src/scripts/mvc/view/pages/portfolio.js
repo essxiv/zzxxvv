@@ -168,6 +168,24 @@ module.exports = BaseView.extend({
     onClick: function () {
     },
 
+    onMouseOver: function (e) {
+        var img = e.currentTarget;
+        var scale = 1.2;
+        TweenMax.to(img, 1, {
+            scaleX: scale,
+            scaleY: scale
+        });
+    },
+
+    onMouseOut: function (e) {
+        var img = e.currentTarget;
+        var scale = 1;
+        TweenMax.to(img, 3, {
+            scaleX: scale,
+            scaleY: scale
+        });
+    },
+
     onResize: function () {
 
         var heroWidth = 0.4;

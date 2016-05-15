@@ -57,6 +57,27 @@ module.exports = BaseView.extend({
             this.addIdolElement(logo);
         }, this);
 
+        this.$('img').on('mouseover', _.bind(this.onMouseOver, this));
+        this.$('img').on('mouseout', _.bind(this.onMouseOut, this));
+
+    },
+
+    onMouseOver: function (e) {
+        var img = e.currentTarget;
+        var scale = 1.2;
+        TweenMax.to(img, 1, {
+            scaleX: scale,
+            scaleY: scale
+        });
+    },
+
+    onMouseOut: function (e) {
+        var img = e.currentTarget;
+        var scale = 1;
+        TweenMax.to(img, 3, {
+            scaleX: scale,
+            scaleY: scale
+        });
     },
 
     onIdolElementsUpdate: function () {
