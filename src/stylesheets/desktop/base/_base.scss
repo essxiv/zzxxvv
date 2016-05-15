@@ -6,6 +6,18 @@ html, body {
   margin: 0;
   padding: 0;
 
+  &.custom-cursor{
+    cursor:none;
+  }
+
+}
+
+.cursor-view {
+  position: absolute;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  z-index: $z-index-cursor;
 }
 
 .clearfix {

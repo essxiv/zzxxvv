@@ -31,6 +31,8 @@ var PrincipalsView = require('../view/pages/principals');
 var ContactView = require('../view/pages/contact');
 var Footer = require('../view/modules/footer');
 
+var CustomCursorView = require('../view/modules/cursor_view');
+
 Router.createRoutes([
 
     new Route([""], AppModel.PAGES.HERO),
@@ -99,6 +101,8 @@ module.exports = Backbone.View.extend({
 
         $('.js-app-container-desktop').removeClass('hidden');
         ScrollModel.setMap(viewMap);
+
+        this.customCursorView=new CustomCursorView({el:$('.js-cursor-view')})
 
         this.transitioner = new Transitioner({
             el        : $('.js-app-container-desktop'),

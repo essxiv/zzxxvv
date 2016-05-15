@@ -1,5 +1,6 @@
 var Backbone = require('backbone');
 var ScrollModel = require('../../../../model/scroll_model');
+var EventBus = require('EventBus');
 var $ = require('jquery');
 var _ = require('underscore');
 Backbone.$ = $;
@@ -48,6 +49,9 @@ module.exports = Backbone.View.extend({
 
     //This is a very basic transition,first hide and then show
     show: function (page) {
+
+
+        EventBus.trigger(EventBus.EVENTS.HIDE_CUSTOM_MOUSE);
 
         var pageId = page;
         //# If the view is already displayed, abort.

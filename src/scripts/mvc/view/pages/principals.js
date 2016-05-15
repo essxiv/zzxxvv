@@ -56,6 +56,8 @@ module.exports = BaseView.extend({
 
         TweenMax.to(this.$('.js-copy'), 0.5, {'autoAlpha': 0});
 
+        EventBus.trigger(EventBus.EVENTS.SHOW_CUSTOM_MOUSE);
+
         var $name = $(e.currentTarget);
         var data = $name.data();
         var person = data.person;
@@ -70,6 +72,7 @@ module.exports = BaseView.extend({
 
     showNames: function () {
 
+        EventBus.trigger(EventBus.EVENTS.HIDE_CUSTOM_MOUSE);
         TweenMax.to(this.$('.js-copy'), 0.5, {'autoAlpha': 1});
     },
 
@@ -91,7 +94,7 @@ module.exports = BaseView.extend({
 
     onResize: function () {
 
-        var totalHeight = 700;
+        var totalHeight = Math.max(700, window.innerHeight);
         var ypos = 100;
 
         TweenMax.set(this.$('.js-info-holder'), {
@@ -102,11 +105,13 @@ module.exports = BaseView.extend({
         TweenMax.set(this.$('.js-content'), {height: totalHeight});
         TweenMax.set(this.$el, {height: totalHeight});
 
-        this.background.resize(window.innerWidth, totalHeight+5);
+        this.background.resize(window.innerWidth, totalHeight + 5);
 
     },
-
-    destroy: function () {
+    hide    : function () {
+        this.onExitClick();
+    },
+    destroy : function () {
         BaseView.prototype.destroy.apply(this);
 
     },
