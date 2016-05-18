@@ -8,7 +8,6 @@ var Letter = require('../modules/letter');
 var EventBus = require('EventBus');
 var AppModel = require('../../model/app_model');
 var ScrollModel = require('../../model/scroll_model');
-//require('TweenMaxScrollToPlugin');
 
 module.exports = BaseView.extend({
 

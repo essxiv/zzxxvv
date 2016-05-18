@@ -32,6 +32,7 @@ var ContactView = require('../view/pages/contact');
 var Footer = require('../view/modules/footer');
 
 var CustomCursorView = require('../view/modules/cursor_view');
+var MobileMenu = require('../view/modules/mobile_menu');
 
 Router.createRoutes([
 
@@ -62,7 +63,6 @@ viewMap[AppModel.PAGES.MANIFESTO] = {
     className   : ManifestoView,
     nodeSelector: '.js-manifest'
 };
-
 
 viewMap[AppModel.PAGES.CLIENTS] = {
     className   : ClientsView,
@@ -102,7 +102,7 @@ module.exports = Backbone.View.extend({
         $('.js-app-container-desktop').removeClass('hidden');
         ScrollModel.setMap(viewMap);
 
-        this.customCursorView=new CustomCursorView({el:$('.js-cursor-view')})
+        this.customCursorView = new CustomCursorView({el: $('.js-cursor-view')})
 
         this.transitioner = new Transitioner({
             el        : $('.js-app-container-desktop'),
@@ -110,7 +110,8 @@ module.exports = Backbone.View.extend({
             transition: new DefaultTransition()
         });
 
-        var footer = new Footer({el: $('.js-footer')})
+        var footer = new Footer({el: $('.js-footer')});
+        var mobileMenu = new MobileMenu({el: $('.js-mobile-menu')});
 
         this.addEvents();
         this.onResize();
