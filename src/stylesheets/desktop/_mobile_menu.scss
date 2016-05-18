@@ -2,6 +2,17 @@
 @import "hamburger/hamburgers";
 
 .mobile-menu {
+
+  display:none;
+  @media screen and (max-width: $screen-sm) {
+
+    display:inherit;
+  }
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
   position: fixed;
   z-index: $z-index-mobile-menu;
   top: 0;
@@ -13,25 +24,26 @@
     left: 0;
   }
   .menu {
-    display: none;
     position: absolute;
     top: 0;
     padding-left: 50px;
-    //TODO: vertical aign
+
+
+
     background-image: url('../assets/images/mobile/mobile_bg.png');
     background-size: cover;
     background-color: #d85076;
 
-
     ul {
+      top: 50%;
+      transform: translateY(-50%);
+      position: absolute;
       color: $white;
       font-family: GothamBold;
       list-style: none;
+      font-size: 27px;
     }
 
-    &.is-active {
-      display: inherit;
-    }
   }
 }
 
