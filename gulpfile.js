@@ -148,7 +148,7 @@ var tasks = {
     },
     // Optimize Images
     optimize   : function () {
-        return gulp.src('./dist/assets/**/*.{gif,jpg,png,svg}')
+        return gulp.src('./dist/'+paths.cdn_path+'/assets/**/*.{gif,jpg,png,svg}')
             .pipe(imagemin({
                       progressive      : true,
                       svgoPlugins      : [{removeViewBox: false}],
@@ -267,7 +267,7 @@ gulp.task('lint', tasks.lint);
 gulp.task('stylesheets', tasks.stylesheets);
 gulp.task('assets', tasks.assets);
 gulp.task('optimize', ['assets'], tasks.optimize);
-//gulp.task('fonts', tasks.fonts);
+gulp.task('fonts', tasks.fonts);
 gulp.task('test', tasks.test);
 gulp.task('watch', tasks.watch);
 gulp.task('upload', tasks.s3);
@@ -279,18 +279,18 @@ gulp.task('browser_sync', tasks.browser_sync);
 // Build tasks
 gulp.task('default', sync.sync(['clean',
                                 ['svg', 'stylesheets', 'assets', 'optimize',
-                                 //'fonts',
+                                 'fonts',
                                  'lint', 'scripts',
                                  'layouts']]));
 
 // Deploy tasks
 gulp.task('deploy', sync.sync(['clean',
                                ['setCDN', 'stylesheets', 'assets', 'optimize',
-                                   //'fonts',
+                                'fonts',
                                 'lint', 'scripts',
-                                'layouts'], 'upload', 'g']));
+                                'layouts'], 'upload']));
 
 gulp.task('live', sync.sync(['clean', ['setCDN', 'stylesheets', 'optimize',
-    //'fonts',
+                                       'fonts',
                                        'lint', 'scripts', 'layouts'],
                              'browser_sync', 'watch']));
