@@ -17,12 +17,19 @@ module.exports = BaseView.extend({
 
     },
 
-    reverseColor: function () {
+    setBlack: function () {
 
-        this.$('.js-hamburger .hamburger-inner').toggleClass('reversed');
+        this.$('.js-hamburger .hamburger-inner').removeClass('reversed');
+    },
+
+    setWhite: function () {
+
+        this.$('.js-hamburger .hamburger-inner').addClass('reversed');
     },
 
     onClick: function (e) {
+        this.setWhite();
+        this.$el.toggleClass('full');
         this.$('.js-hamburger').toggleClass('is-active');
         this.$('.js-menu').toggleClass('is-active');
         this.html.toggleClass('no-scroll');

@@ -16,10 +16,18 @@
     display: none;
     position: absolute;
     top: 0;
-    padding-top: 30px;
+    padding-left: 50px;
+    //TODO: vertical aign
     background-image: url('../assets/images/mobile/mobile_bg.png');
     background-size: cover;
     background-color: #d85076;
+
+
+    ul {
+      color: $white;
+      font-family: GothamBold;
+      list-style: none;
+    }
 
     &.is-active {
       display: inherit;
