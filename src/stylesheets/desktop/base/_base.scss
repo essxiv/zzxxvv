@@ -6,13 +6,13 @@ html, body {
   margin: 0;
   padding: 0;
 
-  &.custom-cursor{
-    cursor:none;
+  &.custom-cursor {
+    cursor: none;
   }
 
 }
 
-.no-select{
+.no-select {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -26,6 +26,11 @@ html, body {
   width: 100%;
   height: 100%;
   z-index: $z-index-cursor;
+
+  &img {
+    position: absolute;
+  }
+
 }
 
 .clearfix {

@@ -48,29 +48,29 @@ module.exports = BaseView.extend({
     },
 
     render: function () {
-        this.stage = new createjs.Stage("services-canvas");
-
-        this.coloredBackground = new createjs.Shape();
-        this.coloredBackground.graphics.beginFill('#de7d7a');
-        this.coloredBackground.graphics.drawRect(0, 0, 1, 1);
-        this.coloredBackground.graphics.endFill();
-
-        this.stage.addChild(this.coloredBackground);
-
-        for (var i = 0; i < this.gradients.length; i++) {
-            var gradient = this.gradients[i];
-
-            var gradientShape = new GradientBlob({config: gradient});
-            gradientShape.getClip().x = Math.random() * window.innerWidth;
-            gradientShape.getClip().y = Math.random() * window.innerHeight;
-
-            this.gradientShapes.push(gradientShape);
-            this.stage.addChild(gradientShape.getClip());
-        }
-
-        this.pink = this.gradientShapes[0].getClip();
-        this.blue = this.gradientShapes[1].getClip();
-        this.yellow = this.gradientShapes[2].getClip();
+        //this.stage = new createjs.Stage("services-canvas");
+        //
+        //this.coloredBackground = new createjs.Shape();
+        //this.coloredBackground.graphics.beginFill('#de7d7a');
+        //this.coloredBackground.graphics.drawRect(0, 0, 1, 1);
+        //this.coloredBackground.graphics.endFill();
+        //
+        //this.stage.addChild(this.coloredBackground);
+        //
+        //for (var i = 0; i < this.gradients.length; i++) {
+        //    var gradient = this.gradients[i];
+        //
+        //    var gradientShape = new GradientBlob({config: gradient});
+        //    gradientShape.getClip().x = Math.random() * window.innerWidth;
+        //    gradientShape.getClip().y = Math.random() * window.innerHeight;
+        //
+        //    this.gradientShapes.push(gradientShape);
+        //    this.stage.addChild(gradientShape.getClip());
+        //}
+        //
+        //this.pink = this.gradientShapes[0].getClip();
+        //this.blue = this.gradientShapes[1].getClip();
+        //this.yellow = this.gradientShapes[2].getClip();
 
         AppModel.on('request-animation-frame', this.update, this);
     },
@@ -84,38 +84,38 @@ module.exports = BaseView.extend({
         TweenMax.set(this.$('.js-content'), {y: offset});
         TweenMax.set(this.$el, {height: totalHeight + 30});
 
-        this.htmlCanvas.width = window.innerWidth;
-        this.htmlCanvas.height = totalHeight + 30;
-
-        this.coloredBackground.scaleX = this.htmlCanvas.width;
-        this.coloredBackground.scaleY = this.htmlCanvas.height;
-
-        this.yellowXpos = 0;
-        this.yellowYpos = window.innerHeight/2;
-        this.yellow.scaleY = window.innerHeight * 2;
-        this.yellow.scaleX = window.innerWidth;
-
-        this.blueXpos = Math.max(700,window.innerWidth+100);
-        this.blue.y = 200;
-        this.blue.scaleY = window.innerHeight * 2;
-        this.blue.scaleX = 2024;
-
-        this.pink.x = this.blue.x - 300;
-        this.pink.y = this.blue.y;
-        this.pink.scaleY = this.blue.scaleY;
-        this.pink.scaleX = this.blue.scaleX;
+        //this.htmlCanvas.width = window.innerWidth;
+        //this.htmlCanvas.height = totalHeight + 30;
+        //
+        //this.coloredBackground.scaleX = this.htmlCanvas.width;
+        //this.coloredBackground.scaleY = this.htmlCanvas.height;
+        //
+        //this.yellowXpos = 0;
+        //this.yellowYpos = window.innerHeight/2;
+        //this.yellow.scaleY = window.innerHeight * 2;
+        //this.yellow.scaleX = window.innerWidth;
+        //
+        //this.blueXpos = Math.max(700,window.innerWidth+100);
+        //this.blue.y = 200;
+        //this.blue.scaleY = window.innerHeight * 2;
+        //this.blue.scaleX = 2024;
+        //
+        //this.pink.x = this.blue.x - 300;
+        //this.pink.y = this.blue.y;
+        //this.pink.scaleY = this.blue.scaleY;
+        //this.pink.scaleX = this.blue.scaleX;
 
     },
 
     update: function () {
 
-        this.yellow.x = this.yellowXpos + Math.cos(this.angle) * 100;
-        this.yellow.y = this.yellowYpos;
-
-        this.blue.x = this.blueXpos + Math.cos(this.angle) * -50;
-
-        this.angle += 0.01;
-        this.stage.update();
+        //this.yellow.x = this.yellowXpos + Math.cos(this.angle) * 100;
+        //this.yellow.y = this.yellowYpos;
+        //
+        //this.blue.x = this.blueXpos + Math.cos(this.angle) * -50;
+        //
+        //this.angle += 0.01;
+        //this.stage.update();
     },
 
     destroy: function () {

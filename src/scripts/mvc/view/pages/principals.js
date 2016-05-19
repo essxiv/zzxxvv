@@ -95,7 +95,8 @@ module.exports = BaseView.extend({
     onResize: function () {
 
         var totalHeight = Math.max(700, window.innerHeight);
-        var ypos = 100;
+        var contentHeight = 430;
+        var ypos = window.innerHeight / 2 - contentHeight / 2;
 
         TweenMax.set(this.$('.js-info-holder'), {
             y    : ypos,
@@ -104,7 +105,7 @@ module.exports = BaseView.extend({
         TweenMax.set(this.$('.js-copy'), {y: ypos});
         TweenMax.set(this.$('.js-content'), {height: totalHeight});
         TweenMax.set(this.$el, {height: totalHeight});
-
+        this.faces.resize(0.45 * window.innerWidth, totalHeight);
         this.background.resize(window.innerWidth, totalHeight + 5);
 
     },

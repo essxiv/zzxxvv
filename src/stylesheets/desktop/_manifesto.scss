@@ -3,9 +3,25 @@
 .manifesto {
 
   background-color: $black;
-  color: white;
+  color: $white;
   .callout {
     white-space: nowrap;
+  }
+
+  p {
+
+    @media screen and (min-width: $screen-md) {
+
+      font-size: $font-lg;
+    }
+
+  }
+
+  h1 {
+    @media screen and (min-width: $screen-md) {
+
+      font-size: 50px;
+    }
   }
 
   .content {
@@ -25,7 +41,7 @@
     @media screen and (max-width: $screen-sm) {
       left: 50%;
       transform: translate(-50%, -50%);
-      margin-left: 0;
+      margin-left: 30px;
     }
 
   }

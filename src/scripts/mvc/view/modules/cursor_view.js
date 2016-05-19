@@ -44,10 +44,14 @@ module.exports = BaseView.extend({
         this.mouseX = e.pageX - 30;
         this.mouseY = e.pageY - 30;
     },
+    onResize   : function () {
 
-    onUpdate: function () {
+    },
+    onUpdate   : function () {
 
+        this.mouseX = Math.min(window.innerWidth - 110, this.mouseX);
         TweenMax.set(this.cursorImage, {
+            //position:'absolute',
             x: this.mouseX,
             y: this.mouseY
         });

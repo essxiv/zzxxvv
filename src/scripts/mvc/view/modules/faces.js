@@ -9,9 +9,10 @@ module.exports = BaseView.extend({
 
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
-        
+
         this.ids = options.ids;
         this.images = this.$('img');
+        this.ratio = 649 / 850;
     },
 
     showFace: function (faceID) {
@@ -48,6 +49,17 @@ module.exports = BaseView.extend({
     },
 
     resize: function (holderWidth, holderHeight) {
+        var newWidth = this.$el.width();
+        var newHeight = newWidth / this.ratio;
+
+        if (newHeight < holderHeight) {
+            newHeight = holderHeight;
+            newWidth = newHeight * this.ratio;
+        }
+
+        this.images.attr('height', Math.round(newHeight));
+        this.images.attr('width', Math.round(newWidth));
+
 
     }
 

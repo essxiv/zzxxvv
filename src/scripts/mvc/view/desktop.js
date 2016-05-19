@@ -122,6 +122,7 @@ module.exports = Backbone.View.extend({
 
     addEvents: function () {
         $(window).on('resize', this.onResize);
+        this.customCursorView.onResize();
     },
 
     onResize: function (evt) {

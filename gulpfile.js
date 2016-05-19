@@ -279,18 +279,18 @@ gulp.task('browser_sync', tasks.browser_sync);
 // Build tasks
 gulp.task('default', sync.sync(['clean',
                                 ['svg', 'stylesheets', 'assets', 'optimize',
-                                 'fonts',
+                                // 'fonts',
                                  'lint', 'scripts',
                                  'layouts']]));
 
 // Deploy tasks
 gulp.task('deploy', sync.sync(['clean',
                                ['setCDN', 'stylesheets', 'assets', 'optimize',
-                                'fonts',
+                             //   'fonts',
                                 'lint', 'scripts',
                                 'layouts'], 'upload']));
 
 gulp.task('live', sync.sync(['clean', ['setCDN', 'stylesheets', 'optimize',
-                                       'fonts',
+                                   //    'fonts',
                                        'lint', 'scripts', 'layouts'],
                              'browser_sync', 'watch']));

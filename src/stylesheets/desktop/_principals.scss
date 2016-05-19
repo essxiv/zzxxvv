@@ -39,31 +39,15 @@
 
   .mugshot {
     position: absolute;
-    background-size: cover;
+     background-size: cover;
     right: 0;
     width: 47%;
-    max-width: 800px;
+    //max-width: 800px;
     height: 100%;
 
     img {
-      width: 100%;
+      //width: 100%;
     }
-
-    //&.matt {
-    //  background-image: url("../assets/images/principals/Matt_Walsh.jpg");
-    //}
-    //&.josh {
-    //  background-image: url("../assets/images/principals/Josh_Held.jpg");
-    //}
-    //&.scott {
-    //  background-image: url("../assets/images/principals/Scott_Pargett.jpg");
-    //}
-    //&.brad {
-    //  background-image: url("../assets/images/principals/Brad_Burke.jpg");
-    //}
-    //&.abe {
-    //  background-image: url("../assets/images/principals/Abe_Cortez.jpg");
-    //}
 
   }
 
@@ -98,6 +82,7 @@
     position: absolute;
     top: 0;
     color: $white;
+    max-width: 780px;
 
     div {
       padding-top: 17px;
