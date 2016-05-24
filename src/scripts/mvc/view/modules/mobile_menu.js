@@ -13,10 +13,32 @@ module.exports = BaseView.extend({
         BaseView.prototype.initialize.apply(this);
 
         this.$('.js-hamburger').on('click', _.bind(this.onClick, this));
+        this.$('li').on('click', _.bind(this.onMenuButtonClick, this));
         this.html = $('html');
 
         TweenMax.set(this.$('.js-menu'), {autoAlpha: 0});
         TweenMax.set(this.$('li'), {alpha: 0});
+
+        AppModel.on('change:pageAtTop', this.onPageChange, this);
+
+    },
+
+    onPageChange: function () {
+
+        var page = AppModel.get('pageAtTop');
+
+        switch (page) {
+
+            case AppModel.PAGES.HERO:
+            case AppModel.PAGES.CLIENTS:
+            case AppModel.PAGES.PRINCIPALS:
+            case AppModel.PAGES.PORTFOLIO:
+                this.setBlack();
+                break;
+
+            default:
+                this.setWhite();
+        }
 
     },
 
@@ -40,6 +62,19 @@ module.exports = BaseView.extend({
 
     },
 
+    onMenuButtonClick: function (e) {
+        var $li = $(e.target);
+        var hash = '#' + $li.data().anchor;
+
+        var target = $(hash);
+        if (target.length) {
+            $('html, body').animate({scrollTop: target.offset().top},
+                1000);
+        }
+
+        this.hide();
+    },
+
     show: function () {
         this.setWhite();
         this.$el.addClass('full');
@@ -56,15 +91,17 @@ module.exports = BaseView.extend({
             delay += 0.05;
         }, this);
     },
-    hide: function () {
-        TweenMax.to(this.$('.js-menu'), 0.1, {autoAlpha: 0});
-        TweenMax.to(this.$('li'), 0.1, {
-            delay: 0,
-            alpha: 0
+
+    hide: function (callback) {
+        TweenMax.to(this.$('.js-menu'), 0, {autoAlpha: 0, delay: 0});
+        TweenMax.to(this.$('li'), 0, {
+            delay     : 0,
+            alpha     : 0,
+            onComplete: callback
         });
         this.determineColor();
         this.$el.removeClass('full');
-        this.$('.js-hamburger').removeClass('is-active');
+        this.$('.js-hamburger').removeClass('iscactive');
         this.html.removeClass('no-scroll');
     },
 
