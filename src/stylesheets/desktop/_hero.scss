@@ -5,77 +5,63 @@
   color: $semi-black;
   overflow: hidden;
 
-
-
-
   .logo-animation {
+
     font-family: 'GothamBold';
-    position: absolute;
+
     width: 100%;
+    height: 100%;
 
     font-size: 92px;
 
-    //align vertically
-    top: 50%;
-    transform: translateY(-50%);
-
-    //align horizontally
-    text-align: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     .letter {
-      //align horizontally
-      display: inline-block;
-      line-height: 118px;
-      height: 103px;
 
-      padding-left: 64px;
-      text-align: left;
-      &:first-child {
-        padding-left: 0;
-      }
-      &:last-child {
-        padding-left: 0px;
-      }
+      //text-align: left;
+      padding: 54px;
 
-      @media screen and (max-width: $screen-md) {
-        //font-size: 20pt;
-      }
-      @media screen and (max-width: $screen-sm) {
-        font-size: 20px;
-        line-height: 10px;
-        height: 82px;
-      }
       @media screen and (max-width: $screen-xs-max) {
-        padding-left: 20px
+        font-size: 42px;
+        padding: 23px;
       }
 
       &.logo-holder {
+
+
+      @media screen and (max-width: $screen-xs-max) {
         padding-left: 0;
+        padding-right: 0;
+      }
 
-        top: 50%;
-        margin-top: -(150) px;
-        .logo {
-          display: block;
-          //box-sizing: initial;
+        .client-logo {
 
-          width: 100px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
-          padding-left: 50px;
-          padding-right: 50px;
-
-          @media screen and (max-width: $screen-md) {
+          &.clear {
+            margin-top: 0;
           }
-          @media screen and (max-width: $screen-sm) {
-            width: 50px;
-            padding-left: 20px;
-            padding-right: 20px;
-          }
+
+          padding: 10px;
+          width: 140px;
+          margin-top: -20px;
 
           @media screen and (max-width: $screen-xs-max) {
-            width: 50px;
-            padding-left: 10px;
-            padding-right: 10px;
+            width: 90px;
+            //padding: 5px;
+            margin-top: -10px;
           }
+
+        }
+        img {
         }
       }
     }

@@ -18,6 +18,7 @@ module.exports = BaseView.extend({
     letters       : [],
     videoWidth    : 1920,
     videoHeight   : 1080,
+    slideIndex    : 0,
 
     initialize: function (options) {
 
@@ -34,20 +35,10 @@ module.exports = BaseView.extend({
             this.letters.push(new Letter({el: letterElement}));
         }, this);
 
-        var symbols = $('symbol');
-        _.each(symbols, function (s) {
-            var $s = $(s);
-            var id = $s.attr('id');
-            if (id.indexOf('hero-logo') > -1 && this.svgIDs.indexOf(id) === -1) {
-                this.svgIDs.push(id);
-            }
-        }, this);
-
-        _.each(this.svgIDs, function (id) {
-            var node = $(' <svg class="logo hidden"><use xlink:href="#' + id + '"/></svg>');
-            this.logos.push(node);
-            this.$('.js-logo-holder').append(node);
-        }, this);
+        this.clientLogos = [];
+        _.each(this.$('.js-client-logo'), function (el) {
+            this.clientLogos.push($(el));
+        }, this)
 
     },
 
@@ -63,15 +54,12 @@ module.exports = BaseView.extend({
             delay += 0.5
         }, this);
 
-        _.each(this.logos, function (node) {
-            node.addClass('hidden');
-        }, this);
-
         this.startSlideShow(delay + 1);
     },
 
     startSlideShow: function (delay) {
-        this.slideIndex = Math.floor(Math.random() * (this.logos.length - 1));
+        this.slideIndex = 1;
+        this.prevSlideIndex = 0;
         this.nextSlide(delay);
     },
 
@@ -79,14 +67,10 @@ module.exports = BaseView.extend({
         if (!delay) {
             delay = 0;
         }
-        var prevLogo = this.logos[this.slideIndex];
+        var prevLogo = this.clientLogos[this.prevSlideIndex];
         prevLogo.addClass('hidden');
 
-        this.slideIndex++;
-        if (this.slideIndex > this.logos.length - 1) {
-            this.slideIndex = 0;
-        }
-        var currentLogo = this.logos[this.slideIndex];
+        var currentLogo = this.clientLogos[this.slideIndex];
         currentLogo.removeClass('hidden');
 
         var tl = new TimelineMax({
@@ -107,9 +91,15 @@ module.exports = BaseView.extend({
         });
 
         tl.play();
-        delay += animationTime + 1;
+        delay += animationTime + 0.1;
 
-        TweenMax.delayedCall(delay, this.nextSlideBound);
+        this.prevSlideIndex = this.slideIndex;
+        this.slideIndex++;
+        if (this.slideIndex >= this.clientLogos.length) {
+            this.slideIndex = 0;
+        }
+
+        //TweenMax.delayedCall(delay, this.nextSlideBound);
 
     },
 
