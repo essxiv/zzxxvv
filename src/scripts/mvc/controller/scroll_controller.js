@@ -39,6 +39,8 @@ var controller = {
     onUpdatedScroll: function () {
 
         var scrollY = ScrollModel.get('scroll') * (ScrollModel.get('totalHeight') - $(window).height());
+
+        this.evaluatePageTop(scrollY);
         scrollY += window.innerHeight / 2;
         var sectionInfo = ScrollModel.sectionInfo;
 
@@ -57,6 +59,32 @@ var controller = {
                     EventBus.trigger(EventBus.EVENTS.NAVIGATE, section.id);
                     return;
                 }
+            }
+        }
+    },
+
+    evaluatePageTop: function (scrollY) {
+        //pageAtTop
+        scrollY += 25;
+        var sectionInfo = ScrollModel.sectionInfo;
+
+        for (var i = 0; i < sectionInfo.length; i++) {
+            var section = sectionInfo[i];
+
+            var nextSection = sectionInfo[i + 1];
+            if (nextSection) {
+
+                if (scrollY >= section.ypos && scrollY < nextSection.ypos) {
+
+                    AppModel.set('pageAtTop', section.id);
+                    return;
+                }
+            } else {
+                if (scrollY >= section.ypos) {
+                    AppModel.set('pageAtTop', section.id);
+                    return;
+                }
+
             }
         }
     },
