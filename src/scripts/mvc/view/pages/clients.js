@@ -126,6 +126,11 @@ module.exports = BaseView.extend({
         var startX = 150;
         var startY = Config.IDOL_ELEMENT_OFFSET;
 
+        if(window.innerWidth>2000){
+            startX = 250;
+            logoWidth = 180;
+        }
+
         if (window.innerWidth < 1024) {
             startX = 60;
             logoWidth = 90;
