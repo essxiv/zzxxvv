@@ -48,29 +48,7 @@ module.exports = BaseView.extend({
     },
 
     render: function () {
-        //this.stage = new createjs.Stage("services-canvas");
-        //
-        //this.coloredBackground = new createjs.Shape();
-        //this.coloredBackground.graphics.beginFill('#de7d7a');
-        //this.coloredBackground.graphics.drawRect(0, 0, 1, 1);
-        //this.coloredBackground.graphics.endFill();
-        //
-        //this.stage.addChild(this.coloredBackground);
-        //
-        //for (var i = 0; i < this.gradients.length; i++) {
-        //    var gradient = this.gradients[i];
-        //
-        //    var gradientShape = new GradientBlob({config: gradient});
-        //    gradientShape.getClip().x = Math.random() * window.innerWidth;
-        //    gradientShape.getClip().y = Math.random() * window.innerHeight;
-        //
-        //    this.gradientShapes.push(gradientShape);
-        //    this.stage.addChild(gradientShape.getClip());
-        //}
-        //
-        //this.pink = this.gradientShapes[0].getClip();
-        //this.blue = this.gradientShapes[1].getClip();
-        //this.yellow = this.gradientShapes[2].getClip();
+       
 
         AppModel.on('request-animation-frame', this.update, this);
     },

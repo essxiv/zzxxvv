@@ -7,6 +7,12 @@
 
 }
 
+.rollOver{
+  &:hover{
+    color:$rollover !important;
+  }
+}
+
 ul {
   &.horizontal {
 

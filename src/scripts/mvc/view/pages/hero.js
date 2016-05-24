@@ -38,7 +38,7 @@ module.exports = BaseView.extend({
         this.clientLogos = [];
         _.each(this.$('.js-client-logo'), function (el) {
             this.clientLogos.push($(el));
-        }, this)
+        }, this);
 
     },
 
@@ -51,7 +51,7 @@ module.exports = BaseView.extend({
 
         _.each(this.letters, function (letter) {
             letter.show(delay);
-            delay += 0.5
+            delay += 0.5;
         }, this);
 
         this.startSlideShow(delay + 1);
@@ -140,7 +140,7 @@ module.exports = BaseView.extend({
         var delay = 0;
         _.each(this.letters, function (letter) {
             letter.hide(delay);
-            delay += 0.5
+            delay += 0.5;
         }, this);
     }
 

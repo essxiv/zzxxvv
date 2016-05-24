@@ -16,7 +16,7 @@ module.exports = BaseView.extend({
     elements: [],
 
     renderImageString: function () {
-        var prefix = 'CDN_PATH/assets/images/clients/'
+        var prefix = 'CDN_PATH/assets/images/clients/';
         var array = [
             '_0009_client_nike.png',
             '_0001_client_vice.png',
@@ -42,9 +42,9 @@ module.exports = BaseView.extend({
         var img = '';
         for (var i = 0; i < array.length; i++) {
             var filename = array[i];
-            img += "<div class='js-client client'><div class='animationHolder'><div class='js-idol-element'> <img src='" + prefix + filename + "'></div></div></div>\n"
+            img += "<div class='js-client client'><div class='animationHolder'><div class='js-idol-element'> <img src='" + prefix + filename + "'></div></div></div>\n";
         }
-        console.log(img)
+        console.log(img);
     },
 
     initialize: function (options) {
@@ -184,7 +184,7 @@ module.exports = BaseView.extend({
 
         TweenMax.set(this.$('.js-content'), {height: ypos + rowHeight / 2});
 
-        for (var i = 0; i < this.elements.length; i++) {
+        for (i = 0; i < this.elements.length; i++) {
 
             var element = this.elements[i];
             element.setStartPosition();

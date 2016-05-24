@@ -28,6 +28,12 @@ module.exports = IdolElement.extend({
 
         this.isHero = options.isHero;
 
+        var loadCallBack = function () {
+            if (this.complete) {
+                $(this).load();
+            }
+        };
+
         for (var i = 0; i < urls.length; i++) {
             var url = urls[i];
             var $img = $('<img class="js-image">');
@@ -35,11 +41,7 @@ module.exports = IdolElement.extend({
             $img.one("load", function () {
                 // do stuff
 
-            }).each(function () {
-                if (this.complete) {
-                    $(this).load();
-                }
-            });
+            }).each(loadCallBack);
 
             $img.attr('src', url);
             this.images.push($img);
@@ -53,7 +55,6 @@ module.exports = IdolElement.extend({
 
         this.currentImage = this.images[offset];
         this.currentImageIndex = offset;
-
 
         this.$el.on('mouseover', _.bind(this.onMouseOver, this));
         this.$el.on('mouseout', _.bind(this.onMouseOut, this));
@@ -80,20 +81,20 @@ module.exports = IdolElement.extend({
 
     start: function (delay) {
 
-        this.showSlide(delay,true);
+        this.showSlide(delay, true);
 
     },
 
-    showSlide: function (delay,skip) {
+    showSlide: function (delay, skip) {
         this.currentImageIndex++;
         if (this.currentImageIndex > this.images.length - 1) {
             this.currentImageIndex = 0;
         }
         var that = this;
         var newImage = this.images[this.currentImageIndex];
-        if(!skip){
+        if (!skip) {
 
-        TweenMax.set(newImage, {alpha: 0});
+            TweenMax.set(newImage, {alpha: 0});
         }
         var time = 3;
         TweenMax.to(newImage, time, {

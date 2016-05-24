@@ -102,7 +102,7 @@ module.exports = Backbone.View.extend({
         $('.js-app-container-desktop').removeClass('hidden');
         ScrollModel.setMap(viewMap);
 
-        this.customCursorView = new CustomCursorView({el: $('.js-cursor-view')})
+        this.customCursorView = new CustomCursorView({el: $('.js-cursor-view')});
 
         this.transitioner = new Transitioner({
             el        : $('.js-app-container-desktop'),

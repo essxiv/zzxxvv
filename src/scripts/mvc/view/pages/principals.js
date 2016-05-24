@@ -10,6 +10,7 @@ var Image = require('../modules/image');
 var GradientBackground = require('../modules/gradient_background');
 var Faces = require('../modules/faces');
 var InfoBlocks = require('../modules/info_blocks');
+var IdolElement = require('../modules/idol_element');
 
 module.exports = BaseView.extend({
     htmlCanvas    : null,
@@ -33,12 +34,18 @@ module.exports = BaseView.extend({
         this.faces = new Faces({
             el : this.$('.js-mugshot'),
             ids: ids
-        })
+        });
 
         this.infoBlocks = new InfoBlocks({
             el : this.$('.js-info-holder'),
             ids: ids
         });
+
+        _.each(this.$('.js-scroll-element'), function (logoElement) {
+
+            var element = new IdolElement({el: logoElement});
+            this.addIdolElement(element);
+        }, this);
 
     },
 

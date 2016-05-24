@@ -30,7 +30,7 @@ module.exports = BaseView.extend({
 
         this.alpha += this.speed;
         if (this.alpha > 1) {
-            this.alpha = 1
+            this.alpha = 1;
             this.speed *= -1;
         }
 

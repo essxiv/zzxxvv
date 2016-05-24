@@ -85,7 +85,7 @@ module.exports = BaseView.extend({
 
             }
 
-            this.currentScreen.show()
+            this.currentScreen.show();
         }
     },
 

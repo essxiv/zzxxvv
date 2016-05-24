@@ -26,7 +26,7 @@ module.exports = Backbone.View.extend({
     onIdolElementsUpdate: function () {
 
         var scrollPosition = $(window).scrollTop();
-        var offset = window.innerHeight / 2;
+        var offset = window.innerHeight *0.8;
 
         for (var i = 0; i < this.idolElements.length; i++) {
 

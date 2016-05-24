@@ -212,15 +212,15 @@ module.exports = BaseView.extend({
         });
         _.each(this.bigImages, function (image) {
             if (image.isHero) {
-                image.resize(bigHeroImageWidth, bigImageHeight)
+                image.resize(bigHeroImageWidth, bigImageHeight);
             } else {
 
-                image.resize(bigImageWidth, bigImageHeight)
+                image.resize(bigImageWidth, bigImageHeight);
             }
         }, this);
 
         _.each(this.smallImages, function (image) {
-            image.resize(smallImageWidth, smallImageHeight)
+            image.resize(smallImageWidth, smallImageHeight);
         }, this);
 
         for (var i = 0; i < this.elements.length; i++) {
@@ -259,8 +259,8 @@ module.exports = BaseView.extend({
 
     loadSmallImages: function () {
 
-        var initialWidth = 400;
-        var initialHeight = 428;
+        //var initialWidth = 400;
+        //var initialHeight = 428;
 
         var offset = 0;
 

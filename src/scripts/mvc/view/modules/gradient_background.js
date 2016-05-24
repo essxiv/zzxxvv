@@ -28,7 +28,7 @@ module.exports = BaseView.extend({
             var obj = options.gradients[i];
             this.gradients.push(
                 {colors: this.getGradients(obj.color)}
-            )
+            );
         }
 
     },
