@@ -58,8 +58,9 @@ module.exports = BaseView.extend({
     },
 
     startSlideShow: function (delay) {
-        this.slideIndex = 1;
+        this.slideIndex = 0;
         this.prevSlideIndex = 0;
+        this.$('.js-client-logo').addClass('hidden');
         this.nextSlide(delay);
     },
 
@@ -91,15 +92,15 @@ module.exports = BaseView.extend({
         });
 
         tl.play();
-        delay += animationTime + 0.1;
+        delay += animationTime + 1;
 
         this.prevSlideIndex = this.slideIndex;
         this.slideIndex++;
         if (this.slideIndex >= this.clientLogos.length) {
-            this.slideIndex = 0;
+            this.slideIndex = 1;
         }
 
-        //TweenMax.delayedCall(delay, this.nextSlideBound);
+        TweenMax.delayedCall(delay, this.nextSlideBound);
 
     },
 
