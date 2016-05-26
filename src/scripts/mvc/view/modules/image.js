@@ -64,7 +64,7 @@ module.exports = IdolElement.extend({
     onMouseOver: function (e) {
         var img = e.currentTarget;
         var scale = 1.2;
-        TweenMax.to(this.$el, 1, {
+        TweenMax.to(this.$el, 0.5, {
             scaleX: scale,
             scaleY: scale
         });
@@ -73,7 +73,7 @@ module.exports = IdolElement.extend({
     onMouseOut: function (e) {
         var img = e.currentTarget;
         var scale = 1;
-        TweenMax.to(this.$el, 3, {
+        TweenMax.to(this.$el, 0.3, {
             scaleX: scale,
             scaleY: scale
         });
@@ -96,7 +96,7 @@ module.exports = IdolElement.extend({
 
             TweenMax.set(newImage, {alpha: 0});
         }
-        var time = 3;
+        var time = 0.3;
         TweenMax.to(newImage, time, {
 
             delay     : time + delay,

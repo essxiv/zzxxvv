@@ -65,7 +65,7 @@ module.exports = BaseView.extend({
     onMouseOver: function (e) {
         var img = e.currentTarget;
         var scale = 1.2;
-        TweenMax.to(img, 1, {
+        TweenMax.to(img,0.5, {
             scaleX: scale,
             scaleY: scale
         });
@@ -74,7 +74,7 @@ module.exports = BaseView.extend({
     onMouseOut: function (e) {
         var img = e.currentTarget;
         var scale = 1;
-        TweenMax.to(img, 3, {
+        TweenMax.to(img, 0.3, {
             scaleX: scale,
             scaleY: scale
         });

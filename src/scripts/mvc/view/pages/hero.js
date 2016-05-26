@@ -30,6 +30,8 @@ module.exports = BaseView.extend({
 
         this.ratio = this.videoWidth / this.videoHeight;
 
+        this.$('.js-inquire').on('click',_.bind(this.onInquireClick,this));
+
         _.each(this.$('.js-letter'), function (letterElement) {
 
             this.letters.push(new Letter({el: letterElement}));
@@ -40,6 +42,15 @@ module.exports = BaseView.extend({
             this.clientLogos.push($(el));
         }, this);
 
+    },
+
+    onInquireClick:function(e){
+
+        var target = $('#contact');
+        if (target.length) {
+            $('html, body').animate({scrollTop: target.offset().top},
+                1000);
+        }
     },
 
     render: function () {

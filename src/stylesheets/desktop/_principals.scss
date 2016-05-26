@@ -5,6 +5,22 @@
   color: $black;
   overflow: hidden;
 
+  .callout {
+
+    padding-left: 70px;
+    font-size: 20px;
+    width: 350px;
+    display: inline-block;
+    font-family: GothamLight;
+    text-decoration: underline;
+
+    @media screen and (max-width: 1100px) {
+      display: none;
+
+    }
+
+  }
+
   h1 {
 
     font-size: 95px;
@@ -39,7 +55,7 @@
 
   .mugshot {
     position: absolute;
-     background-size: cover;
+    background-size: cover;
     right: 0;
     width: 47%;
     //max-width: 800px;
