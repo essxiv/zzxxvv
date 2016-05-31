@@ -21,10 +21,27 @@ module.exports = BaseView.extend({
         BaseView.prototype.initialize.apply(this);
 
         if (Config.DESKTOP) {
-
-            this.$('li').on('click', _.bind(this.onNameClick, this));
+            this.initDesktop();
+        } else {
+            this.initMobile();
         }
 
+        _.each(this.$('.js-scroll-element'), function (logoElement) {
+
+            var element = new IdolElement({el: logoElement});
+            this.addIdolElement(element);
+        }, this);
+
+    },
+
+    initMobile: function () {
+
+        this.$('.js-desktop').remove();
+    },
+
+    initDesktop: function () {
+        this.$('.js-mobile').remove();
+        this.$('li').on('click', _.bind(this.onNameClick, this));
         this.background = new GradientBackground({
                 el       : this.$('#principals-canvas'),
                 gradients: [{color: 0x6c628e}, {color: 0xf7d3db}]
@@ -40,23 +57,20 @@ module.exports = BaseView.extend({
             el : this.$('.js-info-holder'),
             ids: ids
         });
-
-        _.each(this.$('.js-scroll-element'), function (logoElement) {
-
-            var element = new IdolElement({el: logoElement});
-            this.addIdolElement(element);
-        }, this);
-
     },
 
     render: function () {
-        this.background.render();
-        TweenMax.to(this.faces.el, 0, {autoAlpha: 0});
+        if (Config.DESKTOP) {
+            this.background.render();
+            TweenMax.to(this.faces.el, 0, {autoAlpha: 0});
+        }
         AppModel.on('request-animation-frame', this.onUpdate, this);
     },
 
     onUpdate: function () {
-        this.background.update();
+        if (Config.DESKTOP) {
+            this.background.update();
+        }
     },
 
     onNameClick: function (e) {
@@ -100,24 +114,27 @@ module.exports = BaseView.extend({
     },
 
     onResize: function () {
+        if (Config.DESKTOP) {
+            var totalHeight = Math.max(700, window.innerHeight);
+            var contentHeight = 430;
+            var ypos = window.innerHeight / 2 - contentHeight / 2;
 
-        var totalHeight = Math.max(700, window.innerHeight);
-        var contentHeight = 430;
-        var ypos = window.innerHeight / 2 - contentHeight / 2;
-
-        TweenMax.set(this.$('.js-info-holder'), {
-            y    : ypos,
-            width: 0.55 * window.innerWidth
-        });
-        TweenMax.set(this.$('.js-copy'), {y: ypos});
-        TweenMax.set(this.$('.js-content'), {height: totalHeight});
-        TweenMax.set(this.$el, {height: totalHeight});
-        this.faces.resize(0.45 * window.innerWidth, totalHeight);
-        this.background.resize(window.innerWidth, totalHeight + 5);
+            TweenMax.set(this.$('.js-info-holder'), {
+                y    : ypos,
+                width: 0.55 * window.innerWidth
+            });
+            TweenMax.set(this.$('.js-copy'), {y: ypos});
+            TweenMax.set(this.$('.js-content'), {height: totalHeight});
+            TweenMax.set(this.$el, {height: totalHeight});
+            this.faces.resize(0.45 * window.innerWidth, totalHeight);
+            this.background.resize(window.innerWidth, totalHeight + 5);
+        }
 
     },
     hide    : function () {
-        this.onExitClick();
+        if (Config.DESKTOP) {
+            this.onExitClick();
+        }
     },
     destroy : function () {
         BaseView.prototype.destroy.apply(this);

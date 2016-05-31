@@ -99,23 +99,43 @@ svg {
   display: inline-block;
 }
 
-.content {
-  position: absolute;
-  overflow-x: hidden;
+.flex-container {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
 
-  &.text {
+  &.vertical {
 
-    max-width: 740px;
-    padding-right: 30px;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
 
-    @media screen and (max-width: $screen-md) {
-      width: 90%;
-      padding-right: 0;
-
-    }
-    @media screen and (max-width: $screen-sm) {
-      left: 5%;
-    }
+    align-items: center;
   }
+
+  &.horizontal {
+
+    justify-content: center;
+  }
+}
+
+.content {
+  //position: absolute;
+  //overflow-x: hidden;
+  //
+  //&.text {
+  //
+  //  max-width: 740px;
+  //  padding-right: 30px;
+  //
+  //  @media screen and (max-width: $screen-md) {
+  //    width: 90%;
+  //    padding-right: 0;
+  //
+  //  }
+  //  @media screen and (max-width: $screen-sm) {
+  //    left: 5%;
+  //  }
+  //}
 
 }

@@ -65,7 +65,7 @@ module.exports = BaseView.extend({
     onMouseOver: function (e) {
         var img = e.currentTarget;
         var scale = 1.2;
-        TweenMax.to(img,0.5, {
+        TweenMax.to(img, 0.5, {
             scaleX: scale,
             scaleY: scale
         });
@@ -121,12 +121,16 @@ module.exports = BaseView.extend({
     },
 
     onResize: function () {
+        var ratio = 1;
         var logoWidth = 120;
+        var leftPadding = 20;
         var columns = 5;
         var startX = 150;
         var startY = Config.IDOL_ELEMENT_OFFSET;
+        var windowHeight = Math.max(900, window.innerHeight);
+        var horPadding=-40;
 
-        if(window.innerWidth>2000){
+        if (window.innerWidth > 2000) {
             startX = 250;
             logoWidth = 180;
         }
@@ -137,29 +141,32 @@ module.exports = BaseView.extend({
 
         }
         if (window.innerWidth <= 640) {
-
-            startX = 30;
-            logoWidth = 50;
+            columns = 3;
+            startX = 50;
+          //  leftPadding=0;
         }
 
-        if (window.innerWidth <= 320) {
-            startX = 15;
+        if (window.innerWidth <= 374) {
+
+            startX = 50;
+            logoWidth = 70;
+            //startX = 15;
         }
 
         var rows = Math.ceil(this.logos.length / (columns));
-        var screenWidth = window.innerWidth - 20;
+        var screenWidth = window.innerWidth - leftPadding;
 
         var ypos = startY;
         var xpos = startX;
 
         screenWidth -= 2 * startX;
 
-        var rowWidth = logoWidth * columns;
-        var rowHeight = logoWidth;
+        var rowWidth = (logoWidth+horPadding) * columns;
+        var rowHeight = logoWidth * ratio;
         var emptySpace = screenWidth - rowWidth;
 
-        var xIncrement = logoWidth + ( emptySpace / (columns - 1));
-        var yIncrement = window.innerHeight / rows;
+        var xIncrement = logoWidth + ( emptySpace / (columns - 1))+horPadding;
+        var yIncrement = windowHeight / rows;
         var counter = 0;
 
         for (var i = 0; i < this.logos.length; i++) {

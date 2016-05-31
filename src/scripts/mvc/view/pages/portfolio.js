@@ -114,10 +114,16 @@ module.exports = BaseView.extend({
 
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
+        this.holder = this.$('.js-content');
+        if (!Config.DESKTOP) {
+            this.$('.js-item.big').removeClass('big').addClass('small');
+            this.$('.js-item.small.hero').removeClass('small').addClass('big');
+            this.holder.prepend(this.$('.js-item.big.hero'));
+        }
+
         this.image_holder_big = this.$('.js-item.big');
         this.image_holder_hero = this.$('.js-item.big.hero');
         this.image_holder_small = this.$('.js-item.small');
-        this.holder = this.$('.js-content');
         this.elements = [];
         this.loadBigImages();
         this.loadSmallImages();
@@ -189,13 +195,24 @@ module.exports = BaseView.extend({
     onResize: function () {
 
         var heroWidth = 0.4;
+        var amountInrow = this.image_holder_small.length;
+        var bigImageHeight = 0.6 * this.holder.height();
+        var smallImageHeight = 0.4 * this.holder.height();
+
+        if (window.innerWidth <= 375) {
+
+            heroWidth = 1;
+            var heroPct = 0.45;
+            bigImageHeight = heroPct * this.holder.height();
+            smallImageHeight = ((1 - heroPct) / 3) * this.holder.height();
+            amountInrow = 2;
+
+        }
         var normalWidth = (1 - heroWidth) / (this.image_holder_big.length - 1);
 
         var bigImageWidth = normalWidth * this.holder.width();
         var bigHeroImageWidth = heroWidth * this.holder.width();
-        var smallImageWidth = (1 / this.image_holder_small.length) * this.holder.width();
-        var bigImageHeight = 0.6 * this.holder.height();
-        var smallImageHeight = 0.4 * this.holder.height();
+        var smallImageWidth = (1 / amountInrow) * this.holder.width();
 
         this.image_holder_big.css({
             width : bigImageWidth + 'px',
@@ -263,10 +280,16 @@ module.exports = BaseView.extend({
         //var initialHeight = 428;
 
         var offset = 0;
+        var counter = 0;
 
         for (var i = 0; i < this.image_holder_small.length; i++) {
+            var urls = this.small_image_urls;
+            if (counter >= this.small_image_urls.length) {
+                counter = 0;
+                urls = this.big_image_urls;
+            }
 
-            var details = this.small_image_urls[i];
+            var details = urls[counter];
             var initialWidth = details.initialWidth;
             var initialHeight = details.initialHeight;
             var log = details.log;
@@ -289,6 +312,7 @@ module.exports = BaseView.extend({
             this.smallImages.push(img);
 
             this.addIdolElement(img);
+            counter++;
 
         }
 

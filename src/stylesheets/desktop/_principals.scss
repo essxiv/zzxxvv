@@ -5,12 +5,36 @@
   color: $black;
   overflow: hidden;
 
+  .mobile {
+    min-height: 100%;
+    padding-left: $left-padding-mobile;
+
+    li {
+      display: block;
+    }
+
+    & .name {
+      font-family: GothamBold;
+      display: block;
+      font-size: 23px;
+      height:65px;
+    }
+
+    & .title {
+      display: block;
+      font-size: 20px;
+      position:absolute;
+      top:25px;
+      left:0;
+    }
+  }
+
   .callout {
 
     padding-left: 70px;
     font-size: 20px;
     width: 350px;
-    display: inline-block;
+    //display: inline-block;
     font-family: GothamLight;
     text-decoration: underline;
 

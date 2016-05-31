@@ -32,8 +32,15 @@ module.exports = BaseView.extend({
             case AppModel.PAGES.HERO:
             case AppModel.PAGES.CLIENTS:
             case AppModel.PAGES.PRINCIPALS:
-            case AppModel.PAGES.PORTFOLIO:
                 this.setBlack();
+                break;
+            case AppModel.PAGES.PORTFOLIO:
+                if (!Config.DESKTOP) {
+                    this.setWhite();
+                } else {
+                    this.setBlack();
+
+                }
                 break;
 
             default:
