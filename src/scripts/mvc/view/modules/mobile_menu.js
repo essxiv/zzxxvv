@@ -108,7 +108,7 @@ module.exports = BaseView.extend({
         });
         this.determineColor();
         this.$el.removeClass('full');
-        this.$('.js-hamburger').removeClass('iscactive');
+        this.$('.js-hamburger').removeClass('is-active');
         this.html.removeClass('no-scroll');
     },
 

@@ -9,12 +9,17 @@ module.exports = BaseView.extend({
 
     initialize: function (options) {
         BaseView.prototype.initialize.apply(this);
-        $(document).mousemove(_.bind(this.onMouseMove, this));
-        this.cursorImage = this.$('.js-cursor');
+        if (Config.DESKTOP) {
 
-        AppModel.on('change:custom-cursor', this.onCustomCursorChange, this);
+            $(document).mousemove(_.bind(this.onMouseMove, this));
+            this.cursorImage = this.$('.js-cursor');
 
-        this.onHide();
+            AppModel.on('change:custom-cursor', this.onCustomCursorChange, this);
+
+            this.onHide();
+        }else{
+            this.$('.js-cursor').hide();
+        }
     },
 
     onCustomCursorChange: function () {
