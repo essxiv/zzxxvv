@@ -11,6 +11,28 @@
   background-color: $black;
   color: $white;
 
+  footer {
+    &.desktop {
+      display: none;
+      @media screen and (min-width: $screen-xs-max) {
+        display: inherit;
+      }
+    }
+    &.mobile {
+      display: none;
+
+      & .copyright{
+        display:inline-block;
+      }
+      & .link{
+        display:inline-block;
+      }
+      @media screen and (max-width: $screen-xs-max) {
+        display: inherit;
+      }
+    }
+  }
+
   @media screen and (min-width: $screen-md) {
 
     font-size: 40px;
@@ -26,6 +48,10 @@
     height: 100%;
     position: absolute;
     //background-color: red;
+  }
+
+  & .column {
+    padding-bottom: 40px;
   }
 
   .content {
@@ -44,6 +70,7 @@
     }
 
     .foster {
+
       div {
         font-family: GothamLight;
         font-size: 14px;

@@ -23,7 +23,7 @@ module.exports = BaseView.extend({
     },
 
     hide: function () {
-        this.$el.off();
+        //this.$el.off();
         this.$el.addClass('hidden');
     }
 

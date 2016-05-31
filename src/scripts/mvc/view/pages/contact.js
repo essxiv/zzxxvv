@@ -18,6 +18,14 @@ module.exports = BaseView.extend({
         this.contactScreen = new PopUp({el: this.$('.js-contact')});
         this.fosterScreen = new PopUp({el: this.$('.js-foster')});
 
+        this.fosterScreen.on('close', _.bind(function () {
+            this.setState('DEFAULT');
+        }, this));
+
+        if (!Config.DESKTOP) {
+            this.mainScreen.hide();
+        }
+
         this.$('.js-close').on('click', _.bind(this.onBackClick, this));
         this.$('.js-contact-link').on('click', _.bind(this.onStartConversationClick, this));
         this.$('.js-foster-link ').on('click', _.bind(this.onFosterClick, this));
@@ -27,7 +35,7 @@ module.exports = BaseView.extend({
             this.$('.js-foster-link'),
             this.$('.js-contact'),
             this.$('.container'),
-            this.$('.js-foster')
+            //this.$('.js-foster')
         ];
 
         for (var i = 0; i < areas.length; i++) {
@@ -39,6 +47,7 @@ module.exports = BaseView.extend({
     },
 
     show: function () {
+
         this.setState("DEFAULT");
 
     },
@@ -61,14 +70,17 @@ module.exports = BaseView.extend({
 
     setState: function (state) {
 
+        if (!Config.DESKTOP && state === 'DEFAULT') {
+
+            state = 'CONTACT';
+        }
         if (this.state !== state) {
             this.state = state;
 
             if (this.currentScreen) {
                 this.currentScreen.hide();
             }
-
-            this.$el.off();
+            //this.$el.off();
             switch (state) {
                 case "CONTACT":
                     this.currentScreen = this.contactScreen;
