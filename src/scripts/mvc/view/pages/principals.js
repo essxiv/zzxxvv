@@ -6,8 +6,7 @@ var _ = require('underscore');
 
 var EventBus = require('EventBus');
 var AppModel = require('../../model/app_model');
-var Image = require('../modules/image');
-var GradientBackground = require('../modules/gradient_background');
+
 var Faces = require('../modules/faces');
 var InfoBlocks = require('../modules/info_blocks');
 var IdolElement = require('../modules/idol_element');
@@ -40,13 +39,11 @@ module.exports = BaseView.extend({
     },
 
     initDesktop: function () {
+
+        this.background=this.$('.js-bg');
         this.$('.js-mobile').remove();
         this.$('li').on('click', _.bind(this.onNameClick, this));
-        this.background = new GradientBackground({
-                el       : this.$('#principals-canvas'),
-                gradients: [{color: 0x6c628e}, {color: 0xf7d3db}]
-            }
-        );
+     
         var ids = ['matt', 'josh', 'scott', 'brad', 'abe'];
         this.faces = new Faces({
             el : this.$('.js-mugshot'),
@@ -61,7 +58,7 @@ module.exports = BaseView.extend({
 
     render: function () {
         if (Config.DESKTOP) {
-            this.background.render();
+            //this.background.render();
             TweenMax.to(this.faces.el, 0, {autoAlpha: 0});
         }
         AppModel.on('request-animation-frame', this.onUpdate, this);
@@ -69,7 +66,8 @@ module.exports = BaseView.extend({
 
     onUpdate: function () {
         if (Config.DESKTOP) {
-            this.background.update();
+            //this.background.update();
+
         }
     },
 
@@ -86,7 +84,9 @@ module.exports = BaseView.extend({
 
         this.faces.showFace(person);
         this.infoBlocks.show(person);
-        this.background.show(time);
+
+        this.background.removeClass('hidden');
+
 
         this.$el.on('mousedown', _.bind(this.onExitClick, this));
     },
@@ -104,7 +104,8 @@ module.exports = BaseView.extend({
 
         this.infoBlocks.hide();
         this.faces.hide();
-        this.background.hide(0.5);
+        this.background.addClass('hidden');
+
     },
 
     getTallestInfoBlock: function () {
@@ -127,7 +128,7 @@ module.exports = BaseView.extend({
             TweenMax.set(this.$('.js-content'), {height: totalHeight});
             TweenMax.set(this.$el, {height: totalHeight});
             this.faces.resize(0.45 * window.innerWidth, totalHeight);
-            this.background.resize(window.innerWidth, totalHeight + 5);
+            //this.background.resize(window.innerWidth, totalHeight + 5);
         }
 
     },

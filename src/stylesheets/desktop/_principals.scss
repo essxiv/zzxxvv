@@ -17,15 +17,15 @@
       font-family: GothamBold;
       display: block;
       font-size: 23px;
-      height:65px;
+      height: 65px;
     }
 
     & .title {
       display: block;
       font-size: 20px;
-      position:absolute;
-      top:25px;
-      left:0;
+      position: absolute;
+      top: 25px;
+      left: 0;
     }
   }
 
@@ -72,9 +72,16 @@
     }
   }
 
-  canvas {
-    position: absolute;
+  .principals-colored-bg {
     top: 0;
+    position: absolute;
+
+    background-image: url('../assets/images/mobile/mobile_bg.png');
+    background-size: cover;
+    background-color: #d85076;
+
+    width:100%;
+    height:100%;
   }
 
   .mugshot {
@@ -92,6 +99,7 @@
   }
 
   .content {
+
     overflow: hidden;
     width: 100%;
     max-width: 100%;
