@@ -189,7 +189,13 @@ module.exports = BaseView.extend({
             ypos = Math.round(ypos);
         }
 
-        TweenMax.set(this.$('.js-content'), {height: ypos + rowHeight / 2});
+        var newHeight=ypos + rowHeight / 2;
+
+        if (!Config.DESKTOP ){
+            newHeight+=yIncrement;
+
+        }
+        TweenMax.set(this.$('.js-content'), {height:newHeight });
 
         for (i = 0; i < this.elements.length; i++) {
 

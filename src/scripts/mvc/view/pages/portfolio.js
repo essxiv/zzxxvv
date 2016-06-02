@@ -14,6 +14,7 @@ module.exports = BaseView.extend({
     big_image_urls: [
         {
             log          : false,
+            isHero       : true,
             initialWidth : 572,
             initialHeight: 541,
             images       : [
@@ -39,6 +40,7 @@ module.exports = BaseView.extend({
         {
             initialWidth : 572,
             initialHeight: 541,
+            isHero       : true,
             images       : [
 
                 Config.CDN + '/assets/images/portfolio/top_3_0.jpg',
@@ -198,21 +200,31 @@ module.exports = BaseView.extend({
         var amountInrow = this.image_holder_small.length;
         var bigImageHeight = 0.6 * this.holder.height();
         var smallImageHeight = 0.4 * this.holder.height();
+        var bigImageWidth;
 
-        if (window.innerWidth <= 375) {
+        if (!Config.DESKTOP) {
 
             heroWidth = 1;
             var heroPct = 0.45;
             bigImageHeight = heroPct * this.holder.height();
+
             smallImageHeight = ((1 - heroPct) / 3) * this.holder.height();
             amountInrow = 2;
 
         }
         var normalWidth = (1 - heroWidth) / (this.image_holder_big.length - 1);
 
-        var bigImageWidth = normalWidth * this.holder.width();
+        if (heroWidth === 1) {
+
+            bigImageWidth =  this.holder.width();
+        }else{
+
+            bigImageWidth = normalWidth * this.holder.width();
+        }
         var bigHeroImageWidth = heroWidth * this.holder.width();
         var smallImageWidth = (1 / amountInrow) * this.holder.width();
+
+
 
         this.image_holder_big.css({
             width : bigImageWidth + 'px',

@@ -131,6 +131,12 @@ module.exports = IdolElement.extend({
             tooBig = true;
         }
 
+        if(newWidth <this.holderWidth){
+            newWidth = this.holderHeight;
+            newHeight = newWidth / this.ratio;
+            tooBig = true;
+        }
+
         var offsetY = (newHeight - this.holderHeight) / 2;
         var offsetX = -(newWidth - this.holderWidth) / 2;
         if (!tooBig) {
