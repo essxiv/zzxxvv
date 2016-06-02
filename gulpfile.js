@@ -58,6 +58,11 @@ var paths = {
 
 var tasks = {
 
+    resetCDN: function () {
+
+        paths.cdn_path = 'CDN_PATH';
+    },
+    
     setCDN: function () {
         var d = new Date();
         var curr_date = d.getDate();
@@ -272,6 +277,7 @@ gulp.task('test', tasks.test);
 gulp.task('watch', tasks.watch);
 gulp.task('upload', tasks.s3);
 gulp.task('setCDN', tasks.setCDN);
+gulp.task('resetCDN', tasks.resetCDN);
 gulp.task('svg', tasks.svg);
 
 gulp.task('browser_sync', tasks.browser_sync);
@@ -288,7 +294,7 @@ gulp.task('deploy', sync.sync(['clean',
                                ['setCDN', 'stylesheets', 'assets', 'optimize',
                              //   'fonts',
                                 'lint', 'scripts',
-                                'layouts'], 'upload']));
+                                'layouts'], 'upload','resetCDN']));
 
 gulp.task('live', sync.sync(['clean', ['setCDN', 'stylesheets', 'optimize',
                                    //    'fonts',
