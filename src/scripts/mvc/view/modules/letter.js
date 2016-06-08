@@ -15,27 +15,10 @@ module.exports = BaseView.extend({
 
     show: function (delay) {
 
-        TweenMax.killTweensOf(this.$el);
-        TweenMax.fromTo(this.$el, 0.5,
-                        {
-                            alpha: 0,
-                            y    : -10
-                        },
-                        {
-                            delay: delay,
-                            alpha: 1,
-                            y    : 0
-                        });
     },
 
     hide: function (delay) {
-        TweenMax.killTweensOf(this.$el);
-        TweenMax.to(this.$el, 0.5,{
-            delay:delay,
-            alpha: 0,
-            y    : -10
-        });
-
+ 
     }
 
 });

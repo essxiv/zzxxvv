@@ -1,6 +1,7 @@
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
+var Config = require('Config');
 Backbone.$ = $;
 
 //#initialize  your controllers here, they are singeltons
@@ -132,6 +133,14 @@ module.exports = Backbone.View.extend({
 
         }
         ScrollController.onResize();
+
+        if (!Config.DESKTOP && window.innerWidth > window.innerHeight) {
+            $('.js-mobile-message').removeClass('hidden');
+        } else {
+            $('.js-mobile-message').addClass('hidden');
+
+            console.log('IN PORTRAIT');
+        }
     },
 
     render: function () {

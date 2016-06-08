@@ -63,7 +63,7 @@ module.exports = IdolElement.extend({
 
     onMouseOver: function (e) {
         var img = e.currentTarget;
-        var scale = 1.2;
+        var scale = 1.05;
         TweenMax.to(this.$el, 0.5, {
             scaleX: scale,
             scaleY: scale

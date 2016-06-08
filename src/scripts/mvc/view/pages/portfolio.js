@@ -178,7 +178,7 @@ module.exports = BaseView.extend({
 
     onMouseOver: function (e) {
         var img = e.currentTarget;
-        var scale = 0.7;
+        var scale = 0.6;
         TweenMax.to(img, 1, {
             scaleX: scale,
             scaleY: scale

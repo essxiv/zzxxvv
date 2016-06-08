@@ -15,11 +15,11 @@ module.exports = BaseView.extend({
 
         BaseView.prototype.initialize.apply(this);
 
-        //_.each(this.$('.js-scroll-element'), function (logoElement) {
-        //
-        //    var element = new IdolElement({el: logoElement});
-        //    this.addIdolElement(element);
-        //}, this);
+        _.each(this.$('.js-scroll-element'), function (logoElement) {
+
+            var element = new IdolElement({el: logoElement});
+            this.addIdolElement(element);
+        }, this);
 
     },
 

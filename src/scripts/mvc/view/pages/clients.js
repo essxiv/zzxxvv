@@ -123,14 +123,14 @@ module.exports = BaseView.extend({
     onResize: function () {
         var ratio = 1;
         var logoWidth = 120;
-        var leftPadding = 20;
+        var leftPadding = 50;
         var columns = 5;
         var startX = 150;
         var startY = Config.IDOL_ELEMENT_OFFSET;
         var windowHeight = Math.max(900, window.innerHeight);
         var horPadding=-40;
 
-        if (window.innerWidth > 2000) {
+        if (window.innerWidth >= 1800) {
             startX = 250;
             logoWidth = 180;
         }
@@ -165,8 +165,9 @@ module.exports = BaseView.extend({
         var rowHeight = logoWidth * ratio;
         var emptySpace = screenWidth - rowWidth;
 
-        var xIncrement = logoWidth + ( emptySpace / (columns - 1))+horPadding;
-        var yIncrement = windowHeight / rows;
+        var colOffset=(columns - 1);
+        var xIncrement = logoWidth + ( emptySpace / colOffset)+horPadding;
+        var yIncrement =startY;// windowHeight / rows;
         var counter = 0;
 
         for (var i = 0; i < this.logos.length; i++) {
@@ -189,7 +190,7 @@ module.exports = BaseView.extend({
             ypos = Math.round(ypos);
         }
 
-        var newHeight=ypos + rowHeight / 2;
+        var newHeight=ypos ;//+ rowHeight / 2;
 
         if (!Config.DESKTOP ){
             newHeight+=yIncrement;
