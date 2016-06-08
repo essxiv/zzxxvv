@@ -9,6 +9,7 @@
   padding-right: 20px;
   padding-top: $min-top-bottom-padding;
   padding-bottom: $min-top-bottom-padding;
+  line-height: 1.3;
 
   @media screen and (min-width: $screen-md-max) {
     padding-left: $left-padding-static;
@@ -47,7 +48,7 @@
     position: inherit;
     overflow: hidden;
 
-    max-width: 680px;
+    max-width: 780px;
 
   }
 

@@ -7,18 +7,25 @@
 
 }
 
-.rollOver{
+.rollOver {
 
-  $time:.2s;
+  $time: .2s;
 
   -moz-transition: all $time ease-in;
   -o-transition: all $time ease-in;
   -webkit-transition: all $time ease-in;
   transition: all $time ease-in;
 
-  &:hover{
-    color:$rollover !important;
+  &:hover {
+    color: $rollover !important;
   }
+}
+
+.mobile-message {
+  background-color: $white;
+  color: $black;
+  position: fixed;
+  z-index: $z-index-mobile-menu + 1;
 }
 
 ul {

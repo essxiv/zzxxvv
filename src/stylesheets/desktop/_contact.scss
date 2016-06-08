@@ -11,21 +11,34 @@
   background-color: $black;
   color: $white;
 
+  & h1 {
+    padding-bottom: 10px;
+    @media screen and (min-width: $screen-md) {
+
+      font-size: 50px;
+    }
+  }
+
   footer {
+    color: #848484;
     &.desktop {
       display: none;
       @media screen and (min-width: $screen-xs-max) {
         display: inherit;
+        padding-left: $left-padding;
+        @media screen and (min-width: $screen-md-max) {
+          padding-left: $left-padding-static;
+        }
       }
     }
     &.mobile {
       display: none;
 
-      & .copyright{
-        display:inline-block;
+      & .copyright {
+        display: inline-block;
       }
-      & .link{
-        display:inline-block;
+      & .link {
+        display: inline-block;
       }
       @media screen and (max-width: $screen-xs-max) {
         display: inherit;
@@ -73,7 +86,8 @@
 
       div {
         font-family: GothamLight;
-        font-size: 14px;
+        font-size: 18px;
+        max-width: 590px;
       }
     }
 
@@ -87,6 +101,19 @@
         display: block;
       }
 
+      & h1 {
+        font-size: 95px;
+        padding-bottom: 0px;
+
+        @media screen and (min-width: $screen-lg) {
+          font-size: 112px;
+        }
+
+        @media screen and (max-width: $screen-xs-max) {
+          font-size: 40px;
+        }
+      }
+
       .sort {
         font-family: 'GothamBold';
         font-size: 26px;
@@ -97,13 +124,13 @@
 
   .question {
     display: inline-block;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
 
-    //font-size: 40px;
   }
 
   .link {
     cursor: pointer;
     text-decoration: underline;
+    color: $white;
   }
 }

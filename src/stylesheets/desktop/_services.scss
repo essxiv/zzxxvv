@@ -12,6 +12,9 @@
   padding-top: $min-top-bottom-padding;
   padding-bottom: $min-top-bottom-padding;
 
+  padding-left: 40px;
+  padding-right: 40px;
+
   text-align: center;
 
   @media screen and (min-width: $screen-md-max) {
@@ -28,6 +31,7 @@
   }
 
   ul {
+    letter-spacing: 3px;
     @media screen and (max-width: $screen-xs-max) {
       display: none;
     }
@@ -35,6 +39,7 @@
 
   ol {
     font-family: GothamBold;
+    letter-spacing: 3px;
     padding-right: 14px;
 
     @media screen and (min-width: $screen-sm) {
@@ -76,6 +81,10 @@
       .services-copy {
         display: inline-block;
         max-width: 570px;
+
+        @media screen and (min-width: $screen-lg) {
+          max-width: 830px;
+        }
 
       }
     }
