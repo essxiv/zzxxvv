@@ -2,8 +2,10 @@ var BaseView = require('../base/base_view');
 var TweenMax = require('TweenMax');
 var $ = require('jquery');
 var _ = require('underscore');
+var Config = require('Config');
 
 var Letter = require('../modules/letter');
+var IdolElement = require('../modules/idol_element');
 
 var EventBus = require('EventBus');
 var AppModel = require('../../model/app_model');
@@ -22,15 +24,26 @@ module.exports = BaseView.extend({
 
     initialize: function (options) {
 
-        window.$ = $;
         BaseView.prototype.initialize.apply(this);
         this.nextSlideBound = _.bind(this.nextSlide, this);
 
         this.$video = this.$('.js-hero-video ');
+        if (Config.DESKTOP) {
+            this.$video.append(
+                '<source src="'+Config.CDN+'/assets/video/hero.webm" type="video/webm">' +
+                '<source src="'+Config.CDN+'/assets/video/hero.m4v" type="video/m4v">' +
+                '<source src="'+Config.CDN+'/assets/video/hero.mp4"type="video/mp4">' +
+                'Your browser does not support the video tag.'
+            );
+        } else {
+            this.$video.remove();
+            this.$('.js-video-holder').addClass('static-bg');
+
+        }
 
         this.ratio = this.videoWidth / this.videoHeight;
 
-        this.$('.js-inquire').on('click',_.bind(this.onInquireClick,this));
+        this.$('.js-inquire').on('click', _.bind(this.onInquireClick, this));
 
         _.each(this.$('.js-letter'), function (letterElement) {
 
@@ -42,9 +55,19 @@ module.exports = BaseView.extend({
             this.clientLogos.push($(el));
         }, this);
 
+        _.each(this.$('.js-scroll-element'), function (logoElement) {
+
+            var element = new IdolElement({el: logoElement});
+            this.addIdolElement(element);
+        }, this);
+
     },
 
-    onInquireClick:function(e){
+    onIdolElementsUpdate: function () {
+        return;
+    },
+
+    onInquireClick: function (e) {
 
         var target = $('#contact');
         if (target.length) {
@@ -58,12 +81,14 @@ module.exports = BaseView.extend({
     },
 
     show: function () {
-        var delay = 0.5;
+        var delay = 1.5;
+        //
+        //_.each(this.letters, function (letter) {
+        //    letter.show(delay);
+        //    delay += 0.5;
+        //}, this);
 
-        _.each(this.letters, function (letter) {
-            letter.show(delay);
-            delay += 0.5;
-        }, this);
+        this.idolElements[0].show(0.5, delay);
 
         this.startSlideShow(delay + 1);
     },
