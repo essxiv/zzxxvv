@@ -39,8 +39,9 @@
 
   ol {
     font-family: GothamBold;
-    letter-spacing: 3px;
-    padding-right: 14px;
+  //  letter-spacing: 3px;
+  //  padding-right: 14px;
+    font-size:18px;
 
     @media screen and (min-width: $screen-sm) {
       display: none;
