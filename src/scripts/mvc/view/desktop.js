@@ -139,7 +139,6 @@ module.exports = Backbone.View.extend({
         } else {
             $('.js-mobile-message').addClass('hidden');
 
-            console.log('IN PORTRAIT');
         }
     },
 
