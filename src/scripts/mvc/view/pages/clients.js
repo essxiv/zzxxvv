@@ -126,12 +126,14 @@ module.exports = BaseView.extend({
         var leftPadding = 50;
         var columns = 5;
         var startX = 150;
-        var startY = Config.IDOL_ELEMENT_OFFSET;
+        var startY = 150;
         var windowHeight = Math.max(900, window.innerHeight);
-        var horPadding=-40;
+        var horPadding = -40;
+        var vertPadding = 150;
 
         if (window.innerWidth >= 1800) {
             startX = 250;
+            vertPadding = 250;
             logoWidth = 180;
         }
 
@@ -141,16 +143,16 @@ module.exports = BaseView.extend({
 
         }
         if (window.innerWidth <= 640) {
+            logoWidth = 80;
             columns = 3;
             startX = 50;
-          //  leftPadding=0;
+            horPadding = -50;
         }
 
         if (window.innerWidth <= 374) {
 
             startX = 50;
             logoWidth = 70;
-            //startX = 15;
         }
 
         var rows = Math.ceil(this.logos.length / (columns));
@@ -161,13 +163,13 @@ module.exports = BaseView.extend({
 
         screenWidth -= 2 * startX;
 
-        var rowWidth = (logoWidth+horPadding) * columns;
+        var rowWidth = (logoWidth + horPadding) * columns;
         var rowHeight = logoWidth * ratio;
         var emptySpace = screenWidth - rowWidth;
 
-        var colOffset=(columns - 1);
-        var xIncrement = logoWidth + ( emptySpace / colOffset)+horPadding;
-        var yIncrement =startY;// windowHeight / rows;
+        var colOffset = (columns - 1);
+        var xIncrement = logoWidth + ( emptySpace / colOffset) + horPadding;
+        var yIncrement = vertPadding;// windowHeight / rows;
         var counter = 0;
 
         for (var i = 0; i < this.logos.length; i++) {
@@ -190,13 +192,13 @@ module.exports = BaseView.extend({
             ypos = Math.round(ypos);
         }
 
-        var newHeight=ypos ;//+ rowHeight / 2;
+        var newHeight = ypos;//Math.max(windowHeight,ypos) ;//+ rowHeight / 2;
 
-        if (!Config.DESKTOP ){
-            newHeight+=yIncrement;
+        if (!Config.DESKTOP) {
+            newHeight += yIncrement;
 
         }
-        TweenMax.set(this.$('.js-content'), {height:newHeight });
+        TweenMax.set(this.$('.js-content'), {height: newHeight});
 
         for (i = 0; i < this.elements.length; i++) {
 
