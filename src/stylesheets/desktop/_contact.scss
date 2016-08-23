@@ -4,24 +4,29 @@
 
   position: relative;
   min-height: 100%;
-  background-attachment: fixed;
+  //background-attachment: fixed;
   background-image: url("../assets/images/contact/background.jpg");
   background-position: center;
   background-size: cover;
   background-color: $black;
   color: $white;
 
+  .video-holder {
+    position: absolute;
+    overflow: hidden;
+  }
+
   & h1 {
     padding-bottom: 10px;
-    @media screen and (min-width: $screen-md) {
+    @media screen and (min-width: 1400px) {
 
       font-size: 60px;
     }
   }
-  p{
-    &.big{
+  p {
+    &.big {
       font-size: 40px;
-      @media screen and (min-width: $screen-md) {
+      @media screen and (min-width: 1400px) {
 
         font-size: 60px;
       }
@@ -48,6 +53,9 @@
       }
       & .link {
         display: inline-block;
+        &.foster {
+          text-decoration: none;
+        }
       }
       @media screen and (max-width: $screen-xs-max) {
         display: inherit;
@@ -94,9 +102,24 @@
     .foster {
 
       div {
-        font-family: GothamLight;
-        font-size: 18px;
-        max-width: 590px;
+        //font-family: GothamLight;
+        font-size: 25px;
+        max-width: 700px;
+
+        @media screen and (max-width: $screen-xs-max) {
+          font-size: 18px;
+        }
+      }
+
+      h1 {
+        font-size: 44px;
+        padding-bottom: 0px;
+
+
+      }
+
+      .underline {
+        text-decoration: underline;
       }
     }
 
@@ -104,15 +127,21 @@
 
       //width: 600px;
 
+      & .c-column {
+        width: 330px;
+        float: left;
+        padding-bottom: 20px;
+      }
+
       font-family: GothamLight;
-      font-size: 14px;
+      font-size: 16px;
       span {
         display: block;
       }
 
       & h1 {
-        font-size: 95px;
-        padding-bottom: 0px;
+        font-size: 74px;
+        padding-bottom: 30px;
 
         @media screen and (min-width: $screen-lg) {
           font-size: 112px;
@@ -141,5 +170,8 @@
     cursor: pointer;
     text-decoration: underline;
     color: $white;
+    &.foster {
+      text-decoration: none;
+    }
   }
 }

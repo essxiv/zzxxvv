@@ -296,7 +296,7 @@ gulp.task('deploy', sync.sync(['clean',
                                 'lint', 'scripts',
                                 'layouts'], 'upload','resetCDN']));
 
-gulp.task('start', sync.sync(['clean', ['resetCDN', 'stylesheets', 'optimize',
+gulp.task('start', sync.sync(['clean', ['resetCDN', 'stylesheets', 'assets','optimize',
                                    //    'fonts',
                                        'lint', 'scripts', 'layouts'],
                              'browser_sync', 'watch']));
