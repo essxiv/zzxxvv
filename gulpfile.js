@@ -1,13 +1,13 @@
 'use strict';
 
 var
-    credentials = require('./credentials.json'),
+    // credentials = require('./credentials.json'),
     svgmin = require('gulp-svgmin'),
     cheerio = require('gulp-cheerio'),
     svgSprite = require('gulp-svg-sprite'),
-    awspublish = require('gulp-awspublish'),
+    // awspublish = require('gulp-awspublish'),
     gulp = require('gulp'),
-    awspublish = require('gulp-awspublish'),
+    // awspublish = require('gulp-awspublish'),
     browserify = require('browserify'),
     watchify = require('watchify'),
     source = require('vinyl-source-stream'),
@@ -62,7 +62,7 @@ var tasks = {
 
         paths.cdn_path = 'CDN_PATH';
     },
-    
+
     setCDN: function () {
         var d = new Date();
         var curr_date = d.getDate();
